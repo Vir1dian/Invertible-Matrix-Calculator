@@ -1,0 +1,88 @@
+<!-- Start with everything in html file for now, move each segment out as they grow -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Math 7 - Linear Algebra: Honors Project</title>
+
+  <style>
+    .matrix_wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 32px;
+      margin-top: 16px;
+      margin-bottom: 16px;
+    }
+    table {
+      border: 1px solid black;
+      margin-left: 8px;
+      margin-right: 8px;
+    }
+    td {
+      text-align: center;
+      width: 48px;
+      height: 48px;
+      padding: 4px;
+    }
+  </style>
+</head>
+
+<body>
+  <script>  
+    const matrixA = {
+      name: 'A',
+      values: [
+        [1, 0, -3, -2],
+        [3, 1, -2, 5],
+        [2, 2, 1, 4]
+      ]
+    };
+
+    function loadMatrix(matrix) {
+      const matrix_wrapper = document.createElement('div');
+      matrix_wrapper.classList.add('matrix_wrapper');
+      const matrix_title = document.createElement('div');
+      matrix_title.innerHTML = 'Matrix ' + matrix.name;
+      matrix_wrapper.appendChild(matrix_title);
+      
+      const matrix_table = document.createElement('table');
+      matrix.values.forEach(row => {
+        const tr = document.createElement('tr');
+        row.forEach(element => {
+          const td = document.createElement('td');
+          td.innerHTML = element;
+          tr.appendChild(td);
+        })
+        matrix_table.appendChild(tr);
+      })
+      matrix_wrapper.appendChild(matrix_table);
+
+      document.body.appendChild(matrix_wrapper);      
+    }
+
+    loadMatrix(matrixA);
+
+    function gaussJordan(matrix) {
+      rrefMatrix = { ...matrix };
+      rrefMatrix.name += '\'';
+      rrefMatrix.values.forEach(row => {
+
+        
+
+        row.forEach((element, index) => {
+          row[index] = 0;
+        });
+
+
+
+      });
+      loadMatrix(rrefMatrix);
+    }
+
+    gaussJordan(matrixA);
+  </script>
+</body>
+</html>
