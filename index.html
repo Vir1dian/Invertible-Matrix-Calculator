@@ -7,38 +7,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Math 7 - Linear Algebra: Honors Project</title>
 
-  <style>
-    .matrix_wrapper {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 32px;
-      margin-top: 16px;
-      margin-bottom: 16px;
-    }
-    table {
-      border: 1px solid black;
-      margin-left: 8px;
-      margin-right: 8px;
-    }
-    td {
-      text-align: center;
-      width: 48px;
-      height: 48px;
-      padding: 4px;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 
   <script src="functions/matrices.js" defer></script>
   <script src="functions/rref.js" defer></script>
   <script src="functions/determinant.js" defer></script>
   <script src="functions/adjoin.js" defer></script>
   <script src="functions/inverse.js" defer></script>
+  <script src="index.js" defer></script>
 </head>
 
 <body>
 
+  <div class="matrix_wrapper"></div>
 
+  <div class="interface_wrapper">
+    <div>Select a matrix operation: </div>
+    <select>
+      <option selected="">Please Select</option>
+      <option>RREF (Gauss Jordan)</option>
+      <option>Determinant</option>
+      <option>Inverse</option>
+    </select>
+    <button id="submit_interface">Submit</button>
+  </div>
+
+
+  <div class="rref_wrapper"></div>
+  <div class="determinant_wrapper"></div>
+  <div class="inverse_wrapper"></div>
 
 </body>
 </html>

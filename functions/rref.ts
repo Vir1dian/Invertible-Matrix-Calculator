@@ -1,46 +1,14 @@
 /**
- * Generates a table in the html body representing a matrix, along with a title and rref steps
- * 
- * @param {Matrix} matrix - A matrix to yield a RREF
- */
-function loadMatrix(matrix: Matrix) {
-  const matrix_wrapper = document.createElement('div');
-  matrix_wrapper.classList.add('matrix_wrapper');
-  const matrix_title = document.createElement('div');
-  matrix_title.innerHTML = 'Matrix ' + matrix.name;
-  matrix_wrapper.appendChild(matrix_title);
-  
-  const matrix_table = document.createElement('table');
-  roundMatrix(matrix.values, 4).forEach((row: number[]) => {
-    const tr = document.createElement('tr');
-    row.forEach((element: number) => {
-      const td = document.createElement('td');
-      td.innerHTML = `${element}`;
-      tr.appendChild(td);
-    })
-    matrix_table.appendChild(tr);
-  })
-  matrix_wrapper.appendChild(matrix_table);
-
-  if (matrix.steps) {
-    const matrix_step = document.createElement('div');
-    matrix_step.innerHTML = matrix.steps;
-    matrix_wrapper.appendChild(matrix_step);
-  }
-
-  document.body.appendChild(matrix_wrapper);      
-}
-
-/**
  * Performs Gauss-Jordan elimination on a matrix. Organizes into reduced row echelon form (RREF)
+ * TODO: Account for non diagonal leading 1's
  * 
- * @param {Matrix} matrix - A matrix to yield a RREF
+ * @param {Matrix} matrixObject - A matrix object to yield a RREF
  */
-function gaussJordan(matrix: Matrix) {
-  let rrefMatrix = { ...matrix };
+function gaussJordan(matrixObject: Matrix): void {
+  let rrefMatrix = { ...matrixObject };
 
   // Move to the first column that isn't full of zeros
-  // checkForZeroColumn(matrix);
+  // checkForZeroColumn(matrixObject);
 
   // Swap rows if needed so that the top row has the leading number
   for (let i = 0; i < rrefMatrix.values.length; i++) {
@@ -56,7 +24,7 @@ function gaussJordan(matrix: Matrix) {
       if (rrefMatrix.values[i][a] !== 0) {
         let canceling_coefficient = -1 * rrefMatrix.values[i][a]/rrefMatrix.values[a][a]
         addRow(rrefMatrix.values[i], rrefMatrix.values[a], canceling_coefficient);
-        rrefMatrix.steps += '<br>R' + (i + 1) + ' + (' + canceling_coefficient + ')*R' + (a + 1) + ' → R' + (i + 1);
+        rrefMatrix.row_operations += '<br>R' + (i + 1) + ' + (' + canceling_coefficient + ')*R' + (a + 1) + ' → R' + (i + 1);
       }
     }
 
@@ -65,12 +33,13 @@ function gaussJordan(matrix: Matrix) {
       if (rrefMatrix.values[i][a] !== 0) {
         let canceling_coefficient = -1 * rrefMatrix.values[i][a]/rrefMatrix.values[a][a]
         addRow(rrefMatrix.values[i], rrefMatrix.values[a], canceling_coefficient);
-        rrefMatrix.steps += '<br>R' + (i + 1) + ' + (' + canceling_coefficient + ')*R' + (a + 1) + ' → R' + (i + 1);
+        rrefMatrix.row_operations += '<br>R' + (i + 1) + ' + (' + canceling_coefficient + ')*R' + (a + 1) + ' → R' + (i + 1);
       }
     }
     rrefMatrix.name += '\'';
-    loadMatrix(rrefMatrix);
-    rrefMatrix.steps = '';
+    rrefMatrix.row_operations = rrefMatrix.row_operations ? rrefMatrix.row_operations.substring(4) : '';
+    loadRREF(rrefMatrix);
+    rrefMatrix.row_operations = '';
   }
   
   // Scale all leading coefficients to 1
@@ -78,12 +47,14 @@ function gaussJordan(matrix: Matrix) {
     if (rrefMatrix.values[i][i] != 1) {
       let scale_to_one = 1 / rrefMatrix.values[i][i];
       scaleRow(rrefMatrix.values[i], scale_to_one);
-      rrefMatrix.steps += '<br>(' + scale_to_one + ')*R' + (i + 1) + ' → R' + (i + 1);      
+      rrefMatrix.row_operations += '<br>(' + scale_to_one + ')*R' + (i + 1) + ' → R' + (i + 1);      
     }
   }
   
   rrefMatrix.name += '\'';
-  loadMatrix(rrefMatrix);
+  rrefMatrix.row_operations = rrefMatrix.row_operations ? rrefMatrix.row_operations.substring(4) : '';
+  loadRREF(rrefMatrix);
+  rrefMatrix.row_operations = '';
 }
 
 /**
@@ -92,12 +63,12 @@ function gaussJordan(matrix: Matrix) {
  * @param {number[]} row1 - The index of the first row to swap.
  * @param {number[]} row2 - The index of the second row to swap.
  */
-function swapRow(row_A: number[], row_B: number[]) {
+function swapRow(row_A: number[], row_B: number[]): void {
   let temp = row_A.slice();
-  row_A.forEach((column, index) => {
+  row_A.forEach((_, index) => {
     row_A[index] = row_B[index];
   });
-  row_B.forEach((column, index) => {
+  row_B.forEach((_, index) => {
     row_B[index] = temp[index];
   });
 }
@@ -108,8 +79,8 @@ function swapRow(row_A: number[], row_B: number[]) {
  * @param {number[]} row1 - The index of the row to be multiplied.
  * @param {number} coefficient - Coefficient to multiply to row.
  */
-function scaleRow(row: number[], coefficient: number) {
-  row.forEach((column, index) => {
+function scaleRow(row: number[], coefficient: number): void {
+  row.forEach((_, index) => {
     row[index] *= coefficient;
   });
 }
@@ -121,8 +92,8 @@ function scaleRow(row: number[], coefficient: number) {
  * @param {number[]} row2 - Addend to row1.
  * @param {number} coefficient - Coefficient to multiply to row2 before adding.
  */
-function addRow(row_A: number[], row_B: number[], coefficient: number = 1) {
-  row_A.forEach((column, index) => {
+function addRow(row_A: number[], row_B: number[], coefficient: number = 1): void {
+  row_A.forEach((_, index) => {
     row_A[index] += (coefficient * row_B[index]);
   })
 }
@@ -130,20 +101,36 @@ function addRow(row_A: number[], row_B: number[], coefficient: number = 1) {
 /**
  * TODO: Forces iteration to begin from the next column if the first matrix column are all zeros
  */
-function checkForZeroColumn(matrix: number[][]) {
+function checkForZeroColumn(matrix: number[][]): boolean {
   return true;
 }
 
-function roundMatrix(matrix: number[][], digits: number) {
-  let rounded_matrix = matrix;
-  const round = Math.pow(10, digits);
-  rounded_matrix.forEach(row => {
-    row.forEach((column, index) => {
-      row[index] = Math.round(row[index]*round)/round;
-    })
-  });
-  return rounded_matrix;
-}
+function loadRREF(matrixObject: Matrix) {
+  const rref_step = document.createElement('div');
+  rref_step.classList.add('rref_step');
+  const matrix_title = document.createElement('div');
+  matrix_title.innerHTML = 'Matrix ' + matrixObject.name;
+  rref_step.appendChild(matrix_title);
 
-loadMatrix(matrices[3]);
-gaussJordan(matrices[3]);
+  if (matrixObject.row_operations) {
+    const row_operations = document.createElement('div');
+    row_operations.classList.add('row_operations');
+    row_operations.innerHTML = matrixObject.row_operations;
+    rref_step.appendChild(row_operations);
+  }
+  
+  const matrix_table = document.createElement('table');
+  roundMatrix(matrixObject.values, 4).forEach((row: number[]) => {
+    const tr = document.createElement('tr');
+    row.forEach((column: number) => {
+      const td = document.createElement('td');
+      td.innerHTML = `${column}`;
+      tr.appendChild(td);
+    })
+    matrix_table.appendChild(tr);
+  })
+  rref_step.appendChild(matrix_table);
+
+  const rref_wrapper = document.querySelector('.rref_wrapper');
+  rref_wrapper?.appendChild(rref_step);      
+}
