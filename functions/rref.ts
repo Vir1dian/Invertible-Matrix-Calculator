@@ -1,11 +1,16 @@
 /**
  * Performs Gauss-Jordan elimination on a matrix. Organizes into reduced row echelon form (RREF)
+ * 
  * TODO: Account for non diagonal leading 1's
+ * 
+ * TODO: Reformat to return only the solution, but have the capability to store the steps in a given element
+ * 
+ * TODO: See comment about operations_wrapper in index.html
  * 
  * @param {Matrix} matrixObject - A matrix object to yield a RREF
  */
 function gaussJordan(matrixObject: Matrix): void {
-  let rrefMatrix = { ...matrixObject };
+  const rrefMatrix = structuredClone(matrixObject);
 
   // Move to the first column that isn't full of zeros
   // checkForZeroColumn(matrixObject);
@@ -55,6 +60,7 @@ function gaussJordan(matrixObject: Matrix): void {
   rrefMatrix.row_operations = rrefMatrix.row_operations ? rrefMatrix.row_operations.substring(4) : '';
   loadRREF(rrefMatrix);
   rrefMatrix.row_operations = '';
+  console.log(matrixObject);
 }
 
 /**
@@ -104,7 +110,11 @@ function addRow(row_A: number[], row_B: number[], coefficient: number = 1): void
 function checkForZeroColumn(matrix: number[][]): boolean {
   return true;
 }
-
+/**
+ * TODO: See comment about operations_wrapper in index.html
+ * 
+ * @param {Matrix} matrixObject
+ */
 function loadRREF(matrixObject: Matrix) {
   const rref_step = document.createElement('div');
   rref_step.classList.add('rref_step');

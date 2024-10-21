@@ -12,7 +12,6 @@
   <script src="functions/matrices.js" defer></script>
   <script src="functions/rref.js" defer></script>
   <script src="functions/determinant.js" defer></script>
-  <script src="functions/adjoin.js" defer></script>
   <script src="functions/inverse.js" defer></script>
   <script src="index.js" defer></script>
 </head>
@@ -23,16 +22,24 @@
 
   <div class="interface_wrapper">
     <div>Select a matrix operation: </div>
-    <select>
-      <option selected="">Please Select</option>
-      <option>RREF (Gauss Jordan)</option>
-      <option>Determinant</option>
-      <option>Inverse</option>
+    <select id="interface_operations">
+      <option selected="" value="">Please Select</option>
+      <option value="rref">RREF (Gauss Jordan)</option>
+      <option value="det">Determinant</option>
+      <option value="inv">Inverse</option>
     </select>
-    <button id="submit_interface">Submit</button>
+    <button id="submit_interface" onclick="matrixOperation()">Submit</button>
   </div>
 
+  <!-- 
+  Class naming convention: 
+  interface_x for interface related elements
+  submit_x for submit buttons
+  -->
+  <div class="solution_wrapper"></div>
+  <div class="operations_wrapper"></div>
 
+  <!-- TODO: remove rref_wrapper and others and combine into operations_wrapper -->
   <div class="rref_wrapper"></div>
   <div class="determinant_wrapper"></div>
   <div class="inverse_wrapper"></div>
