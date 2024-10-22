@@ -1,5 +1,5 @@
 
-const selected_matrix: Matrix = matrices[0];
+const selected_matrix: Matrix = matrices[4];
 
 function matrixOperation() {
   const operation_input = document.querySelector('#interface_operations');
@@ -14,7 +14,7 @@ function matrixOperation() {
       break;
     case "inv":
       // console.log("Inverse");
-      createAdjoin(selected_matrix.values);  // temporary
+      loadAdjoin(selected_matrix);  // temporary
       break;
     default:
       console.log("No option selected.")

@@ -76,3 +76,13 @@ select {
 .row_operations {
   font-size: 16px;
 }
+
+.adjoin_wrapper {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
