@@ -53,6 +53,93 @@ const matrices: Matrix[] = [
   }
 ];
 
+const testMatrices: Matrix[] = [
+  {
+    name: 'A',  // matrix of zeros
+    values: [
+      [0, 0],
+      [0, 0]
+    ],
+    row_operations: ''
+  },
+  {
+    name: 'B',  // empty matrix
+    values: [
+      []
+    ],
+    row_operations: ''
+  },
+  {
+    name: 'C',  // zero row
+    values: [
+      [1, 2, 3],
+      [0, 0, 0],
+      [4, 5, 6]
+    ],
+    row_operations: ''
+  },
+  {
+    name: 'D',  // zero column
+    values: [
+      [1, 0, 2],
+      [3, 0, 4],
+      [5, 0, 6]
+    ],
+    row_operations: ''
+  },
+  {
+    name: 'E',  // non-square matrix m > n
+    values: [
+      [1, 2],
+      [3, 4],
+      [5, 6]
+    ],
+    row_operations: ''
+  },
+  {
+    name: 'F',  // non-square matrix m < n
+    values: [
+      [1, 2, 3, 4],
+      [5, 6, 7, 8]
+    ],
+    row_operations: ''
+  },
+  {
+    name: 'G',  // negative elements
+    values: [
+      [-1, -2, -3],
+      [4, 5, 6]
+    ],
+    row_operations: ''
+  },
+  {
+    name: 'H',  // fraction elements
+    values: [
+      [1/2, 1, 1/3],
+      [1, 1/4, 2]
+    ],
+    row_operations: ''
+  },
+  {
+    name: 'I',  // identity matrix
+    values: [
+      [1, 0, 0],
+      [0, 1, 0],
+      [0, 0, 1]
+    ],
+    row_operations: ''
+  },
+  {
+    name: 'J',  // non-diagonal leading ones
+    values: [
+      [1, 3, 2, 5],
+      [0, 0, 1, 11],
+      [0, 0, 0, 2]
+    ],
+    row_operations: ''
+  }
+];
+
 /**
  * Generates a table in the html body representing a matrix, along with a title and rref steps
  * 

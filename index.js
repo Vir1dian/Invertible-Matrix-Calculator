@@ -1,5 +1,5 @@
 "use strict";
-const selected_matrix = matrices[4];
+const selected_matrix = matrices[2];
 function matrixOperation() {
     const operation_input = document.querySelector('#interface_operations');
     switch (operation_input.value) {

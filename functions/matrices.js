@@ -47,6 +47,92 @@ const matrices = [
         row_operations: ''
     }
 ];
+const testMatrices = [
+    {
+        name: 'A',
+        values: [
+            [0, 0],
+            [0, 0]
+        ],
+        row_operations: ''
+    },
+    {
+        name: 'B',
+        values: [
+            []
+        ],
+        row_operations: ''
+    },
+    {
+        name: 'C',
+        values: [
+            [1, 2, 3],
+            [0, 0, 0],
+            [4, 5, 6]
+        ],
+        row_operations: ''
+    },
+    {
+        name: 'D',
+        values: [
+            [1, 0, 2],
+            [3, 0, 4],
+            [5, 0, 6]
+        ],
+        row_operations: ''
+    },
+    {
+        name: 'E',
+        values: [
+            [1, 2],
+            [3, 4],
+            [5, 6]
+        ],
+        row_operations: ''
+    },
+    {
+        name: 'F',
+        values: [
+            [1, 2, 3, 4],
+            [5, 6, 7, 8]
+        ],
+        row_operations: ''
+    },
+    {
+        name: 'G',
+        values: [
+            [-1, -2, -3],
+            [4, 5, 6]
+        ],
+        row_operations: ''
+    },
+    {
+        name: 'H',
+        values: [
+            [1 / 2, 1, 1 / 3],
+            [1, 1 / 4, 2]
+        ],
+        row_operations: ''
+    },
+    {
+        name: 'I',
+        values: [
+            [1, 0, 0],
+            [0, 1, 0],
+            [0, 0, 1]
+        ],
+        row_operations: ''
+    },
+    {
+        name: 'J',
+        values: [
+            [1, 3, 2, 5],
+            [0, 0, 1, 11],
+            [0, 0, 0, 2]
+        ],
+        row_operations: ''
+    }
+];
 /**
  * Generates a table in the html body representing a matrix, along with a title and rref steps
  *
