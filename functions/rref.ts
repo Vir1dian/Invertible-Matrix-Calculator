@@ -1,16 +1,15 @@
 /**
  * Performs Gauss-Jordan elimination on a matrix. Organizes into reduced row echelon form (RREF)
  * 
- * TODO: Account for non diagonal leading 1's
- * 
  * TODO: Reformat to return only the solution, but have the capability to store the steps in a given element
  * 
- * TODO: See comment about operations_wrapper in index.html
+ * TODO: Succeed in all test cases
  * 
  * @param {Matrix} matrixObject - A matrix object to yield a RREF
  */
 function gaussJordan(matrixObject: Matrix): void {
   const rrefMatrix = structuredClone(matrixObject);
+  let row_operations = '';
 
   // Move to the first column that isn't full of zeros
   // checkForZeroColumn(matrixObject);
@@ -29,7 +28,7 @@ function gaussJordan(matrixObject: Matrix): void {
       if (rrefMatrix.values[i][a] !== 0) {
         let canceling_coefficient = -1 * rrefMatrix.values[i][a]/rrefMatrix.values[a][a]
         addRow(rrefMatrix.values[i], rrefMatrix.values[a], canceling_coefficient);
-        rrefMatrix.row_operations += '<br>R' + (i + 1) + ' + (' + canceling_coefficient + ')*R' + (a + 1) + ' → R' + (i + 1);
+        row_operations += '<br>R' + (i + 1) + ' + (' + canceling_coefficient + ')*R' + (a + 1) + ' → R' + (i + 1);
       }
     }
 
@@ -38,13 +37,13 @@ function gaussJordan(matrixObject: Matrix): void {
       if (rrefMatrix.values[i][a] !== 0) {
         let canceling_coefficient = -1 * rrefMatrix.values[i][a]/rrefMatrix.values[a][a]
         addRow(rrefMatrix.values[i], rrefMatrix.values[a], canceling_coefficient);
-        rrefMatrix.row_operations += '<br>R' + (i + 1) + ' + (' + canceling_coefficient + ')*R' + (a + 1) + ' → R' + (i + 1);
+        row_operations += '<br>R' + (i + 1) + ' + (' + canceling_coefficient + ')*R' + (a + 1) + ' → R' + (i + 1);
       }
     }
     rrefMatrix.name += '\'';
-    rrefMatrix.row_operations = rrefMatrix.row_operations ? rrefMatrix.row_operations.substring(4) : '';
-    loadRREF(rrefMatrix);
-    rrefMatrix.row_operations = '';
+    row_operations = row_operations ? row_operations.substring(4) : '';
+    loadRREF(rrefMatrix, row_operations);
+    row_operations = '';
   }
   
   // Scale all leading coefficients to 1
@@ -52,14 +51,14 @@ function gaussJordan(matrixObject: Matrix): void {
     if (rrefMatrix.values[i][i] != 1) {
       let scale_to_one = 1 / rrefMatrix.values[i][i];
       scaleRow(rrefMatrix.values[i], scale_to_one);
-      rrefMatrix.row_operations += '<br>(' + scale_to_one + ')*R' + (i + 1) + ' → R' + (i + 1);      
+      row_operations += '<br>(' + scale_to_one + ')*R' + (i + 1) + ' → R' + (i + 1);      
     }
   }
   
   rrefMatrix.name += '\'';
-  rrefMatrix.row_operations = rrefMatrix.row_operations ? rrefMatrix.row_operations.substring(4) : '';
-  loadRREF(rrefMatrix);
-  rrefMatrix.row_operations = '';
+  row_operations = row_operations ? row_operations.substring(4) : '';
+  loadRREF(rrefMatrix, row_operations);
+  row_operations = '';
   console.log(matrixObject);
 }
 
@@ -115,18 +114,18 @@ function checkForZeroColumn(matrix: number[][]): boolean {
  * 
  * @param {Matrix} matrixObject
  */
-function loadRREF(matrixObject: Matrix) {
+function loadRREF(matrixObject: Matrix, row_operations: string) {
   const rref_step = document.createElement('div');
   rref_step.classList.add('rref_step');
   const matrix_title = document.createElement('div');
   matrix_title.innerHTML = 'Matrix ' + matrixObject.name;
   rref_step.appendChild(matrix_title);
 
-  if (matrixObject.row_operations) {
-    const row_operations = document.createElement('div');
-    row_operations.classList.add('row_operations');
-    row_operations.innerHTML = matrixObject.row_operations;
-    rref_step.appendChild(row_operations);
+  if (row_operations) {
+    const row_operations_element = document.createElement('div');
+    row_operations_element.classList.add('row_operations');
+    row_operations_element.innerHTML = row_operations;
+    rref_step.appendChild(row_operations_element);
   }
   
   const matrix_table = document.createElement('table');
@@ -141,6 +140,6 @@ function loadRREF(matrixObject: Matrix) {
   })
   rref_step.appendChild(matrix_table);
 
-  const rref_wrapper = document.querySelector('.rref_wrapper');
-  rref_wrapper?.appendChild(rref_step);      
+  const operations_wrapper = document.querySelector('.operations_wrapper');
+  operations_wrapper?.appendChild(rref_step);      
 }

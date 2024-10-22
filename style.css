@@ -50,10 +50,20 @@ select {
   background-color: lightblue;
 }
 
-.rref_wrapper {
+.solution_wrapper {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 20px;
+}
+
+.operations_wrapper {
   display: flex;
   flex-flow: column;
 }
+
 .rref_step {
   display: flex;
   flex-flow: column;
@@ -65,16 +75,4 @@ select {
 }
 .row_operations {
   font-size: 16px;
-}
-
-.determinant_wrapper {
-  display: flex;
-  flex-flow: column;
-  align-items: center;
-  justify-content: center;
-
-  font-size: 20px;
-}
-.inverse_wrapper {
-  display: block;
 }

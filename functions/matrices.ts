@@ -1,7 +1,6 @@
 interface Matrix {
   name: string;
   values: number[][];
-  row_operations: string;
 }
 
 const matrices: Matrix[] = [
@@ -11,8 +10,7 @@ const matrices: Matrix[] = [
       [1, 0, -3, -2],
       [3, 1, -2, 5],
       [2, 2, 1, 4]
-    ],
-    row_operations: ''
+    ]
   },
   {
     name: 'B',
@@ -20,8 +18,7 @@ const matrices: Matrix[] = [
       [1, 1, 1, 500000],
       [3/100, 4/100, 5/100, 20500],
       [-5/2, 1, 0, 0]
-    ],
-    row_operations: ''
+    ]
   },
   {
     name: 'C',
@@ -29,8 +26,7 @@ const matrices: Matrix[] = [
       [0, 0, 2, -2],
       [0, 1, -7, 3],
       [5, 0, 4, 0]
-    ],
-    row_operations: ''
+    ]
   },
   {
     name: 'D',
@@ -39,8 +35,7 @@ const matrices: Matrix[] = [
       [2, 4, -3, -5, 4],
       [5, 0, 1, -3, -4],
       [1, 1, 0, 1, 5]
-    ],
-    row_operations: ''
+    ]
   },
   {
     name: 'E',
@@ -48,8 +43,7 @@ const matrices: Matrix[] = [
       [2, 0, 7],
       [3, 4, 4],
       [0, 1, 0]
-    ],
-    row_operations: ''
+    ]
   }
 ];
 
@@ -59,15 +53,13 @@ const testMatrices: Matrix[] = [
     values: [
       [0, 0],
       [0, 0]
-    ],
-    row_operations: ''
+    ]
   },
   {
     name: 'B',  // empty matrix
     values: [
       []
-    ],
-    row_operations: ''
+    ]
   },
   {
     name: 'C',  // zero row
@@ -75,8 +67,7 @@ const testMatrices: Matrix[] = [
       [1, 2, 3],
       [0, 0, 0],
       [4, 5, 6]
-    ],
-    row_operations: ''
+    ]
   },
   {
     name: 'D',  // zero column
@@ -84,8 +75,7 @@ const testMatrices: Matrix[] = [
       [1, 0, 2],
       [3, 0, 4],
       [5, 0, 6]
-    ],
-    row_operations: ''
+    ]
   },
   {
     name: 'E',  // non-square matrix m > n
@@ -93,32 +83,28 @@ const testMatrices: Matrix[] = [
       [1, 2],
       [3, 4],
       [5, 6]
-    ],
-    row_operations: ''
+    ]
   },
   {
     name: 'F',  // non-square matrix m < n
     values: [
       [1, 2, 3, 4],
       [5, 6, 7, 8]
-    ],
-    row_operations: ''
+    ]
   },
   {
     name: 'G',  // negative elements
     values: [
       [-1, -2, -3],
       [4, 5, 6]
-    ],
-    row_operations: ''
+    ]
   },
   {
     name: 'H',  // fraction elements
     values: [
       [1/2, 1, 1/3],
       [1, 1/4, 2]
-    ],
-    row_operations: ''
+    ]
   },
   {
     name: 'I',  // identity matrix
@@ -126,8 +112,7 @@ const testMatrices: Matrix[] = [
       [1, 0, 0],
       [0, 1, 0],
       [0, 0, 1]
-    ],
-    row_operations: ''
+    ]
   },
   {
     name: 'J',  // non-diagonal leading ones
@@ -135,8 +120,7 @@ const testMatrices: Matrix[] = [
       [1, 3, 2, 5],
       [0, 0, 1, 11],
       [0, 0, 0, 2]
-    ],
-    row_operations: ''
+    ]
   }
 ];
 

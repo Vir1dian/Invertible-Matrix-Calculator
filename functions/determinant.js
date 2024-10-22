@@ -35,7 +35,6 @@ function loadDeterminant(matrixObject) {
     const determinant_element = document.createElement('div');
     determinant_element.classList.add('determinant');
     determinant_element.innerHTML = `Determinant of Matrix ${matrixObject.name} : ${determinant(matrixObject.values)}`;
-    const determinant_wrapper = document.querySelector('.determinant_wrapper');
-    determinant_wrapper === null || determinant_wrapper === void 0 ? void 0 : determinant_wrapper.appendChild(determinant_element);
-    console.log(matrixObject);
+    const solution_wrapper = document.querySelector('.solution_wrapper');
+    solution_wrapper === null || solution_wrapper === void 0 ? void 0 : solution_wrapper.appendChild(determinant_element);
 }
