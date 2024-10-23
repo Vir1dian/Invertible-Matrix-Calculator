@@ -40,6 +40,14 @@ const matrices = [
             [3, 4, 4],
             [0, 1, 0]
         ]
+    },
+    {
+        name: 'F',
+        values: [
+            [1, 1, 1],
+            [2, 3, 2],
+            [3, 8, 2]
+        ]
     }
 ];
 const testMatrices = [
@@ -115,6 +123,31 @@ const testMatrices = [
             [1, 3, 2, 5],
             [0, 0, 1, 11],
             [0, 0, 0, 2]
+        ]
+    }
+];
+const matricesToInvert = [
+    {
+        name: 'A',
+        values: [
+            [1, 1, 1],
+            [2, 3, 2],
+            [3, 8, 2]
+        ]
+    },
+    {
+        name: 'B',
+        values: [
+            [10, -6, 1],
+            [-2, 1, 0],
+            [-7, 5, -1]
+        ]
+    },
+    {
+        name: 'C',
+        values: [
+            [-3, 5],
+            []
         ]
     }
 ];

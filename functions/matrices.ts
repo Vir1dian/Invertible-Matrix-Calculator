@@ -44,6 +44,14 @@ const matrices: Matrix[] = [
       [3, 4, 4],
       [0, 1, 0]
     ]
+  },
+  {
+    name: 'F',
+    values: [
+      [1, 1, 1],
+      [2, 3, 2],
+      [3, 8, 2]
+    ]
   }
 ];
 
@@ -123,6 +131,32 @@ const testMatrices: Matrix[] = [
     ]
   }
 ];
+
+const matricesToInvert: Matrix[] = [
+  {
+    name: 'A',
+    values: [
+      [1, 1, 1],
+      [2, 3, 2],
+      [3, 8, 2]
+    ]
+  },
+  {
+    name: 'B',
+    values: [
+      [10, -6, 1],
+      [-2, 1, 0],
+      [-7, 5, -1]
+    ]
+  },
+  {
+    name: 'C',
+    values: [
+      [-3, 5],
+      []
+    ]
+  }
+]
 
 /**
  * Generates a table in the html body representing a matrix, along with a title and rref steps

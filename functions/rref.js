@@ -55,6 +55,7 @@ function gaussJordan(matrixObject) {
     loadRREF(rrefMatrix, row_operations);
     row_operations = '';
     console.log(matrixObject);
+    return rrefMatrix;
 }
 /**
  * Swaps two rows in a 2D array (matrix)

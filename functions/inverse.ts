@@ -7,6 +7,11 @@ function createAdjoin(matrix: number[][]): number[][] {
   })
   return adjoin;
 }
+function detachAdjoin(matrix: number[][]): number[][] {
+  const rightMatrix = matrix.map(row => [...row]);
+  return rightMatrix.map(row => row.filter((_, index) => index >= row.length / 2));
+}
+
 function loadAdjoin(matrixObject: Matrix) {
   const adjoin = createAdjoin(matrixObject.values);
 
@@ -32,6 +37,39 @@ function loadAdjoin(matrixObject: Matrix) {
   operations_wrapper?.appendChild(adjoin_wrapper);
 }
 
-function inverse(matrixObject: Matrix) {
+function inverse(matrixObject: Matrix): Matrix {
+  const inverseObject = structuredClone(matrixObject);
+  loadDeterminant(matrixObject);
+  if (determinant(matrixObject.values) === 0) {
+    return inverseObject;  // TODO: polish duh
+  }
+  else {
+    loadAdjoin(matrixObject);
+    inverseObject.values = createAdjoin(matrixObject.values);
+    inverseObject.values = detachAdjoin(gaussJordan(inverseObject).values);
+    console.log(inverseObject);
+    return inverseObject;
+  }
+}
+
+function loadInverse(matrixObject: Matrix) {
+  const inverseObject = inverse(matrixObject);
+  inverseObject.name += '\'';
+
+  const solution_wrapper = document.querySelector('.solution_wrapper')
+  const matrix_title = document.createElement('div');
+  matrix_title.innerHTML = 'Matrix ' + inverseObject.name;
+  solution_wrapper?.appendChild(matrix_title);
   
+  const matrix_table = document.createElement('table');
+  inverseObject.values.forEach(row => {
+    const tr = document.createElement('tr');
+    row.forEach(column => {
+      const td = document.createElement('td');
+      td.innerHTML = `${column}`;
+      tr.appendChild(td);
+    })
+    matrix_table.appendChild(tr);
+  })
+  solution_wrapper?.appendChild(matrix_table);
 }

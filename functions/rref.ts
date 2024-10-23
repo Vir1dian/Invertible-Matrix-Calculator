@@ -7,7 +7,7 @@
  * 
  * @param {Matrix} matrixObject - A matrix object to yield a RREF
  */
-function gaussJordan(matrixObject: Matrix): void {
+function gaussJordan(matrixObject: Matrix): Matrix {
   const rrefMatrix = structuredClone(matrixObject);
   let row_operations = '';
 
@@ -60,6 +60,7 @@ function gaussJordan(matrixObject: Matrix): void {
   loadRREF(rrefMatrix, row_operations);
   row_operations = '';
   console.log(matrixObject);
+  return rrefMatrix;
 }
 
 /**
@@ -141,5 +142,5 @@ function loadRREF(matrixObject: Matrix, row_operations: string) {
   rref_step.appendChild(matrix_table);
 
   const operations_wrapper = document.querySelector('.operations_wrapper');
-  operations_wrapper?.appendChild(rref_step);      
+  operations_wrapper?.appendChild(rref_step);
 }
