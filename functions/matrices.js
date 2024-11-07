@@ -1,4 +1,8 @@
 "use strict";
+const userMatrix = {
+    name: 'A',
+    values: []
+};
 const matrices = [
     {
         name: 'A',

@@ -34,16 +34,26 @@
       </span>
 
       <div id="build_matrix_default">
-        <span>Set Dimensions:</span>
-        <span>
-          <label for="row_input">Rows</label>
-          <input type="number" id="row_input" value="2">
-        </span>
-        <span>
-          <label for="col_input">Columns</label>
-          <input type="number" id="col_input" value="2">
-        </span>
-        <button id="submit_dimensions" onclick="matrixOperation()">Submit</button>
+        <table>
+          <tr>
+            <td>
+              <span>
+                <label for="row_input">Rows</label>
+                <input type="number" id="row_input" value="2">
+              </span>
+              <br>
+              <span>
+                <label for="col_input">Columns</label>
+                <input type="number" id="col_input" value="2">
+              </span>
+            </td>
+            <td>
+              <button id="submit_dimensions" onclick="BMDefaultFunctions.setMatrixInputs()">Set Dimensions</button>
+            </td>
+          </tr>
+        </table>
+        <div id="matrix_inputs"><!-- Table of inputs here --></div>
+        <button id="submit_matrix_default" onclick="BMDefaultFunctions.createMatrixDefault()">Create Matrix</button>
       </div>
 
       <div id="build_matrix_matlabstring" style="display: none">

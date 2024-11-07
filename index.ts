@@ -23,6 +23,55 @@ function showBuildOption() {
   }
 }
 
+// BM - Build Matrix
+const BMDefaultFunctions = {
+
+  setMatrixInputs() {
+    const matrix_inputs = document.getElementById('matrix_inputs');
+    // Removes any existing tables first
+    while (matrix_inputs?.hasChildNodes()) {
+      matrix_inputs.firstChild?.remove();
+    }
+
+    const row_input = document.getElementById('row_input');
+    const col_input = document.getElementById('col_input');
+
+    const rows : number = parseInt((row_input as HTMLInputElement).value);
+    const columns : number = parseInt((col_input as HTMLInputElement).value);
+
+    const table = document.createElement('table');
+    table.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
+
+    for (let i = 0; i < rows; i++) {
+      const tr = document.createElement('tr');
+      for (let j = 0; j < columns; j++) {
+        const td = document.createElement('td');
+        const input = document.createElement('input');
+
+        input.type = 'number';
+        input.classList.add('matrix_cell_input');
+        input.id = `matrix_cell_input_${i}_${j}`;
+
+        td.appendChild(input);
+        tr.appendChild(td);
+      }
+      table.appendChild(tr);
+    }
+
+    matrix_inputs?.appendChild(table);
+  },
+
+  createMatrixDefault() {
+
+  }
+
+}
+const BMMatlabStringFunctions = {
+
+}
+const BMExampleMatrixFunctions = {
+
+}
 
 const selected_matrix: Matrix = matrices[5];
 

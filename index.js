@@ -21,6 +21,41 @@ function showBuildOption() {
             option_example.style.display = "none";
     }
 }
+// BM - Build Matrix
+const BMDefaultFunctions = {
+    setMatrixInputs() {
+        var _a;
+        const matrix_inputs = document.getElementById('matrix_inputs');
+        // Removes any existing tables first
+        while (matrix_inputs === null || matrix_inputs === void 0 ? void 0 : matrix_inputs.hasChildNodes()) {
+            (_a = matrix_inputs.firstChild) === null || _a === void 0 ? void 0 : _a.remove();
+        }
+        const row_input = document.getElementById('row_input');
+        const col_input = document.getElementById('col_input');
+        const rows = parseInt(row_input.value);
+        const columns = parseInt(col_input.value);
+        const table = document.createElement('table');
+        table.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
+        for (let i = 0; i < rows; i++) {
+            const tr = document.createElement('tr');
+            for (let j = 0; j < columns; j++) {
+                const td = document.createElement('td');
+                const input = document.createElement('input');
+                input.type = 'number';
+                input.classList.add('matrix_cell_input');
+                input.id = `matrix_cell_input_${i}_${j}`;
+                td.appendChild(input);
+                tr.appendChild(td);
+            }
+            table.appendChild(tr);
+        }
+        matrix_inputs === null || matrix_inputs === void 0 ? void 0 : matrix_inputs.appendChild(table);
+    },
+    createMatrixDefault() {
+    }
+};
+const BMMatlabStringFunctions = {};
+const BMExampleMatrixFunctions = {};
 const selected_matrix = matrices[5];
 function matrixOperation() {
     const selected = document.querySelector('#interface_operations');

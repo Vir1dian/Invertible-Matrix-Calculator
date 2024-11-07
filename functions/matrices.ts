@@ -3,6 +3,11 @@ interface Matrix {
   values: number[][];
 }
 
+const userMatrix: Matrix = {
+  name: 'A',
+  values: []
+}
+
 const matrices: Matrix[] = [
   {
     name: 'A',
