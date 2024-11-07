@@ -92,10 +92,49 @@ const BMDefaultFunctions = {
     }
 };
 const BMMatlabStringFunctions = {};
-const BMExampleMatrixFunctions = {};
-const selected_matrix = matrices[5];
+const BMExampleMatrixFunctions = {
+    populateExampleList(...args) {
+        const example_list = document.getElementById('example_list');
+        const example_matrices = [].concat.apply([], args);
+        example_matrices.forEach((matrixObject, index) => {
+            const example_element = document.createElement('li');
+            example_element.onclick = () => this.selectExample(matrixObject);
+            const matrix_title = document.createElement('div');
+            matrix_title.innerHTML = 'Matrix ' + matrixObject.name;
+            example_element.appendChild(matrix_title);
+            const matrix_table = document.createElement('table');
+            matrixObject.values.forEach(row => {
+                const tr = document.createElement('tr');
+                row.forEach(column => {
+                    const td = document.createElement('td');
+                    td.innerHTML = `${column}`;
+                    tr.appendChild(td);
+                });
+                matrix_table.appendChild(tr);
+            });
+            example_element.appendChild(matrix_table);
+            example_list.appendChild(example_element);
+        });
+    },
+    selectExample(matrixObject) {
+        userMatrix.name = matrixObject.name;
+        userMatrix.values = matrixObject.values.map(row => [...row]);
+        loadMatrix(userMatrix);
+    }
+};
+BMExampleMatrixFunctions.populateExampleList(matrices, testMatrices, matricesToInvert);
+// const selected_matrix: Matrix = matrices[5];
 function matrixOperation() {
+    var _a, _b;
     const selected = document.querySelector('#interface_operations');
+    const solution_wrapper = document.querySelector('.solution_wrapper');
+    const operations_wrapper = document.querySelector('.operations_wrapper');
+    while (solution_wrapper === null || solution_wrapper === void 0 ? void 0 : solution_wrapper.hasChildNodes()) {
+        (_a = solution_wrapper.firstChild) === null || _a === void 0 ? void 0 : _a.remove();
+    }
+    while (operations_wrapper === null || operations_wrapper === void 0 ? void 0 : operations_wrapper.hasChildNodes()) {
+        (_b = operations_wrapper.firstChild) === null || _b === void 0 ? void 0 : _b.remove();
+    }
     switch (selected.value) {
         case "rref":
             // console.log("RREF");

@@ -17,7 +17,7 @@
 </head>
 
 <body>
-  <!-- website title here -->
+  <!-- TODO: website title here -->
 
   <div class="wrapper_all">
 
@@ -37,6 +37,10 @@
         <table>
           <tr>
             <td>
+              <!-- <span>
+                <label for="name_input">Matrix Name</label>
+                <input id="name_input" value="A">
+              </span> -->
               <span>
                 <label for="row_input">Rows</label>
                 <input type="number" id="row_input" value="2">
@@ -52,7 +56,7 @@
             </td>
           </tr>
         </table>
-        <div id="matrix_inputs"><!-- Table of inputs here --></div>
+        <div id="matrix_inputs"><!-- Table of inputs appended here --></div>
         <button id="submit_matrix_default" style="display: none" onclick="BMDefaultFunctions.createMatrixDefault()">Create Matrix</button>
       </div>
 
@@ -63,6 +67,9 @@
 
       <div id="build_matrix_example" style="display: none">
         <span>Select an example:</span>
+        <ol id="example_list">
+          <!-- <li>Example matrices appended here</li> -->
+        </ol>
       </div>
 
     </div>
@@ -82,8 +89,12 @@
       <button id="interface_submit" onclick="matrixOperation()">Submit</button>
     </div>
 
-    <div class="solution_wrapper"></div>
-    <div class="operations_wrapper"></div>
+    <div class="solution_wrapper">
+      <!-- Final solution appended here -->
+    </div>
+    <div class="operations_wrapper">
+      <!-- Work for final solution appended here -->
+    </div>
 
 
   </div>
