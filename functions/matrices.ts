@@ -171,16 +171,21 @@ const matricesToInvert: Matrix[] = [
 function loadMatrix(matrixObject: Matrix) {
   // const matrix_wrapper = document.createElement('div');
   // matrix_wrapper.classList.add('matrix_wrapper');
-  const matrix_wrapper = document.querySelector('.matrix_wrapper')
-  const matrix_title = document.createElement('div');
+  const matrix_wrapper : HTMLElement | null = document.querySelector('.matrix_wrapper')
+  // Removes existing tables if they exist
+  while (matrix_wrapper?.hasChildNodes()) {
+    matrix_wrapper.firstChild?.remove();
+  }
+
+  const matrix_title : HTMLElement | null = document.createElement('div');
   matrix_title.innerHTML = 'Matrix ' + matrixObject.name;
   matrix_wrapper?.appendChild(matrix_title);
   
-  const matrix_table = document.createElement('table');
+  const matrix_table : HTMLTableElement = document.createElement('table');
   matrixObject.values.forEach(row => {
-    const tr = document.createElement('tr');
+    const tr : HTMLTableRowElement = document.createElement('tr');
     row.forEach(column => {
-      const td = document.createElement('td');
+      const td : HTMLTableCellElement = document.createElement('td');
       td.innerHTML = `${column}`;
       tr.appendChild(td);
     })

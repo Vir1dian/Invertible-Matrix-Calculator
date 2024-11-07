@@ -55,9 +55,40 @@ const BMDefaultFunctions = {
         submit.style.display = '';
     },
     createMatrixDefault() {
+        userMatrix.values = [];
         const table = document.getElementById('matrix_inputs_table');
-        const rows = 0;
-        console.log(rows);
+        const rows = table.rows.length;
+        const columns = table.rows[0].cells.length;
+        let error_flag = 0;
+        for (let i = 0; i < rows; i++) {
+            const row = [];
+            for (let j = 0; j < columns; j++) {
+                const input = document.getElementById(`matrix_cell_input_${i}_${j}`);
+                if (!input.value) {
+                    error_flag = 1;
+                    input.style.border = 'solid 2px red';
+                    input.style.backgroundColor = 'red';
+                }
+                else {
+                    row.push(parseFloat(input.value));
+                }
+            }
+            if (error_flag !== 1) {
+                userMatrix.values.push(row);
+            }
+        }
+        if (error_flag === 1) {
+            userMatrix.values = [];
+            this.displayError('incomplete');
+        }
+        else {
+            loadMatrix(userMatrix);
+        }
+    },
+    displayError(error) {
+        if (error === 'incomplete') {
+            console.log('Incomplete fields!');
+        }
     }
 };
 const BMMatlabStringFunctions = {};
@@ -68,19 +99,18 @@ function matrixOperation() {
     switch (selected.value) {
         case "rref":
             // console.log("RREF");
-            gaussJordan(selected_matrix);
+            gaussJordan(userMatrix);
             break;
         case "det":
             // console.log("determinant");
-            loadDeterminant(selected_matrix);
+            loadDeterminant(userMatrix);
             break;
         case "inv":
             // console.log("Inverse");
             // loadAdjoin(selected_matrix);
-            loadInverse(selected_matrix);
+            loadInverse(userMatrix);
             break;
         default:
             console.log("No option selected.");
     }
 }
-loadMatrix(selected_matrix);

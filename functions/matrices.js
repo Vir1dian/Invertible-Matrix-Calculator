@@ -161,9 +161,14 @@ const matricesToInvert = [
  * @param {Matrix} matrixObject - A matrix object to represent in the html body
  */
 function loadMatrix(matrixObject) {
+    var _a;
     // const matrix_wrapper = document.createElement('div');
     // matrix_wrapper.classList.add('matrix_wrapper');
     const matrix_wrapper = document.querySelector('.matrix_wrapper');
+    // Removes existing tables if they exist
+    while (matrix_wrapper === null || matrix_wrapper === void 0 ? void 0 : matrix_wrapper.hasChildNodes()) {
+        (_a = matrix_wrapper.firstChild) === null || _a === void 0 ? void 0 : _a.remove();
+    }
     const matrix_title = document.createElement('div');
     matrix_title.innerHTML = 'Matrix ' + matrixObject.name;
     matrix_wrapper === null || matrix_wrapper === void 0 ? void 0 : matrix_wrapper.appendChild(matrix_title);

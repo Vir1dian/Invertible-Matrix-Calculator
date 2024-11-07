@@ -28,7 +28,7 @@ const BMDefaultFunctions = {
 
   setMatrixInputs() {
     const matrix_inputs : HTMLElement | null = document.getElementById('matrix_inputs');
-    const existing_table : HTMLElement | null = document.getElementById('matrix_inputs_table');
+    const existing_table : HTMLTableElement = document.getElementById('matrix_inputs_table') as HTMLTableElement;
     // Removes existing tables first
     if (existing_table) {
       existing_table.remove();
@@ -40,14 +40,14 @@ const BMDefaultFunctions = {
     const rows : number = parseInt(row_input.value);
     const columns : number = parseInt(col_input.value);
 
-    const table : HTMLElement = document.createElement('table');
+    const table : HTMLTableElement = document.createElement('table');
     table.id = 'matrix_inputs_table';
     table.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
 
     for (let i = 0; i < rows; i++) {
-      const tr : HTMLElement = document.createElement('tr');
+      const tr : HTMLTableRowElement = document.createElement('tr');
       for (let j = 0; j < columns; j++) {
-        const td : HTMLElement = document.createElement('td');
+        const td : HTMLTableCellElement = document.createElement('td');
         const input : HTMLInputElement = document.createElement('input');
 
         input.type = 'number';
@@ -67,9 +67,45 @@ const BMDefaultFunctions = {
   },
 
   createMatrixDefault() {
-    const table : HTMLElement | null = document.getElementById('matrix_inputs_table');
-    const rows : number = 0;
-    console.log(rows);
+    userMatrix.values = [];
+
+    const table : HTMLTableElement = document.getElementById('matrix_inputs_table') as HTMLTableElement;
+    const rows : number = table.rows.length;
+    const columns : number = table.rows[0].cells.length;
+
+    let error_flag : number = 0;
+
+    for (let i = 0; i < rows; i++) {
+      const row : number[] = [];
+      for (let j = 0; j < columns; j++) {
+        const input : HTMLInputElement = document.getElementById(`matrix_cell_input_${i}_${j}`) as HTMLInputElement;
+        if (!input.value) {
+          error_flag = 1;
+          input.style.border = 'solid 2px red';
+          input.style.backgroundColor = 'red';
+        } 
+        else {
+          row.push(parseFloat(input.value));
+        }
+      }
+      if (error_flag !== 1) {
+        userMatrix.values.push(row);
+      }
+    }
+
+    if (error_flag === 1) {
+      userMatrix.values = [];
+      this.displayError('incomplete');
+    }
+    else {
+      loadMatrix(userMatrix);
+    }
+  },
+
+  displayError(error : string) {
+    if (error === 'incomplete') {
+      console.log('Incomplete fields!');
+    }
   }
 
 }
@@ -84,23 +120,21 @@ const selected_matrix: Matrix = matrices[5];
 
 function matrixOperation() {
   const selected : HTMLInputElement = document.querySelector('#interface_operations') as HTMLInputElement;
-  switch ((selected as HTMLInputElement).value) {
+  switch (selected.value) {
     case "rref":
       // console.log("RREF");
-      gaussJordan(selected_matrix);
+      gaussJordan(userMatrix);
       break;
     case "det":
       // console.log("determinant");
-      loadDeterminant(selected_matrix);
+      loadDeterminant(userMatrix);
       break;
     case "inv":
       // console.log("Inverse");
       // loadAdjoin(selected_matrix);
-      loadInverse(selected_matrix);
+      loadInverse(userMatrix);
       break;
     default:
       console.log("No option selected.")
   }
 }
-
-loadMatrix(selected_matrix);
