@@ -17,27 +17,66 @@
 </head>
 
 <body>
+  <!-- website title here -->
 
-  <div class="matrix_wrapper"></div>
+  <div class="wrapper_all">
 
-  <div class="interface_wrapper">
-    <div>Select a matrix operation: </div>
-    <select id="interface_operations">
-      <option selected="" value="">Please Select</option>
-      <option value="rref">RREF (Gauss Jordan)</option>
-      <option value="det">Determinant</option>
-      <option value="inv">Inverse</option>
-    </select>
-    <button id="submit_interface" onclick="matrixOperation()">Submit</button>
+
+    <div class="build_wrapper">
+
+      <span>
+        <label for="build_options">Settings:</label>
+        <select id="build_options" onchange="showBuildOption()">
+          <option selected value="default">Default</option>
+          <option value="matlabstring">Matlab String</option>
+          <option value="example">Examples</option>
+        </select>
+      </span>
+
+      <div id="build_matrix_default">
+        <span>Set Dimensions:</span>
+        <span>
+          <label for="row_input">Rows</label>
+          <input type="number" id="row_input" value="2">
+        </span>
+        <span>
+          <label for="col_input">Columns</label>
+          <input type="number" id="col_input" value="2">
+        </span>
+        <button id="submit_dimensions" onclick="matrixOperation()">Submit</button>
+      </div>
+
+      <div id="build_matrix_matlabstring" style="display: none">
+        <span>Enter command string (Matlab matrix declaration):</span>
+        <textarea id="matlabstring_input" value="" placeholder="Ex: [1 2 ; 3 4]"></textarea>
+      </div>
+
+      <div id="build_matrix_example" style="display: none">
+        <span>Select an example:</span>
+      </div>
+
+    </div>
+
+
+    <div class="matrix_wrapper"></div>
+
+
+    <div class="interface_wrapper">
+      <div>Select a matrix operation: </div>
+      <select id="interface_operations">
+        <option selected value="">Please Select</option>
+        <option value="rref">RREF (Gauss Jordan)</option>
+        <option value="det">Determinant</option>
+        <option value="inv">Inverse</option>
+      </select>
+      <button id="interface_submit" onclick="matrixOperation()">Submit</button>
+    </div>
+
+    <div class="solution_wrapper"></div>
+    <div class="operations_wrapper"></div>
+
+
   </div>
-
-  <!-- 
-  Class naming convention: 
-  interface_x for interface related elements
-  submit_x for submit buttons
-  -->
-  <div class="solution_wrapper"></div>
-  <div class="operations_wrapper"></div>
 
 </body>
 </html>

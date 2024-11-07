@@ -1,3 +1,15 @@
+.wrapper_all {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  margin-left: 200px;
+  margin-right: 200px;
+}
+.wrapper_all > div {
+  margin-top: 20px;
+}
+
 table {
   border: 1px solid black;
   margin-left: 8px;
@@ -10,14 +22,29 @@ td {
   padding: 2px;
 }
 
+.build_wrapper {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+}
+.build_wrapper > div {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+
+  border: solid 2px gray;
+  padding: 20px;
+  width: 400px;
+}
+
 .matrix_wrapper {
   display: flex;
   flex-flow: column;
   justify-content: center;
   align-items: center;
   font-size: 24px;
-  margin-top: 16px;
-  margin-bottom: 16px;
 }
 
 select {
@@ -25,7 +52,6 @@ select {
   padding: 8px;
   margin: 8px;
 
-  font-size: 20px;
   width: 280px;
 }
 .interface_wrapper {
@@ -35,18 +61,21 @@ select {
   justify-content: center;
 
   font-size: 20px;
+
+  width: 400px;
+  border: solid 2px gray;
+  padding: 20px;
 }
-#submit_interface {
+#interface_submit {
   border: 1px solid #555;
   border-radius: 20px;
 
   padding: 8px;
   margin: 8px;
 
-  font-size: 20px;
   width: 280px;
 }
-#submit_interface:hover {
+#interface_submit:hover {
   background-color: lightblue;
 }
 
