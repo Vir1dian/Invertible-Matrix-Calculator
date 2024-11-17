@@ -66,7 +66,7 @@ const BMDefaultFunctions = {
     submit!.style.display = '';
   },
 
-  createMatrixDefault() {
+  createMatrix() {
     userMatrix.values = [];
 
     const table : HTMLTableElement = document.getElementById('matrix_inputs_table') as HTMLTableElement;
@@ -110,6 +110,19 @@ const BMDefaultFunctions = {
 
 }
 const BMMatlabStringFunctions = {
+
+  parseMatlabString() {
+    const string_input : HTMLInputElement = document.getElementById('matlabstring_input') as HTMLInputElement;
+    const matlab_string : string = string_input.value;
+    // add values to a 2D array based on string
+    let i : number = 0;
+    [...matlab_string].forEach(character => {
+      console.log(character);
+    });
+  },
+  createMatrix() {
+    
+  }
 
 }
 const BMExampleMatrixFunctions = {

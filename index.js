@@ -54,7 +54,7 @@ const BMDefaultFunctions = {
         const submit = document.getElementById('submit_matrix_default');
         submit.style.display = '';
     },
-    createMatrixDefault() {
+    createMatrix() {
         userMatrix.values = [];
         const table = document.getElementById('matrix_inputs_table');
         const rows = table.rows.length;
@@ -91,7 +91,19 @@ const BMDefaultFunctions = {
         }
     }
 };
-const BMMatlabStringFunctions = {};
+const BMMatlabStringFunctions = {
+    parseMatlabString() {
+        const string_input = document.getElementById('matlabstring_input');
+        const matlab_string = string_input.value;
+        // add values to a 2D array based on string
+        let i = 0;
+        [...matlab_string].forEach(character => {
+            console.log(character);
+        });
+    },
+    createMatrix() {
+    }
+};
 const BMExampleMatrixFunctions = {
     populateExampleList(...args) {
         const example_list = document.getElementById('example_list');
