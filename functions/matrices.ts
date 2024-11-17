@@ -197,11 +197,11 @@ function loadMatrix(matrixObject: Matrix) {
 }
 
 /**
- * Generates a table in the html body representing a matrix, along with a title and rref steps
+ * Generates a table representing a matrix to append into the html body, along with a title and rref steps
  * 
  * @param {number[][]} matrix - A 2D array representing a matrix
  * @param {number} digits - The number of decimal places to round all elements of the matrix by
- * @returns {number[][]} The rounded version of the 2D array
+ * @returns {number[][]} - The rounded version of the 2D array
  */
 function roundMatrix(matrix: number[][], digits: number): number[][] {
   let rounded_matrix = matrix;
