@@ -52,18 +52,18 @@
               </span>
             </td>
             <td>
-              <button id="submit_dimensions" onclick="BMDefaultFunctions.setMatrixInputs()">Set Dimensions</button>
+              <button id="submit_dimensions" onclick="MatrixBuilderFunctions.default.setMatrixInputs()">Set Dimensions</button>
             </td>
           </tr>
         </table>
         <div id="matrix_inputs"><!-- Table of inputs appended here --></div>
-        <button id="submit_matrix_default" style="display: none" onclick="BMDefaultFunctions.createMatrix()">Create Matrix</button>
+        <button id="submit_matrix_default" style="display: none" onclick="MatrixBuilderFunctions.default.createMatrix()">Create Matrix</button>
       </div>
 
       <div id="build_matrix_matlabstring" style="display: none">
         <span>Enter command string (Matlab matrix declaration):</span>
         <textarea id="matlabstring_input" value="" placeholder="Ex: [1 2 ; 3 4]"></textarea>
-        <button id="submit_matrix_matlabstring" onclick="BMMatlabStringFunctions.parseMatlabString()">Create Matrix</button>
+        <button id="submit_matrix_matlabstring" onclick="MatrixBuilderFunctions.matlabString.parseMatlabString()">Create Matrix</button>
       </div>
 
       <div id="build_matrix_example" style="display: none">

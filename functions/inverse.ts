@@ -36,7 +36,7 @@ function loadAdjoin(matrixObject: Matrix) {
   const adjoin_wrapper : HTMLElement = document.createElement('div');
   adjoin_wrapper.classList.add('adjoin_wrapper');
   const matrix_title : HTMLElement = document.createElement('div');
-  matrix_title.innerHTML = `Matrix [ ${matrixObject.name} I_${matrixObject.values.length} ]`;
+  matrix_title.innerHTML = `Matrix [ ${matrixObject.name} I<sub>${matrixObject.values.length}</sub> ]`;
   adjoin_wrapper?.appendChild(matrix_title);   
   
   const matrix_table : HTMLTableElement = document.createElement('table');
@@ -83,7 +83,7 @@ function loadInverse(matrixObject: Matrix) : Matrix | string {
   else {
     loadAdjoin(matrixObject);
     inverseObject.values = createAdjoin(matrixObject.values);
-    inverseObject.values = detachAdjoin(gaussJordan(inverseObject).values);
+    inverseObject.values = detachAdjoin(loadRREF(inverseObject).values);
     console.log(inverseObject);
   }
 

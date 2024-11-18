@@ -164,7 +164,7 @@ const matricesToInvert: Matrix[] = [
 ]
 
 /**
- * Generates a table in the html body representing a matrix, along with a title and rref steps
+ * Generates a table in the html body representing a matrix, along with a title
  * 
  * @param {Matrix} matrixObject - A matrix object to represent in the html body
  */
