@@ -132,7 +132,7 @@ const MatrixBuilderFunctions = {
         example_element.onclick = () => this.selectExample(matrixObject);
   
         const matrix_title : HTMLElement | null = document.createElement('div');
-        matrix_title.innerHTML = 'Matrix ' + matrixObject.name;
+        matrix_title.innerHTML = matrixObject.name;
         example_element.appendChild(matrix_title);
         
         const matrix_table : HTMLTableElement = document.createElement('table');
@@ -158,7 +158,7 @@ const MatrixBuilderFunctions = {
 
 }
 
-MatrixBuilderFunctions.exampleMatrix.populateExampleList(matrices, testMatrices, matricesToInvert);
+MatrixBuilderFunctions.exampleMatrix.populateExampleList(matricesForRREF, matricesToInvert, matrices);
 
 // const selected_matrix: Matrix = matrices[5];
 

@@ -87,7 +87,7 @@ function loadInverse(matrixObject: Matrix) : Matrix | string {
     console.log(inverseObject);
   }
 
-  inverseObject.name += '\<sup>-1</sup>';
+  inverseObject.name = `(${inverseObject.name})\<sup>-1</sup>`;
 
   const solution_wrapper : HTMLElement | null = document.querySelector('.solution_wrapper')
   const matrix_title : HTMLElement = document.createElement('div');

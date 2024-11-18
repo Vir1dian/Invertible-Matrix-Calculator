@@ -54,22 +54,22 @@ const matrices = [
         ]
     }
 ];
-const testMatrices = [
+const matricesForRREF = [
     {
-        name: 'A',
+        name: 'Zero matrix',
         values: [
             [0, 0],
             [0, 0]
         ]
     },
     {
-        name: 'B',
+        name: 'Empty matrix',
         values: [
             []
         ]
     },
     {
-        name: 'C',
+        name: 'Zero middle row',
         values: [
             [1, 2, 3],
             [0, 0, 0],
@@ -77,7 +77,7 @@ const testMatrices = [
         ]
     },
     {
-        name: 'D',
+        name: 'Zero middle column',
         values: [
             [1, 0, 2],
             [3, 0, 4],
@@ -85,7 +85,7 @@ const testMatrices = [
         ]
     },
     {
-        name: 'E',
+        name: 'Non-square matrix m > n',
         values: [
             [1, 2],
             [3, 4],
@@ -93,28 +93,28 @@ const testMatrices = [
         ]
     },
     {
-        name: 'F',
+        name: 'Non-square matrix m < n',
         values: [
             [1, 2, 3, 4],
             [5, 6, 7, 8]
         ]
     },
     {
-        name: 'G',
+        name: 'Negative elements',
         values: [
             [-1, -2, -3],
             [4, 5, 6]
         ]
     },
     {
-        name: 'H',
+        name: 'Fraction elements',
         values: [
             [1 / 2, 1, 1 / 3],
             [1, 1 / 4, 2]
         ]
     },
     {
-        name: 'I',
+        name: 'Identity matrix',
         values: [
             [1, 0, 0],
             [0, 1, 0],
@@ -122,11 +122,33 @@ const testMatrices = [
         ]
     },
     {
-        name: 'J',
+        name: 'Non-diagonal pivots',
         values: [
             [1, 3, 2, 5],
             [0, 0, 1, 11],
             [0, 0, 0, 2]
+        ]
+    },
+    {
+        name: 'No initial zero rows',
+        values: [
+            [2, 4, 6],
+            [1, 2, 3],
+            [3, 6, 8]
+        ]
+    },
+    {
+        name: 'Column Vector',
+        values: [
+            [1],
+            [2],
+            [3]
+        ]
+    },
+    {
+        name: 'Row Vector',
+        values: [
+            [1, 2, 3]
         ]
     }
 ];
@@ -140,7 +162,7 @@ const matricesToInvert = [
         ]
     },
     {
-        name: 'B',
+        name: 'A<sup>-1</sup>',
         values: [
             [10, -6, 1],
             [-2, 1, 0],
@@ -148,10 +170,17 @@ const matricesToInvert = [
         ]
     },
     {
-        name: 'C',
+        name: 'Singular 3 x 3',
         values: [
-            [-3, 5],
-            []
+            [5, -2, 1],
+            [8, -5, -3],
+            [15, -6, 3]
+        ]
+    },
+    {
+        name: 'Non-square',
+        values: [
+            [-3, 5]
         ]
     }
 ];

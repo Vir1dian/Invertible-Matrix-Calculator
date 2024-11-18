@@ -80,7 +80,7 @@ function loadInverse(matrixObject) {
         inverseObject.values = detachAdjoin(loadRREF(inverseObject).values);
         console.log(inverseObject);
     }
-    inverseObject.name += '\<sup>-1</sup>';
+    inverseObject.name = `(${inverseObject.name})\<sup>-1</sup>`;
     const solution_wrapper = document.querySelector('.solution_wrapper');
     const matrix_title = document.createElement('div');
     matrix_title.innerHTML = `Matrix ${inverseObject.name}`;

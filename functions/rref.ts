@@ -21,7 +21,7 @@ function loadRREF(matrixObject: Matrix): Matrix {
   let starting_row : number = 0;  // increments once a pivot for this row is recognized
 
   // Perform all operations column-by-column
-  for (let i = 0; i < rrefMatrix.values[0].length; i++) {
+  for (let i = 0; i < rrefMatrix.values[0].length && starting_row < rrefMatrix.values.length; i++) {
     const setPivotRow_instance : TargetRows | null = setPivotRow(rrefMatrix.values, starting_row, i);
     if (setPivotRow_instance === null) {  // If this column is all zeros...
       continue;  // ...skip this entire column.

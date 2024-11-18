@@ -60,22 +60,22 @@ const matrices: Matrix[] = [
   }
 ];
 
-const testMatrices: Matrix[] = [
+const matricesForRREF: Matrix[] = [
   {
-    name: 'A',  // matrix of zeros
+    name: 'Zero matrix',  // matrix of zeros
     values: [
       [0, 0],
       [0, 0]
     ]
   },
   {
-    name: 'B',  // empty matrix
+    name: 'Empty matrix',  // empty matrix
     values: [
       []
     ]
   },
   {
-    name: 'C',  // zero row
+    name: 'Zero middle row',  // zero row not at the bottom
     values: [
       [1, 2, 3],
       [0, 0, 0],
@@ -83,7 +83,7 @@ const testMatrices: Matrix[] = [
     ]
   },
   {
-    name: 'D',  // zero column
+    name: 'Zero middle column',  // zero column
     values: [
       [1, 0, 2],
       [3, 0, 4],
@@ -91,7 +91,7 @@ const testMatrices: Matrix[] = [
     ]
   },
   {
-    name: 'E',  // non-square matrix m > n
+    name: 'Non-square matrix m > n',  // non-square matrix m > n
     values: [
       [1, 2],
       [3, 4],
@@ -99,28 +99,28 @@ const testMatrices: Matrix[] = [
     ]
   },
   {
-    name: 'F',  // non-square matrix m < n
+    name: 'Non-square matrix m < n',  // non-square matrix m < n
     values: [
       [1, 2, 3, 4],
       [5, 6, 7, 8]
     ]
   },
   {
-    name: 'G',  // negative elements
+    name: 'Negative elements',  // negative elements
     values: [
       [-1, -2, -3],
       [4, 5, 6]
     ]
   },
   {
-    name: 'H',  // fraction elements
+    name: 'Fraction elements',  // fraction elements
     values: [
       [1/2, 1, 1/3],
       [1, 1/4, 2]
     ]
   },
   {
-    name: 'I',  // identity matrix
+    name: 'Identity matrix',  // identity matrix
     values: [
       [1, 0, 0],
       [0, 1, 0],
@@ -128,11 +128,33 @@ const testMatrices: Matrix[] = [
     ]
   },
   {
-    name: 'J',  // non-diagonal leading ones
+    name: 'Non-diagonal pivots',  // non-diagonal leading ones
     values: [
       [1, 3, 2, 5],
       [0, 0, 1, 11],
       [0, 0, 0, 2]
+    ]
+  },
+  {
+    name: 'No initial zero rows', // no zero rows initially
+    values: [
+      [2, 4, 6],
+      [1, 2, 3],
+      [3, 6, 8]
+    ]
+  },
+  {
+    name: 'Column Vector',
+    values: [
+      [1],
+      [2],
+      [3]
+    ]
+  },
+  {
+    name: 'Row Vector',
+    values: [
+      [1,2,3]
     ]
   }
 ];
@@ -147,7 +169,7 @@ const matricesToInvert: Matrix[] = [
     ]
   },
   {
-    name: 'B',
+    name: 'A<sup>-1</sup>',
     values: [
       [10, -6, 1],
       [-2, 1, 0],
@@ -155,10 +177,17 @@ const matricesToInvert: Matrix[] = [
     ]
   },
   {
-    name: 'C',
+    name: 'Singular 3 x 3',
     values: [
-      [-3, 5],
-      []
+      [5, -2, 1],
+      [8, -5, -3],
+      [15, -6, 3]
+    ]
+  },
+  {
+    name: 'Non-square',
+    values: [
+      [-3, 5]
     ]
   }
 ]
