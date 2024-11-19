@@ -3,8 +3,6 @@
 /**
  * Performs Gauss-Jordan elimination on a matrix. Generates elements in the html body representing row operations and the end result.
  *
- * TODO: Succeed in all test cases
- *
  * @param {Matrix} matrixObject - A matrix object to yield a RREF
  * @returns {Matrix} Matrix in RREF form, otherwise returns an incomplete RREF if unable to calculate
  */
@@ -25,9 +23,9 @@ function loadRREF(matrixObject) {
         clearPivotColumn(rrefMatrix.values, starting_row, i).forEach(instance => {
             row_operations += `<br>R${instance.row_a + 1} + (${instance.constant})*R${instance.row_b + 1} → R${instance.row_a + 1}`;
         });
-        const normalizePivotRow_instance = normalizePivotRow(rrefMatrix.values, starting_row, i);
-        if (normalizePivotRow_instance !== null) {
-            row_operations += `<br>(${normalizePivotRow_instance.constant})*R${normalizePivotRow_instance.row_a + 1} → R${normalizePivotRow_instance.row_a + 1}`;
+        const reducePivotRow_instance = reducePivotRow(rrefMatrix.values, starting_row, i);
+        if (reducePivotRow_instance !== null) {
+            row_operations += `<br>(${reducePivotRow_instance.constant})*R${reducePivotRow_instance.row_a + 1} → R${reducePivotRow_instance.row_a + 1}`;
         }
         starting_row++;
         row_operations = row_operations ? row_operations.substring(4) : ''; // trims leading <br> tag if row_operations string is not empty
@@ -38,8 +36,8 @@ function loadRREF(matrixObject) {
     return rrefMatrix;
 }
 /**
- * Swaps rows if needed so that the pivot is always at the furthest to the top and left
- * compared to lower rows, returns null if entire column contains zeros.
+ * Swaps rows if needed so that this pivot is always at the furthest to the top and left
+ * compared to lower rows, returns null if this entire column contains zeros.
  *
  * @param {number[][]} matrix
  * @param {number} row
@@ -85,7 +83,7 @@ function clearPivotColumn(matrix, row = 0, column = 0) {
  * @param {number} column
  * @returns {TargetRows | null}
  */
-function normalizePivotRow(matrix, row = 0, column = 0) {
+function reducePivotRow(matrix, row = 0, column = 0) {
     if (matrix[row][column] != 1) {
         let scale_to_one = 1 / matrix[row][column];
         rowOperationFunctions.scaleRow(matrix[row], scale_to_one);
