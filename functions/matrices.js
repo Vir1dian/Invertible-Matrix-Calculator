@@ -1,9 +1,11 @@
 "use strict";
-const userMatrix = {
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.roundMatrix = exports.loadMatrix = exports.matricesToInvert = exports.matricesForRREF = exports.matrices = exports.userMatrix = void 0;
+exports.userMatrix = {
     name: 'A',
     values: []
 };
-const matrices = [
+exports.matrices = [
     {
         name: 'A',
         values: [
@@ -54,7 +56,7 @@ const matrices = [
         ]
     }
 ];
-const matricesForRREF = [
+exports.matricesForRREF = [
     {
         name: 'Zero matrix',
         values: [
@@ -152,7 +154,7 @@ const matricesForRREF = [
         ]
     }
 ];
-const matricesToInvert = [
+exports.matricesToInvert = [
     {
         name: 'A',
         values: [
@@ -214,6 +216,7 @@ function loadMatrix(matrixObject) {
     matrix_wrapper === null || matrix_wrapper === void 0 ? void 0 : matrix_wrapper.appendChild(matrix_table);
     // document.body.appendChild(matrix_wrapper);      
 }
+exports.loadMatrix = loadMatrix;
 /**
  * Generates a table representing a matrix to append into the html body, along with a title and rref steps
  *
@@ -231,3 +234,4 @@ function roundMatrix(matrix, digits) {
     });
     return rounded_matrix;
 }
+exports.roundMatrix = roundMatrix;

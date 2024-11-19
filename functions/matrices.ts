@@ -1,14 +1,14 @@
-interface Matrix {
+export interface Matrix {
   name: string;
   values: number[][];
 }
 
-const userMatrix: Matrix = {
+export const userMatrix: Matrix = {
   name: 'A',
   values: []
 }
 
-const matrices: Matrix[] = [
+export const matrices: Matrix[] = [
   {
     name: 'A',
     values: [
@@ -60,7 +60,7 @@ const matrices: Matrix[] = [
   }
 ];
 
-const matricesForRREF: Matrix[] = [
+export const matricesForRREF: Matrix[] = [
   {
     name: 'Zero matrix',  // matrix of zeros
     values: [
@@ -159,7 +159,7 @@ const matricesForRREF: Matrix[] = [
   }
 ];
 
-const matricesToInvert: Matrix[] = [
+export const matricesToInvert: Matrix[] = [
   {
     name: 'A',
     values: [
@@ -197,7 +197,7 @@ const matricesToInvert: Matrix[] = [
  * 
  * @param {Matrix} matrixObject - A matrix object to represent in the html body
  */
-function loadMatrix(matrixObject: Matrix) {
+export function loadMatrix(matrixObject: Matrix) {
   // const matrix_wrapper = document.createElement('div');
   // matrix_wrapper.classList.add('matrix_wrapper');
   const matrix_wrapper : HTMLElement | null = document.querySelector('.matrix_wrapper')
@@ -232,7 +232,7 @@ function loadMatrix(matrixObject: Matrix) {
  * @param {number} digits - The number of decimal places to round all elements of the matrix by
  * @returns {number[][]} - The rounded version of the 2D array
  */
-function roundMatrix(matrix: number[][], digits: number): number[][] {
+export function roundMatrix(matrix: number[][], digits: number): number[][] {
   let rounded_matrix = matrix;
   const round = Math.pow(10, digits);
   rounded_matrix.forEach(row => {

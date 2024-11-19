@@ -1,4 +1,9 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.loadInverse = exports.loadAdjoin = void 0;
+const matrices_1 = require("./matrices");
+const rref_1 = require("./rref");
+const determinant_1 = require("./determinant");
 /**
  * Generates a matrix adjoining the original matrix and an identity matrix of the same size
  *
@@ -37,7 +42,7 @@ function loadAdjoin(matrixObject) {
     matrix_title.innerHTML = `Matrix [ ${matrixObject.name} I<sub>${matrixObject.values.length}</sub> ]`;
     adjoin_wrapper === null || adjoin_wrapper === void 0 ? void 0 : adjoin_wrapper.appendChild(matrix_title);
     const matrix_table = document.createElement('table');
-    roundMatrix(adjoin, 4).forEach((row) => {
+    (0, matrices_1.roundMatrix)(adjoin, 4).forEach((row) => {
         const tr = document.createElement('tr');
         row.forEach((column) => {
             const td = document.createElement('td');
@@ -50,6 +55,7 @@ function loadAdjoin(matrixObject) {
     const operations_wrapper = document.querySelector('.operations_wrapper');
     operations_wrapper === null || operations_wrapper === void 0 ? void 0 : operations_wrapper.appendChild(adjoin_wrapper);
 }
+exports.loadAdjoin = loadAdjoin;
 /**
  * MAIN FEATURE FOR HONORS PROJECT
  *
@@ -67,7 +73,7 @@ function loadAdjoin(matrixObject) {
  */
 function loadInverse(matrixObject) {
     const inverseObject = structuredClone(matrixObject);
-    const determinant_value = loadDeterminant(matrixObject);
+    const determinant_value = (0, determinant_1.loadDeterminant)(matrixObject);
     if (typeof determinant_value === 'string') {
         return 'Matrix is not square.';
     }
@@ -77,7 +83,7 @@ function loadInverse(matrixObject) {
     else {
         loadAdjoin(matrixObject);
         inverseObject.values = createAdjoin(matrixObject.values);
-        inverseObject.values = detachAdjoin(loadRREF(inverseObject).values);
+        inverseObject.values = detachAdjoin((0, rref_1.loadRREF)(inverseObject).values);
         console.log(inverseObject);
     }
     inverseObject.name = `(${inverseObject.name})\<sup>-1</sup>`;
@@ -98,3 +104,4 @@ function loadInverse(matrixObject) {
     solution_wrapper === null || solution_wrapper === void 0 ? void 0 : solution_wrapper.appendChild(matrix_table);
     return inverseObject;
 }
+exports.loadInverse = loadInverse;

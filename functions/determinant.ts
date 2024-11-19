@@ -1,3 +1,5 @@
+import { Matrix } from './matrices'
+
 /**
  * Checks if a matrix is square (n x n) or not.
  * 
@@ -65,7 +67,7 @@ function determinant(matrix: number[][]): number | string {
  * @param {Matrix} matrixObject - A matrix object to yield a determinant
  * @returns {number | string} - The determinant, error string if unable to calculate
  */
-function loadDeterminant(matrixObject: Matrix) : number | string {
+export function loadDeterminant(matrixObject: Matrix) : number | string {
   const determinant_value : number | string = determinant(matrixObject.values);
   const determinant_element : HTMLElement = document.createElement('div');
   determinant_element.classList.add('determinant');
