@@ -9,11 +9,11 @@
 
   <link rel="stylesheet" href="style.css">
 
-  <script type="module" defer>
-    import { showBuildOption, MatrixBuilderFunctions, matrixOperation } from './index.js';
-
-    MatrixBuilderFunctions.exampleMatrix.populateExampleList(matricesForRREF, matricesToInvert, matrices);
-  </script>
+  <script src="functions/matrices.js" defer></script>
+  <script src="functions/rref.js" defer></script>
+  <script src="functions/determinant.js" defer></script>
+  <script src="functions/inverse.js" defer></script>
+  <script src="index.js" defer></script>
 </head>
 
 <body>
@@ -99,5 +99,6 @@
 
 
   </div>
+
 </body>
 </html>

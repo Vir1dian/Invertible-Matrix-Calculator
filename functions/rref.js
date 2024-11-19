@@ -1,9 +1,9 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.loadRREF = void 0;
-const matrices_1 = require("./matrices");
+// import Fraction from 'fraction.js';
 /**
  * Performs Gauss-Jordan elimination on a matrix. Generates elements in the html body representing row operations and the end result.
+ *
+ * TODO: Succeed in all test cases
  *
  * @param {Matrix} matrixObject - A matrix object to yield a RREF
  * @returns {Matrix} Matrix in RREF form, otherwise returns an incomplete RREF if unable to calculate
@@ -25,9 +25,9 @@ function loadRREF(matrixObject) {
         clearPivotColumn(rrefMatrix.values, starting_row, i).forEach(instance => {
             row_operations += `<br>R${instance.row_a + 1} + (${instance.constant})*R${instance.row_b + 1} → R${instance.row_a + 1}`;
         });
-        const reducePivotRow_instance = reducePivotRow(rrefMatrix.values, starting_row, i);
-        if (reducePivotRow_instance !== null) {
-            row_operations += `<br>(${reducePivotRow_instance.constant})*R${reducePivotRow_instance.row_a + 1} → R${reducePivotRow_instance.row_a + 1}`;
+        const normalizePivotRow_instance = normalizePivotRow(rrefMatrix.values, starting_row, i);
+        if (normalizePivotRow_instance !== null) {
+            row_operations += `<br>(${normalizePivotRow_instance.constant})*R${normalizePivotRow_instance.row_a + 1} → R${normalizePivotRow_instance.row_a + 1}`;
         }
         starting_row++;
         row_operations = row_operations ? row_operations.substring(4) : ''; // trims leading <br> tag if row_operations string is not empty
@@ -37,10 +37,9 @@ function loadRREF(matrixObject) {
     console.log(matrixObject);
     return rrefMatrix;
 }
-exports.loadRREF = loadRREF;
 /**
- * Swaps rows if needed so that this pivot is always at the furthest to the top and left
- * compared to lower rows, returns null if this entire column contains zeros.
+ * Swaps rows if needed so that the pivot is always at the furthest to the top and left
+ * compared to lower rows, returns null if entire column contains zeros.
  *
  * @param {number[][]} matrix
  * @param {number} row
@@ -86,7 +85,7 @@ function clearPivotColumn(matrix, row = 0, column = 0) {
  * @param {number} column
  * @returns {TargetRows | null}
  */
-function reducePivotRow(matrix, row = 0, column = 0) {
+function normalizePivotRow(matrix, row = 0, column = 0) {
     if (matrix[row][column] != 1) {
         let scale_to_one = 1 / matrix[row][column];
         rowOperationFunctions.scaleRow(matrix[row], scale_to_one);
@@ -143,9 +142,9 @@ const rowOperationFunctions = {
 function loadRowOperation(matrixObject, row_operations) {
     const rref_step = document.createElement('div');
     rref_step.classList.add('rref_step');
-    // const matrix_title = document.createElement('div');
-    // matrix_title.innerHTML = 'Matrix ' + matrixObject.name;
-    // rref_step.appendChild(matrix_title);
+    const matrix_title = document.createElement('div');
+    matrix_title.innerHTML = 'Matrix ' + matrixObject.name;
+    rref_step.appendChild(matrix_title);
     if (row_operations) {
         const row_operations_element = document.createElement('div');
         row_operations_element.classList.add('row_operations');
@@ -153,7 +152,7 @@ function loadRowOperation(matrixObject, row_operations) {
         rref_step.appendChild(row_operations_element);
     }
     const matrix_table = document.createElement('table');
-    (0, matrices_1.roundMatrix)(matrixObject.values, 4).forEach((row) => {
+    roundMatrix(matrixObject.values, 4).forEach((row) => {
         const tr = document.createElement('tr');
         row.forEach((column) => {
             const td = document.createElement('td');

@@ -1,8 +1,3 @@
-import { Matrix, roundMatrix } from './matrices'
-import { loadRREF } from './rref';
-import { loadDeterminant } from  './determinant';
-
-
 /**
  * Generates a matrix adjoining the original matrix and an identity matrix of the same size
  * 
@@ -35,7 +30,7 @@ function detachAdjoin(matrix: number[][]): number[][] {
  * 
  * @param {Matrix} matrixObject - A matrix object for an adjoined matrix to represent in the html body
  */
-export function loadAdjoin(matrixObject: Matrix) {
+function loadAdjoin(matrixObject: Matrix) {
   const adjoin : number[][] = createAdjoin(matrixObject.values);
 
   const adjoin_wrapper : HTMLElement = document.createElement('div');
@@ -75,7 +70,7 @@ export function loadAdjoin(matrixObject: Matrix) {
  * @param {Matrix} matrixObject - A matrix object to yield the inverse
  * @returns {Matrix | string} - The matrix object containing the inverse, error message if unable to caculate
  */
-export function loadInverse(matrixObject: Matrix) : Matrix | string {
+function loadInverse(matrixObject: Matrix) : Matrix | string {
 
   const inverseObject : Matrix = structuredClone(matrixObject);
   const determinant_value = loadDeterminant(matrixObject);

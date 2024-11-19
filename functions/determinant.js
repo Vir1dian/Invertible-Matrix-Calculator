@@ -1,6 +1,4 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.loadDeterminant = void 0;
 /**
  * Checks if a matrix is square (n x n) or not.
  *
@@ -77,4 +75,3 @@ function loadDeterminant(matrixObject) {
     solution_wrapper === null || solution_wrapper === void 0 ? void 0 : solution_wrapper.appendChild(determinant_element);
     return determinant_value;
 }
-exports.loadDeterminant = loadDeterminant;

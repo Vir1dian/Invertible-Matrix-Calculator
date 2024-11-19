@@ -1,11 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.matrixOperation = exports.MatrixBuilderFunctions = exports.showBuildOption = void 0;
 // UI Functions, not related to linear algebra
-const matrices_1 = require("./functions/matrices");
-const rref_1 = require("./functions/rref");
-const determinant_1 = require("./functions/determinant");
-const inverse_1 = require("./functions/inverse");
 function showBuildOption() {
     const option_default = document.getElementById('build_matrix_default');
     const option_matlabstring = document.getElementById('build_matrix_matlabstring');
@@ -28,8 +22,7 @@ function showBuildOption() {
             option_example.style.display = "none";
     }
 }
-exports.showBuildOption = showBuildOption;
-exports.MatrixBuilderFunctions = {
+const MatrixBuilderFunctions = {
     default: {
         setMatrixInputs() {
             const matrix_inputs = document.getElementById('matrix_inputs');
@@ -63,7 +56,7 @@ exports.MatrixBuilderFunctions = {
             submit.style.display = '';
         },
         createMatrix() {
-            matrices_1.userMatrix.values = [];
+            userMatrix.values = [];
             const table = document.getElementById('matrix_inputs_table');
             const rows = table.rows.length;
             const columns = table.rows[0].cells.length;
@@ -82,15 +75,15 @@ exports.MatrixBuilderFunctions = {
                     }
                 }
                 if (error_flag !== 1) {
-                    matrices_1.userMatrix.values.push(row);
+                    userMatrix.values.push(row);
                 }
             }
             if (error_flag === 1) {
-                matrices_1.userMatrix.values = [];
+                userMatrix.values = [];
                 this.displayError('incomplete');
             }
             else {
-                (0, matrices_1.loadMatrix)(matrices_1.userMatrix);
+                loadMatrix(userMatrix);
             }
         },
         displayError(error) {
@@ -137,12 +130,14 @@ exports.MatrixBuilderFunctions = {
             });
         },
         selectExample(matrixObject) {
-            matrices_1.userMatrix.name = matrixObject.name;
-            matrices_1.userMatrix.values = matrixObject.values.map(row => [...row]);
-            (0, matrices_1.loadMatrix)(matrices_1.userMatrix);
+            userMatrix.name = matrixObject.name;
+            userMatrix.values = matrixObject.values.map(row => [...row]);
+            loadMatrix(userMatrix);
         }
     }
 };
+MatrixBuilderFunctions.exampleMatrix.populateExampleList(matricesForRREF, matricesToInvert, matrices);
+// const selected_matrix: Matrix = matrices[5];
 function matrixOperation() {
     var _a, _b;
     const selected = document.querySelector('#interface_operations');
@@ -157,19 +152,18 @@ function matrixOperation() {
     switch (selected.value) {
         case "rref":
             // console.log("RREF");
-            (0, rref_1.loadRREF)(matrices_1.userMatrix);
+            loadRREF(userMatrix);
             break;
         case "det":
             // console.log("determinant");
-            (0, determinant_1.loadDeterminant)(matrices_1.userMatrix);
+            loadDeterminant(userMatrix);
             break;
         case "inv":
             // console.log("Inverse");
             // loadAdjoin(selected_matrix);
-            (0, inverse_1.loadInverse)(matrices_1.userMatrix);
+            loadInverse(userMatrix);
             break;
         default:
             console.log("No option selected.");
     }
 }
-exports.matrixOperation = matrixOperation;

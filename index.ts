@@ -1,10 +1,6 @@
 // UI Functions, not related to linear algebra
-import { Matrix, userMatrix, loadMatrix, matrices, matricesForRREF, matricesToInvert } from './functions/matrices';
-import { loadRREF } from './functions/rref';
-import { loadDeterminant } from './functions/determinant';
-import { loadInverse } from './functions/inverse';
 
-export function showBuildOption() {
+function showBuildOption() {
   const option_default : HTMLElement | null = document.getElementById('build_matrix_default');
   const option_matlabstring : HTMLElement | null = document.getElementById('build_matrix_matlabstring');
   const option_example : HTMLElement | null = document.getElementById('build_matrix_example');
@@ -28,7 +24,7 @@ export function showBuildOption() {
   }
 }
 
-export const MatrixBuilderFunctions = {
+const MatrixBuilderFunctions = {
 
   default : {
     setMatrixInputs() {
@@ -162,7 +158,11 @@ export const MatrixBuilderFunctions = {
 
 }
 
-export function matrixOperation() {
+MatrixBuilderFunctions.exampleMatrix.populateExampleList(matricesForRREF, matricesToInvert, matrices);
+
+// const selected_matrix: Matrix = matrices[5];
+
+function matrixOperation() {
   const selected : HTMLInputElement = document.querySelector('#interface_operations') as HTMLInputElement;
 
   const solution_wrapper : HTMLElement | null = document.querySelector('.solution_wrapper');
