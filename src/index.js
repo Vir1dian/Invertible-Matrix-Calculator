@@ -97,11 +97,21 @@ const MatrixBuilderFunctions = {
         parseMatlabString() {
             const string_input = document.getElementById('matlabstring_input');
             const matlab_string = string_input.value;
-            // add values to a 2D array based on string
-            let i = 0;
-            [...matlab_string].forEach(character => {
-                console.log(character);
-            });
+            // add values to userMatrix based on string
+            let within_brackets = false;
+            let row_number = 0;
+            for (let char of matlab_string) {
+                if (char === '[') {
+                    within_brackets = true;
+                    continue;
+                }
+                if (char === ']') {
+                    break;
+                }
+                if (char === ';') {
+                    row_number++;
+                }
+            }
         },
         createMatrix() {
         }
