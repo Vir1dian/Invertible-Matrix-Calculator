@@ -67,6 +67,7 @@ const MatrixBuilderFunctions = {
       submit!.style.display = '';
     },
     createMatrix() {
+      userMatrix.name = 'A';
       userMatrix.values = [];
   
       const table : HTMLTableElement = document.getElementById('matrix_inputs_table') as HTMLTableElement;

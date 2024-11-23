@@ -200,7 +200,7 @@ function loadMatrix(matrixObject) {
     // const matrix_wrapper = document.createElement('div');
     // matrix_wrapper.classList.add('matrix_wrapper');
     const matrix_wrapper = document.querySelector('.matrix_wrapper');
-    // Removes existing tables if they exist
+    // Removes existing tables
     while (matrix_wrapper === null || matrix_wrapper === void 0 ? void 0 : matrix_wrapper.hasChildNodes()) {
         (_a = matrix_wrapper.firstChild) === null || _a === void 0 ? void 0 : _a.remove();
     }
@@ -219,21 +219,4 @@ function loadMatrix(matrixObject) {
     });
     matrix_wrapper === null || matrix_wrapper === void 0 ? void 0 : matrix_wrapper.appendChild(matrix_table);
     // document.body.appendChild(matrix_wrapper);      
-}
-/**
- * Generates a table representing a matrix to append into the html body, along with a title and rref steps
- *
- * @param {number[][]} matrix - A 2D array representing a matrix
- * @param {number} digits - The number of decimal places to round all elements of the matrix by
- * @returns {number[][]} - The rounded version of the 2D array
- */
-function roundMatrix(matrix, digits) {
-    let rounded_matrix = matrix;
-    const round = Math.pow(10, digits);
-    rounded_matrix.forEach(row => {
-        row.forEach((_, index) => {
-            row[index] = Math.round(row[index] * round) / round;
-        });
-    });
-    return rounded_matrix;
 }

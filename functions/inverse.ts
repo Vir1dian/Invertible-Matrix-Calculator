@@ -73,11 +73,11 @@ function loadAdjoin(matrixObject: Matrix) {
 function loadInverse(matrixObject: Matrix) : Matrix | string {
 
   const inverseObject : Matrix = cloneMatrix(matrixObject);
-  const determinant_value = loadDeterminant(matrixObject);
+  const determinant_value : Fraction | string = loadDeterminant(matrixObject);
   if (typeof determinant_value === 'string') {
     return 'Matrix is not square.';
   }
-  else if (determinant_value === 0) {
+  else if (determinant_value.numerator === 0) {
     return 'Matrix is singular';
   }
   else {

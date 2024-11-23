@@ -56,6 +56,7 @@ const MatrixBuilderFunctions = {
             submit.style.display = '';
         },
         createMatrix() {
+            userMatrix.name = 'A';
             userMatrix.values = [];
             const table = document.getElementById('matrix_inputs_table');
             const rows = table.rows.length;

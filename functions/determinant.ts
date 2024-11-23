@@ -22,12 +22,9 @@ function cofactor(matrix: Fraction[][], pos: [number,number]): Fraction | number
     .filter((_, index_row) => index_row !== pos[0])
     .map(row => row.filter((_, index_column) => index_column !== pos[1]));
 
-  const determinant_value: Fraction | number | string = determinant(minor);
+  const determinant_value: Fraction | string = determinant(minor);
   if (typeof determinant_value === 'string') {
     return 0;
-  }
-  else if (typeof determinant_value === 'number') {
-    return Math.pow(-1, pos[0] + pos[1]) * determinant_value;
   }
   return determinant_value.multiply(Math.pow(-1, pos[0] + pos[1]));
 }
@@ -40,20 +37,20 @@ function cofactor(matrix: Fraction[][], pos: [number,number]): Fraction | number
  * TODO: See comment about operations_wrapper in index.html
  * 
  * @param {Fraction[][]} matrix - A 2D array representing a matrix
- * @returns {Fraction | number | string} - The determinant, error string if unable to calculate
+ * @returns {Fraction | string} - The determinant, error string if unable to calculate
  */
-function determinant(matrix: Fraction[][]): Fraction | number | string {
+function determinant(matrix: Fraction[][]): Fraction | string {
   if (!isSquare(matrix)) {
     return 'Determinant not applicable, not an n x n matrix.';
   } else if (matrix.length === 0) {
-    return 1;
+    return new Fraction(1);
   }
 
   let sum: Fraction = new Fraction(0);
   matrix[0].forEach((_, index) => {
     // Using the first row of the matrix ... TODO?: implement option to change the column or row being used to prove determinant
     const element_cofactor_product = matrix[0][index].multiply(cofactor(matrix, [0, index]));
-    sum.add(element_cofactor_product);
+    sum = sum.add(element_cofactor_product);
   })
   return sum;
 }
@@ -69,8 +66,8 @@ function determinant(matrix: Fraction[][]): Fraction | number | string {
  * @param {Matrix} matrixObject - A matrix object to yield a determinant
  * @returns {Fraction | number | string} - The determinant, error string if unable to calculate
  */
-function loadDeterminant(matrixObject: Matrix) : Fraction| number | string {
-  const determinant_value : Fraction | number | string = determinant(matrixObject.values);
+function loadDeterminant(matrixObject: Matrix) : Fraction | string {
+  const determinant_value : Fraction | string = determinant(matrixObject.values);
   const determinant_element : HTMLElement = document.createElement('div');
   determinant_element.classList.add('determinant');
   if (typeof determinant_value === 'string') {
