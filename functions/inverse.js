@@ -2,14 +2,14 @@
 /**
  * Generates a matrix adjoining the original matrix and an identity matrix of the same size
  *
- * @param {number[][]} matrix - A 2D array representing a matrix
- * @returns {number[][]} - A 2D array containing values the original matrix with the values of an identity matrix of the same size adjoined to its right
+ * @param {Fraction[][]} matrix - A 2D array representing a matrix
+ * @returns {Fraction[][]} - A 2D array containing values the original matrix with the values of an identity matrix of the same size adjoined to its right
  */
 function createAdjoin(matrix) {
     const adjoin = matrix.map(row => [...row]);
     adjoin.forEach((row, index) => {
-        const identity_row = Array(row.length).fill(0);
-        identity_row[index] = 1;
+        const identity_row = Array(row.length).fill(new Fraction(0));
+        identity_row[index] = new Fraction(1);
         row.push(...identity_row);
     });
     return adjoin;
@@ -17,8 +17,8 @@ function createAdjoin(matrix) {
 /**
  * Yields the right matrix adjoined to the right of an identity matrix
  *
- * @param {number[][]} matrix - A 2D array representing an identity matrix (left) and some matrix of the same size (right) adjoined together
- * @returns {number[][]} - The 2D array containing values of the right matrix
+ * @param {Fraction[][]} matrix - A 2D array representing an identity matrix (left) and some matrix of the same size (right) adjoined together
+ * @returns {Fraction[][]} - The 2D array containing values of the right matrix
  */
 function detachAdjoin(matrix) {
     const rightMatrix = matrix.map(row => [...row]);
@@ -37,11 +37,11 @@ function loadAdjoin(matrixObject) {
     matrix_title.innerHTML = `Matrix [ ${matrixObject.name} I<sub>${matrixObject.values.length}</sub> ]`;
     adjoin_wrapper === null || adjoin_wrapper === void 0 ? void 0 : adjoin_wrapper.appendChild(matrix_title);
     const matrix_table = document.createElement('table');
-    roundMatrix(adjoin, 4).forEach((row) => {
+    adjoin.forEach((row) => {
         const tr = document.createElement('tr');
         row.forEach((column) => {
             const td = document.createElement('td');
-            td.innerHTML = `${column}`;
+            td.innerHTML = `${column.toString()}`;
             tr.appendChild(td);
         });
         matrix_table.appendChild(tr);

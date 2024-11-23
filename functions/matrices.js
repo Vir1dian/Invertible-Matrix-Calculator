@@ -3,63 +3,63 @@ const userMatrix = {
     name: 'A',
     values: []
 };
-const matrices = [
-    {
-        name: 'A',
-        values: [
-            [1, 0, -3, -2],
-            [3, 1, -2, 5],
-            [2, 2, 1, 4]
-        ]
-    },
-    {
-        name: 'B',
-        values: [
-            [1, 1, 1, 500000],
-            [3 / 100, 4 / 100, 5 / 100, 20500],
-            [-5 / 2, 1, 0, 0]
-        ]
-    },
-    {
-        name: 'C',
-        values: [
-            [0, 0, 2, -2],
-            [0, 1, -7, 3],
-            [5, 0, 4, 0]
-        ]
-    },
-    {
-        name: 'D',
-        values: [
-            [0, 2, 4, 4, -8],
-            [2, 4, -3, -5, 4],
-            [5, 0, 1, -3, -4],
-            [1, 1, 0, 1, 5]
-        ]
-    },
-    {
-        name: 'E',
-        values: [
-            [2, 0, 7],
-            [3, 4, 4],
-            [0, 1, 0]
-        ]
-    },
-    {
-        name: 'F',
-        values: [
-            [1, 1, 1],
-            [2, 3, 2],
-            [3, 8, 2]
-        ]
-    }
-];
+// const matrices: Matrix[] = [
+//   {
+//     name: 'A',
+//     values: [
+//       [new Fraction(1), new Fraction(0), new Fraction(-3), new Fraction(-2)],
+//       [new Fraction(3), new Fraction(1), new Fraction(-2), new Fraction(5)],
+//       [new Fraction(2), new Fraction(2), new Fraction(1), new Fraction(4)]
+//     ]
+//   },
+//   {
+//     name: 'B',
+//     values: [
+//       [new Fraction(1), new Fraction(1), new Fraction(1), new Fraction(500000)],
+//       [new Fraction(3, 100), new Fraction(4, 100), new Fraction(5, 100), new Fraction(20500)],
+//       [new Fraction(-5, 2), new Fraction(1), new Fraction(0), new Fraction(0)]
+//     ]
+//   },
+//   {
+//     name: 'C',
+//     values: [
+//       [new Fraction(0), new Fraction(0), new Fraction(2), new Fraction(-2)],
+//       [new Fraction(0), new Fraction(1), new Fraction(-7), new Fraction(3)],
+//       [new Fraction(5), new Fraction(0), new Fraction(4), new Fraction(0)]
+//     ]
+//   },
+//   {
+//     name: 'D',
+//     values: [
+//       [new Fraction(0), new Fraction(2), new Fraction(4), new Fraction(4), new Fraction(-8)],
+//       [new Fraction(2), new Fraction(4), new Fraction(-3), new Fraction(-5), new Fraction(4)],
+//       [new Fraction(5), new Fraction(0), new Fraction(1), new Fraction(-3), new Fraction(-4)],
+//       [new Fraction(1), new Fraction(1), new Fraction(0), new Fraction(1), new Fraction(5)]
+//     ]
+//   },
+//   {
+//     name: 'E',
+//     values: [
+//       [new Fraction(2), new Fraction(0), new Fraction(7)],
+//       [new Fraction(3), new Fraction(4), new Fraction(4)],
+//       [new Fraction(0), new Fraction(1), new Fraction(0)]
+//     ]
+//   },
+//   {
+//     name: 'F',
+//     values: [
+//       [new Fraction(1), new Fraction(1), new Fraction(1)],
+//       [new Fraction(2), new Fraction(3), new Fraction(2)],
+//       [new Fraction(3), new Fraction(8), new Fraction(2)]
+//     ]
+//   }
+// ];
 const matricesForRREF = [
     {
         name: 'Zero matrix',
         values: [
-            [0, 0],
-            [0, 0]
+            [new Fraction(0), new Fraction(0)],
+            [new Fraction(0), new Fraction(0)]
         ]
     },
     {
@@ -71,84 +71,84 @@ const matricesForRREF = [
     {
         name: 'Zero middle row',
         values: [
-            [1, 2, 3],
-            [0, 0, 0],
-            [4, 5, 6]
+            [new Fraction(1), new Fraction(2), new Fraction(3)],
+            [new Fraction(0), new Fraction(0), new Fraction(0)],
+            [new Fraction(4), new Fraction(5), new Fraction(6)]
         ]
     },
     {
         name: 'Zero middle column',
         values: [
-            [1, 0, 2],
-            [3, 0, 4],
-            [5, 0, 6]
+            [new Fraction(1), new Fraction(0), new Fraction(2)],
+            [new Fraction(3), new Fraction(0), new Fraction(4)],
+            [new Fraction(5), new Fraction(0), new Fraction(6)]
         ]
     },
     {
         name: 'Non-square matrix m > n',
         values: [
-            [1, 2],
-            [3, 4],
-            [5, 6]
+            [new Fraction(1), new Fraction(2)],
+            [new Fraction(3), new Fraction(4)],
+            [new Fraction(5), new Fraction(6)]
         ]
     },
     {
         name: 'Non-square matrix m < n',
         values: [
-            [1, 2, 3, 4],
-            [5, 6, 7, 8]
+            [new Fraction(1), new Fraction(2), new Fraction(3), new Fraction(4)],
+            [new Fraction(5), new Fraction(6), new Fraction(7), new Fraction(8)]
         ]
     },
     {
         name: 'Negative elements',
         values: [
-            [-1, -2, -3],
-            [4, 5, 6]
+            [new Fraction(-1), new Fraction(-2), new Fraction(-3)],
+            [new Fraction(4), new Fraction(5), new Fraction(6)]
         ]
     },
     {
         name: 'Fraction elements',
         values: [
-            [1 / 2, 1, 1 / 3],
-            [1, 1 / 4, 2]
+            [new Fraction(1, 2), new Fraction(1), new Fraction(1, 3)],
+            [new Fraction(1), new Fraction(1, 4), new Fraction(2)]
         ]
     },
     {
         name: 'Identity matrix',
         values: [
-            [1, 0, 0],
-            [0, 1, 0],
-            [0, 0, 1]
+            [new Fraction(1), new Fraction(0), new Fraction(0)],
+            [new Fraction(0), new Fraction(1), new Fraction(0)],
+            [new Fraction(0), new Fraction(0), new Fraction(1)]
         ]
     },
     {
         name: 'Non-diagonal pivots',
         values: [
-            [1, 3, 2, 5],
-            [0, 0, 1, 11],
-            [0, 0, 0, 2]
+            [new Fraction(1), new Fraction(3), new Fraction(2), new Fraction(5)],
+            [new Fraction(0), new Fraction(0), new Fraction(1), new Fraction(11)],
+            [new Fraction(0), new Fraction(0), new Fraction(0), new Fraction(2)]
         ]
     },
     {
         name: 'No initial zero rows',
         values: [
-            [2, 4, 6],
-            [1, 2, 3],
-            [3, 6, 8]
+            [new Fraction(2), new Fraction(4), new Fraction(6)],
+            [new Fraction(1), new Fraction(2), new Fraction(3)],
+            [new Fraction(3), new Fraction(6), new Fraction(8)]
         ]
     },
     {
         name: 'Column Vector',
         values: [
-            [1],
-            [2],
-            [3]
+            [new Fraction(1)],
+            [new Fraction(2)],
+            [new Fraction(3)]
         ]
     },
     {
         name: 'Row Vector',
         values: [
-            [1, 2, 3]
+            [new Fraction(1), new Fraction(2), new Fraction(3)]
         ]
     }
 ];
@@ -156,31 +156,31 @@ const matricesToInvert = [
     {
         name: 'A',
         values: [
-            [1, 1, 1],
-            [2, 3, 2],
-            [3, 8, 2]
+            [new Fraction(1), new Fraction(1), new Fraction(1)],
+            [new Fraction(2), new Fraction(3), new Fraction(2)],
+            [new Fraction(3), new Fraction(8), new Fraction(2)]
         ]
     },
     {
         name: 'A<sup>-1</sup>',
         values: [
-            [10, -6, 1],
-            [-2, 1, 0],
-            [-7, 5, -1]
+            [new Fraction(10), new Fraction(-6), new Fraction(1)],
+            [new Fraction(-2), new Fraction(1), new Fraction(0)],
+            [new Fraction(-7), new Fraction(5), new Fraction(-1)]
         ]
     },
     {
         name: 'Singular 3 x 3',
         values: [
-            [5, -2, 1],
-            [8, -5, -3],
-            [15, -6, 3]
+            [new Fraction(5), new Fraction(-2), new Fraction(1)],
+            [new Fraction(8), new Fraction(-5), new Fraction(-3)],
+            [new Fraction(15), new Fraction(-6), new Fraction(3)]
         ]
     },
     {
         name: 'Non-square',
         values: [
-            [-3, 5]
+            [new Fraction(-3), new Fraction(5)]
         ]
     }
 ];
@@ -206,7 +206,7 @@ function loadMatrix(matrixObject) {
         const tr = document.createElement('tr');
         row.forEach(column => {
             const td = document.createElement('td');
-            td.innerHTML = `${column}`;
+            td.innerHTML = `${column.toString()}`;
             tr.appendChild(td);
         });
         matrix_table.appendChild(tr);

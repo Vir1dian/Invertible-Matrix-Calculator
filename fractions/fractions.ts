@@ -39,7 +39,11 @@ class Fraction {
 
     return new Fraction(num_diff, den_common);
   }
-  multiply(otherFraction: Fraction): Fraction {
+  multiply(otherFraction: Fraction | number): Fraction {
+    if (typeof otherFraction === 'number') {
+      return new Fraction(this.numerator * otherFraction, this.denominator);
+    }
+
     const num_product = this.numerator * otherFraction.numerator;
     const den_product = this.denominator * otherFraction.denominator;
   
@@ -47,7 +51,7 @@ class Fraction {
   }
   divide(otherFraction: Fraction): Fraction {
     if (otherFraction.numerator === 0) {
-      throw new Error("Division by Zero");
+      throw new Error("Division by Zero.");
     }
 
     const num_quotient = this.numerator * otherFraction.denominator;
@@ -57,7 +61,14 @@ class Fraction {
   }
 
   toString(): string {
+    if (this.denominator === 1) {
+      return `${this.numerator}`;
+    }
     return `${this.numerator}/${this.denominator}`;
+  }
+
+  toDecimal(): number {
+    return this.numerator/this.denominator;
   }
 
 }
@@ -74,13 +85,33 @@ function lcm(a: number, b: number): number {
   return (a * b) / gcf(a, b);
 }
 
+function parseFraction(input: string): Fraction {
+  let numerator, denominator;
+  const slash_pos = input.indexOf('/');
+
+  if (slash_pos !== -1) {
+    numerator = parseFloat(input.substring(0, slash_pos));
+    denominator = parseFloat(input.substring(slash_pos+1));
+
+    if (!numerator || !denominator) {
+      throw new Error("Invalid string, cannot convert as Fraction.");
+    }
+
+    return new Fraction(numerator, denominator);
+  }
+
+  numerator = parseFloat(input);
+  return new Fraction(numerator);
+}
+
+
 // const fracA: Fraction = new Fraction(1e9);
 // const fracB: Fraction = new Fraction(3/4);
 // console.log(fracA.toString());
 
 // const testCases = [
 //   new Fraction(1, 2),
-//   new Fraction(1/3),
+//   new Fraction(7, 1.4),
 //   new Fraction(3.5, 7),
 //   new Fraction(0.6667, 0.99), 
 //   new Fraction(-0.99),

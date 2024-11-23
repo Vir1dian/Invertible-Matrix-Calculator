@@ -43,7 +43,7 @@ const MatrixBuilderFunctions = {
                 for (let j = 0; j < columns; j++) {
                     const td = document.createElement('td');
                     const input = document.createElement('input');
-                    input.type = 'number';
+                    input.type = 'text';
                     input.classList.add('matrix_cell_input');
                     input.id = `matrix_cell_input_${i}_${j}`;
                     td.appendChild(input);
@@ -71,7 +71,7 @@ const MatrixBuilderFunctions = {
                         input.style.backgroundColor = 'red';
                     }
                     else {
-                        row.push(parseFloat(input.value));
+                        row.push(parseFraction(input.value));
                     }
                 }
                 if (error_flag !== 1) {
@@ -136,8 +136,7 @@ const MatrixBuilderFunctions = {
         }
     }
 };
-MatrixBuilderFunctions.exampleMatrix.populateExampleList(matricesForRREF, matricesToInvert, matrices);
-// const selected_matrix: Matrix = matrices[5];
+MatrixBuilderFunctions.exampleMatrix.populateExampleList(matricesForRREF, matricesToInvert);
 function matrixOperation() {
     var _a, _b;
     const selected = document.querySelector('#interface_operations');

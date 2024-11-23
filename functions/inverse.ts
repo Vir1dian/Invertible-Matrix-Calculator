@@ -1,14 +1,14 @@
 /**
  * Generates a matrix adjoining the original matrix and an identity matrix of the same size
  * 
- * @param {number[][]} matrix - A 2D array representing a matrix
- * @returns {number[][]} - A 2D array containing values the original matrix with the values of an identity matrix of the same size adjoined to its right
+ * @param {Fraction[][]} matrix - A 2D array representing a matrix
+ * @returns {Fraction[][]} - A 2D array containing values the original matrix with the values of an identity matrix of the same size adjoined to its right
  */
-function createAdjoin(matrix: number[][]): number[][] {
-  const adjoin : number[][] = matrix.map(row => [...row]);
+function createAdjoin(matrix: Fraction[][]): Fraction[][] {
+  const adjoin : Fraction[][] = matrix.map(row => [...row]);
   adjoin.forEach((row, index) => {
-    const identity_row: number[] = Array(row.length).fill(0);
-    identity_row[index] = 1;
+    const identity_row: Fraction[] = Array(row.length).fill(new Fraction(0));
+    identity_row[index] = new Fraction(1);
     row.push(...identity_row);
   })
   return adjoin;
@@ -17,11 +17,11 @@ function createAdjoin(matrix: number[][]): number[][] {
 /**
  * Yields the right matrix adjoined to the right of an identity matrix
  * 
- * @param {number[][]} matrix - A 2D array representing an identity matrix (left) and some matrix of the same size (right) adjoined together
- * @returns {number[][]} - The 2D array containing values of the right matrix
+ * @param {Fraction[][]} matrix - A 2D array representing an identity matrix (left) and some matrix of the same size (right) adjoined together
+ * @returns {Fraction[][]} - The 2D array containing values of the right matrix
  */
-function detachAdjoin(matrix: number[][]): number[][] {
-  const rightMatrix : number[][] = matrix.map(row => [...row]);
+function detachAdjoin(matrix: Fraction[][]): Fraction[][] {
+  const rightMatrix : Fraction[][] = matrix.map(row => [...row]);
   return rightMatrix.map(row => row.filter((_, index) => index >= row.length / 2));
 }
 
@@ -31,7 +31,7 @@ function detachAdjoin(matrix: number[][]): number[][] {
  * @param {Matrix} matrixObject - A matrix object for an adjoined matrix to represent in the html body
  */
 function loadAdjoin(matrixObject: Matrix) {
-  const adjoin : number[][] = createAdjoin(matrixObject.values);
+  const adjoin : Fraction[][] = createAdjoin(matrixObject.values);
 
   const adjoin_wrapper : HTMLElement = document.createElement('div');
   adjoin_wrapper.classList.add('adjoin_wrapper');
@@ -40,11 +40,11 @@ function loadAdjoin(matrixObject: Matrix) {
   adjoin_wrapper?.appendChild(matrix_title);   
   
   const matrix_table : HTMLTableElement = document.createElement('table');
-  roundMatrix(adjoin, 4).forEach((row: number[]) => {
+  adjoin.forEach((row: Fraction[]) => {
     const tr : HTMLTableRowElement = document.createElement('tr');
-    row.forEach((column: number) => {
+    row.forEach((column: Fraction) => {
       const td : HTMLTableCellElement = document.createElement('td');
-      td.innerHTML = `${column}`;
+      td.innerHTML = `${column.toString()}`;
       tr.appendChild(td);
     })
     matrix_table.appendChild(tr);

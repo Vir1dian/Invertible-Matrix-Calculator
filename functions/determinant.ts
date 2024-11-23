@@ -1,10 +1,10 @@
 /**
  * Checks if a matrix is square (n x n) or not.
  * 
- * @param {number[][]} matrix - A 2D array representing a matrix
+ * @param {Fraction[][]} matrix - A 2D array representing a matrix
  * @returns {boolean} - true for a square (n x n) matrix, false of not
  */
-function isSquare(matrix: number[][]): boolean {
+function isSquare(matrix: Fraction[][]): boolean {
   return matrix.length === 0 || matrix.length === matrix[0].length;
 }
 
@@ -12,21 +12,24 @@ function isSquare(matrix: number[][]): boolean {
  * Returns the cofactor of an element in the matrix. 
  * Only works on n x n matrices, requires the isSquare function to be used externally.
  * 
- * @param {number[][]} matrix - A 2D array representing a matrix
+ * @param {Fraction[][]} matrix - A 2D array representing a matrix
  * @param {[number,number]} pos - An array of two integers specifying a row and column
- * @returns {number} - The cofactor of the matrix at an element in the specified row and column
+ * @returns {Fraction | number} - The cofactor of the matrix at an element in the specified row and column
  */
-function cofactor(matrix: number[][], pos: [number,number]): number {
+function cofactor(matrix: Fraction[][], pos: [number,number]): Fraction | number {
 
-  const minor: number[][] = matrix
+  const minor: Fraction[][] = matrix
     .filter((_, index_row) => index_row !== pos[0])
     .map(row => row.filter((_, index_column) => index_column !== pos[1]));
 
-  const determinant_value: number | string = determinant(minor);
+  const determinant_value: Fraction | number | string = determinant(minor);
   if (typeof determinant_value === 'string') {
     return 0;
   }
-  return Math.pow(-1, pos[0] + pos[1]) * determinant_value;
+  else if (typeof determinant_value === 'number') {
+    return Math.pow(-1, pos[0] + pos[1]) * determinant_value;
+  }
+  return determinant_value.multiply(Math.pow(-1, pos[0] + pos[1]));
 }
 
 /**
@@ -36,20 +39,21 @@ function cofactor(matrix: number[][], pos: [number,number]): number {
  * 
  * TODO: See comment about operations_wrapper in index.html
  * 
- * @param {Matrix} matrixObject - A matrix object to yield a determinant
- * @returns {number | string} - The determinant, error string if unable to calculate
+ * @param {Fraction[][]} matrix - A 2D array representing a matrix
+ * @returns {Fraction | number | string} - The determinant, error string if unable to calculate
  */
-function determinant(matrix: number[][]): number | string {
+function determinant(matrix: Fraction[][]): Fraction | number | string {
   if (!isSquare(matrix)) {
     return 'Determinant not applicable, not an n x n matrix.';
   } else if (matrix.length === 0) {
     return 1;
   }
 
-  let sum: number = 0;
+  let sum: Fraction = new Fraction(0);
   matrix[0].forEach((_, index) => {
     // Using the first row of the matrix ... TODO?: implement option to change the column or row being used to prove determinant
-    sum += matrix[0][index] * cofactor(matrix, [0, index]);
+    const element_cofactor_product = matrix[0][index].multiply(cofactor(matrix, [0, index]));
+    sum.add(element_cofactor_product);
   })
   return sum;
 }
@@ -63,17 +67,17 @@ function determinant(matrix: number[][]): number | string {
  * TODO: See comment about operations_wrapper in index.html
  * 
  * @param {Matrix} matrixObject - A matrix object to yield a determinant
- * @returns {number | string} - The determinant, error string if unable to calculate
+ * @returns {Fraction | number | string} - The determinant, error string if unable to calculate
  */
-function loadDeterminant(matrixObject: Matrix) : number | string {
-  const determinant_value : number | string = determinant(matrixObject.values);
+function loadDeterminant(matrixObject: Matrix) : Fraction| number | string {
+  const determinant_value : Fraction | number | string = determinant(matrixObject.values);
   const determinant_element : HTMLElement = document.createElement('div');
   determinant_element.classList.add('determinant');
   if (typeof determinant_value === 'string') {
     determinant_element.innerHTML = determinant_value;
   }
   else {
-    determinant_element.innerHTML = `Determinant of Matrix ${matrixObject.name} : ${determinant_value}`;
+    determinant_element.innerHTML = `Determinant of Matrix ${matrixObject.name} : ${determinant_value.toString()}`;
   }
 
   const solution_wrapper : HTMLElement | null = document.querySelector('.solution_wrapper');

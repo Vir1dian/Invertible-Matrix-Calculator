@@ -3,7 +3,7 @@
 interface TargetRows {
   row_a : number;
   row_b : number;
-  constant : number;
+  constant : Fraction | number;
 }
 
 /**
@@ -22,18 +22,18 @@ function loadRREF(matrixObject: Matrix): Matrix {
   for (let i = 0; i < rrefMatrix.values[0].length && starting_row < rrefMatrix.values.length; i++) {
     const setPivotRow_instance : TargetRows | null = setPivotRow(rrefMatrix.values, starting_row, i);
     if (setPivotRow_instance === null) {  // If this column is all zeros...
-      continue;  // ...skip this entire column.
+      continue;  // ...skip ALL operations in this entire column.
     } else if (setPivotRow_instance.row_a !== setPivotRow_instance.row_b) {
       row_operations += `<br>R${setPivotRow_instance.row_a + 1} ↔ R${setPivotRow_instance.row_b + 1}`;
     }
 
     clearPivotColumn(rrefMatrix.values, starting_row, i).forEach(instance => {
-      row_operations += `<br>R${instance.row_a + 1} + (${instance.constant})*R${instance.row_b + 1} → R${instance.row_a + 1}`;
+      row_operations += `<br>R${instance.row_a + 1} + (${instance.constant.toString()})*R${instance.row_b + 1} → R${instance.row_a + 1}`;
     });
 
     const reducePivotRow_instance : TargetRows | null = reducePivotRow(rrefMatrix.values, starting_row, i);
     if (reducePivotRow_instance !== null) {
-      row_operations += `<br>(${reducePivotRow_instance.constant})*R${reducePivotRow_instance.row_a + 1} → R${reducePivotRow_instance.row_a + 1}`;
+      row_operations += `<br>(${reducePivotRow_instance.constant.toString()})*R${reducePivotRow_instance.row_a + 1} → R${reducePivotRow_instance.row_a + 1}`;
     }
 
     starting_row++;
@@ -49,17 +49,17 @@ function loadRREF(matrixObject: Matrix): Matrix {
  * Swaps rows if needed so that this pivot is always at the furthest to the top and left
  * compared to lower rows, returns null if this entire column contains zeros.
  * 
- * @param {number[][]} matrix 
+ * @param {Fraction[][]} matrix 
  * @param {number} row 
  * @param {number} column 
  * @returns {TargetRows | null} 
  */
-function setPivotRow(matrix: number[][], row: number = 0, column: number = 0): TargetRows | null {
-  if (matrix[row][column] !== 0) {
+function setPivotRow(matrix: Fraction[][], row: number = 0, column: number = 0): TargetRows | null {
+  if (matrix[row][column].numerator !== 0) {
     return { row_a: row, row_b: row, constant: 0 };
   }
   for (let i = row; i < matrix.length; i++) {
-    if (matrix[i][column] !== 0) {
+    if (matrix[i][column].numerator !== 0) {
       rowOperationFunctions.swapRow(matrix[row], matrix[i]);
       return { row_a: row, row_b: i, constant: 0 };
     }
@@ -70,17 +70,17 @@ function setPivotRow(matrix: number[][], row: number = 0, column: number = 0): T
 /**
  * Converts all other entries in the column with this pivot to zero
  * 
- * @param {number[][]} matrix 
+ * @param {Fraction[][]} matrix 
  * @param {number} row 
  * @param {number} column 
- * @returns {TargetRows[]} 
+ * @returns {TargetRows[]} data used to display the current step of the elimination process
  */
-function clearPivotColumn(matrix: number[][], row: number = 0, column: number = 0): TargetRows[] {
+function clearPivotColumn(matrix: Fraction[][], row: number = 0, column: number = 0): TargetRows[] {
   const target_rows_array : TargetRows[] = [];
 
   for (let i = 0; i < matrix.length; i++) {
-    if (matrix[i][column] !== 0 && i !== row) {
-      let canceling_coefficient = -1 * matrix[i][column]/matrix[row][column]
+    if (matrix[i][column].numerator !== 0 && i !== row) {
+      const canceling_coefficient: Fraction = matrix[i][column].divide(matrix[row][column]).multiply(-1);
       rowOperationFunctions.addRow(matrix[i], matrix[row], canceling_coefficient);
       target_rows_array.push({ row_a: i, row_b: row, constant: canceling_coefficient });
     }
@@ -92,14 +92,15 @@ function clearPivotColumn(matrix: number[][], row: number = 0, column: number = 
 /**
  * Scales this pivot to 1, returns null if unnecessary
  * 
- * @param {number[][]} matrix 
+ * @param {Fraction[][]} matrix 
  * @param {number} row 
  * @param {number} column 
  * @returns {TargetRows | null} 
  */
-function reducePivotRow(matrix: number[][], row: number = 0, column: number = 0): TargetRows | null {
-  if (matrix[row][column] != 1) {
-    let scale_to_one = 1 / matrix[row][column];
+function reducePivotRow(matrix: Fraction[][], row: number = 0, column: number = 0): TargetRows | null {
+  if (matrix[row][column].numerator !== 1) {
+    let scale_to_one: Fraction = new Fraction(1);
+    scale_to_one.divide(matrix[row][column]);
     rowOperationFunctions.scaleRow(matrix[row], scale_to_one);
     return { row_a: row, row_b: -1, constant: scale_to_one };
   }
@@ -111,10 +112,10 @@ const rowOperationFunctions = {
   /**
    * Swaps two rows in a 2D array matrix
    * 
-   * @param {number[]} row1 - The index of the first row to swap.
-   * @param {number[]} row2 - The index of the second row to swap.
+   * @param {Fraction[]} row1 - The index of the first row to swap.
+   * @param {Fraction[]} row2 - The index of the second row to swap.
    */
-  swapRow(row_A: number[], row_B: number[]): void {
+  swapRow(row_A: Fraction[], row_B: Fraction[]): void {
     let temp = row_A.slice();
     row_A.forEach((_, index) => {
       row_A[index] = row_B[index];
@@ -127,25 +128,25 @@ const rowOperationFunctions = {
   /**
    * Multiply a row by a coefficient in a 2D array matrix
    * 
-   * @param {number[]} row1 - The index of the row to be multiplied.
-   * @param {number} coefficient - Coefficient to multiply to row.
+   * @param {Fraction[]} row1 - The index of the row to be multiplied.
+   * @param {Fraction | number} coefficient - Coefficient to multiply to row.
    */
-  scaleRow(row: number[], coefficient: number): void {
+  scaleRow(row: Fraction[], coefficient: Fraction | number): void {
     row.forEach((_, index) => {
-      row[index] *= coefficient;
+      row[index].multiply(coefficient);
     });
   },
 
   /**
    * Adds two rows in a 2D array matrix
    * 
-   * @param {number[]} row1 - Row to be added to.
-   * @param {number[]} row2 - Addend to row1.
-   * @param {number} coefficient - Coefficient to multiply to row2 before adding.
+   * @param {Fraction[]} row1 - Row to be added to.
+   * @param {Fraction[]} row2 - Addend to row1.
+   * @param {Fraction | number} coefficient - Coefficient to multiply to row2 before adding.
    */
-  addRow(row_A: number[], row_B: number[], coefficient: number = 1): void {
+  addRow(row_A: Fraction[], row_B: Fraction[], coefficient: Fraction | number = 1): void {
     row_A.forEach((_, index) => {
-      row_A[index] += (coefficient * row_B[index]);
+      row_A[index].add(row_B[index].multiply(coefficient));
     })
   }
 }
@@ -158,9 +159,9 @@ const rowOperationFunctions = {
 function loadRowOperation(matrixObject: Matrix, row_operations: string) {
   const rref_step = document.createElement('div');
   rref_step.classList.add('rref_step');
-  const matrix_title = document.createElement('div');
-  matrix_title.innerHTML = 'Matrix ' + matrixObject.name;
-  rref_step.appendChild(matrix_title);
+  // const matrix_title = document.createElement('div');
+  // matrix_title.innerHTML = 'Matrix ' + matrixObject.name;
+  // rref_step.appendChild(matrix_title);
 
   if (row_operations) {
     const row_operations_element = document.createElement('div');
@@ -170,11 +171,11 @@ function loadRowOperation(matrixObject: Matrix, row_operations: string) {
   }
   
   const matrix_table = document.createElement('table');
-  roundMatrix(matrixObject.values, 4).forEach((row: number[]) => {
+  matrixObject.values.forEach((row: Fraction[]) => {
     const tr = document.createElement('tr');
-    row.forEach((column: number) => {
+    row.forEach((column: Fraction) => {
       const td = document.createElement('td');
-      td.innerHTML = `${column}`;
+      td.innerHTML = `${column.toString()}`;
       tr.appendChild(td);
     })
     matrix_table.appendChild(tr);

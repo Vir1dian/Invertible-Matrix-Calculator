@@ -51,7 +51,7 @@ const MatrixBuilderFunctions = {
           const td : HTMLTableCellElement = document.createElement('td');
           const input : HTMLInputElement = document.createElement('input');
   
-          input.type = 'number';
+          input.type = 'text';
           input.classList.add('matrix_cell_input');
           input.id = `matrix_cell_input_${i}_${j}`;
   
@@ -76,7 +76,7 @@ const MatrixBuilderFunctions = {
       let error_flag : number = 0;
   
       for (let i = 0; i < rows; i++) {
-        const row : number[] = [];
+        const row : Fraction[] = [];
         for (let j = 0; j < columns; j++) {
           const input : HTMLInputElement = document.getElementById(`matrix_cell_input_${i}_${j}`) as HTMLInputElement;
           if (!input.value) {
@@ -85,7 +85,7 @@ const MatrixBuilderFunctions = {
             input.style.backgroundColor = 'red';
           } 
           else {
-            row.push(parseFloat(input.value));
+            row.push(parseFraction(input.value));
           }
         }
         if (error_flag !== 1) {
@@ -158,9 +158,7 @@ const MatrixBuilderFunctions = {
 
 }
 
-MatrixBuilderFunctions.exampleMatrix.populateExampleList(matricesForRREF, matricesToInvert, matrices);
-
-// const selected_matrix: Matrix = matrices[5];
+MatrixBuilderFunctions.exampleMatrix.populateExampleList(matricesForRREF, matricesToInvert);
 
 function matrixOperation() {
   const selected : HTMLInputElement = document.querySelector('#interface_operations') as HTMLInputElement;
