@@ -66,7 +66,7 @@ function loadAdjoin(matrixObject) {
  * @returns {Matrix | string} - The matrix object containing the inverse, error message if unable to caculate
  */
 function loadInverse(matrixObject) {
-    const inverseObject = structuredClone(matrixObject);
+    const inverseObject = cloneMatrix(matrixObject);
     const determinant_value = loadDeterminant(matrixObject);
     if (typeof determinant_value === 'string') {
         return 'Matrix is not square.';

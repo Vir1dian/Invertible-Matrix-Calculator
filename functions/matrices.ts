@@ -3,6 +3,15 @@ interface Matrix {
   values: Fraction [][];
 }
 
+function cloneMatrix(matrixObject: Matrix): Matrix {
+  return {
+    name: matrixObject.name,
+    values: matrixObject.values.map(row =>
+      row.map(cell => new Fraction(cell.numerator, cell.denominator))
+    ),
+  };
+}
+
 const userMatrix: Matrix = {
   name: 'A',
   values: []

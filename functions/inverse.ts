@@ -72,7 +72,7 @@ function loadAdjoin(matrixObject: Matrix) {
  */
 function loadInverse(matrixObject: Matrix) : Matrix | string {
 
-  const inverseObject : Matrix = structuredClone(matrixObject);
+  const inverseObject : Matrix = cloneMatrix(matrixObject);
   const determinant_value = loadDeterminant(matrixObject);
   if (typeof determinant_value === 'string') {
     return 'Matrix is not square.';

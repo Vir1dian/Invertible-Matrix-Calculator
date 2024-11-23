@@ -1,4 +1,10 @@
 "use strict";
+function cloneMatrix(matrixObject) {
+    return {
+        name: matrixObject.name,
+        values: matrixObject.values.map(row => row.map(cell => new Fraction(cell.numerator, cell.denominator))),
+    };
+}
 const userMatrix = {
     name: 'A',
     values: []

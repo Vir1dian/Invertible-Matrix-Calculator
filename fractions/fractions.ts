@@ -105,9 +105,9 @@ function parseFraction(input: string): Fraction {
 }
 
 
-// const fracA: Fraction = new Fraction(1e9);
-// const fracB: Fraction = new Fraction(3/4);
-// console.log(fracA.toString());
+// const fracA: Fraction = new Fraction(11, 9);
+// const fracB: Fraction = new Fraction(55, 18);
+// console.log(fracA.divide(fracB).multiply(-1));
 
 // const testCases = [
 //   new Fraction(1, 2),

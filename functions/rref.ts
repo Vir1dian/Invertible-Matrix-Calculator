@@ -13,7 +13,7 @@ interface TargetRows {
  * @returns {Matrix} Matrix in RREF form, otherwise returns an incomplete RREF if unable to calculate
  */
 function loadRREF(matrixObject: Matrix): Matrix {
-  const rrefMatrix : Matrix = structuredClone(matrixObject);
+  const rrefMatrix : Matrix = cloneMatrix(matrixObject);
   // const pivot_locations : TargetRows[] = []; if you want to display dividing turning the pivot into one at the end instead of per column
   let row_operations : string = '';
   let starting_row : number = 0;  // increments once a pivot for this row is recognized
@@ -41,7 +41,8 @@ function loadRREF(matrixObject: Matrix): Matrix {
     loadRowOperation(rrefMatrix, row_operations);
     row_operations = '';
   }
-  console.log(matrixObject);
+  // console.log(matrixObject);
+  // console.log(rrefMatrix);
   return rrefMatrix;
 }
 
@@ -55,11 +56,11 @@ function loadRREF(matrixObject: Matrix): Matrix {
  * @returns {TargetRows | null} 
  */
 function setPivotRow(matrix: Fraction[][], row: number = 0, column: number = 0): TargetRows | null {
-  if (matrix[row][column].numerator !== 0) {
+  if (matrix[row][column].toDecimal() !== 0) {
     return { row_a: row, row_b: row, constant: 0 };
   }
   for (let i = row; i < matrix.length; i++) {
-    if (matrix[i][column].numerator !== 0) {
+    if (matrix[i][column].toDecimal() !== 0) {
       rowOperationFunctions.swapRow(matrix[row], matrix[i]);
       return { row_a: row, row_b: i, constant: 0 };
     }
@@ -79,7 +80,7 @@ function clearPivotColumn(matrix: Fraction[][], row: number = 0, column: number 
   const target_rows_array : TargetRows[] = [];
 
   for (let i = 0; i < matrix.length; i++) {
-    if (matrix[i][column].numerator !== 0 && i !== row) {
+    if (matrix[i][column].toDecimal() !== 0 && i !== row) {
       const canceling_coefficient: Fraction = matrix[i][column].divide(matrix[row][column]).multiply(-1);
       rowOperationFunctions.addRow(matrix[i], matrix[row], canceling_coefficient);
       target_rows_array.push({ row_a: i, row_b: row, constant: canceling_coefficient });
@@ -98,9 +99,9 @@ function clearPivotColumn(matrix: Fraction[][], row: number = 0, column: number 
  * @returns {TargetRows | null} 
  */
 function reducePivotRow(matrix: Fraction[][], row: number = 0, column: number = 0): TargetRows | null {
-  if (matrix[row][column].numerator !== 1) {
+  if (matrix[row][column].toDecimal() !== 1) {
     let scale_to_one: Fraction = new Fraction(1);
-    scale_to_one.divide(matrix[row][column]);
+    scale_to_one = scale_to_one.divide(matrix[row][column]);
     rowOperationFunctions.scaleRow(matrix[row], scale_to_one);
     return { row_a: row, row_b: -1, constant: scale_to_one };
   }
@@ -133,7 +134,7 @@ const rowOperationFunctions = {
    */
   scaleRow(row: Fraction[], coefficient: Fraction | number): void {
     row.forEach((_, index) => {
-      row[index].multiply(coefficient);
+      row[index] = row[index].multiply(coefficient);
     });
   },
 
@@ -146,7 +147,7 @@ const rowOperationFunctions = {
    */
   addRow(row_A: Fraction[], row_B: Fraction[], coefficient: Fraction | number = 1): void {
     row_A.forEach((_, index) => {
-      row_A[index].add(row_B[index].multiply(coefficient));
+      row_A[index] = row_A[index].add(row_B[index].multiply(coefficient));
     })
   }
 }
