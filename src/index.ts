@@ -110,25 +110,39 @@ const MatrixBuilderFunctions = {
   },
 
   matlabString : {
-    parseMatlabString() {
+    parseMatlabString(): Fraction[][] {
       const string_input : HTMLInputElement = document.getElementById('matlabstring_input') as HTMLInputElement;
-      const matlab_string : string = string_input.value;
+      let matlab_string: string = string_input.value.trim();
 
-      // add values to userMatrix based on string
-      let within_brackets : boolean = false;
-      let row_number : number = 0;
+      if (!matlab_string.startsWith('[') || !matlab_string.endsWith(']')) {
+        throw new Error('Matrix input must be enclosed in brackets [ ]');
+      }
+  
+      // Remove the brackets
+      matlab_string = matlab_string.slice(1, -1).trim();
 
-      // for (let char of matlab_string) {
-      //   if (char === '[') { within_brackets = true; continue } 
-      //   if (char === ']') { break }
-      //   if (char === ';') { row_number++ }
+      if (!matlab_string) {
+        throw new Error('Empty matrix input');
+      }
 
-        
+      const matrix_values: Fraction[][] = matlab_string.split(';').map(row => {
+        const trimmedRow = row.trim();
+        const values = trimmedRow.split(/\s+/);
+        return values.map(item => parseFraction(item)); // Assuming parseFraction handles errors
+      });
 
-      // }
+      // Check for consistent row lengths
+      const columnCount = matrix_values[0].length;
+      if (!matrix_values.every(row => row.length === columnCount)) {
+        throw new Error('Inconsistent dimensions');
+      }
+
+      return matrix_values;
     },
     createMatrix() {
-      
+      userMatrix.name = 'A';
+      userMatrix.values = MatrixBuilderFunctions.matlabString.parseMatlabString();
+      loadMatrix(userMatrix);
     }
   },
 

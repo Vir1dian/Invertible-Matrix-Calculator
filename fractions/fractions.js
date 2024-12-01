@@ -73,7 +73,7 @@ function parseFraction(input) {
     if (slash_pos !== -1) {
         numerator = parseFloat(input.substring(0, slash_pos));
         denominator = parseFloat(input.substring(slash_pos + 1));
-        if (!numerator || !denominator) {
+        if (Number.isNaN(numerator) || !denominator) {
             throw new Error("Invalid string, cannot convert as Fraction.");
         }
         return new Fraction(numerator, denominator);
