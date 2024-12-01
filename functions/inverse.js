@@ -67,34 +67,18 @@ function loadAdjoin(matrixObject) {
  */
 function loadInverse(matrixObject) {
     const inverseObject = cloneMatrix(matrixObject);
-    const determinant_value = loadDeterminant(matrixObject);
+    const determinant_value = determinant(matrixObject.values);
     if (typeof determinant_value === 'string') {
         return 'Matrix is not square.';
     }
     else if (determinant_value.numerator === 0) {
-        return 'Matrix is singular';
+        return 'Matrix is singular, no inverse found.';
     }
     else {
         loadAdjoin(matrixObject);
         inverseObject.values = createAdjoin(matrixObject.values);
         inverseObject.values = detachAdjoin(loadRREF(inverseObject).values);
-        console.log(inverseObject);
     }
     inverseObject.name = `(${inverseObject.name})\<sup>-1</sup>`;
-    const solution_wrapper = document.querySelector('.solution_wrapper');
-    const matrix_title = document.createElement('div');
-    matrix_title.innerHTML = `Matrix ${inverseObject.name}`;
-    solution_wrapper === null || solution_wrapper === void 0 ? void 0 : solution_wrapper.appendChild(matrix_title);
-    const matrix_table = document.createElement('table');
-    inverseObject.values.forEach(row => {
-        const tr = document.createElement('tr');
-        row.forEach(column => {
-            const td = document.createElement('td');
-            td.innerHTML = `${column}`;
-            tr.appendChild(td);
-        });
-        matrix_table.appendChild(tr);
-    });
-    solution_wrapper === null || solution_wrapper === void 0 ? void 0 : solution_wrapper.appendChild(matrix_table);
     return inverseObject;
 }

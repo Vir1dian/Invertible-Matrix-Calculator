@@ -193,6 +193,19 @@ const MatrixBuilderFunctions = {
 
 }
 
+// Helper function to generate identity matrix
+function generateIdentityMatrix(size: number): Fraction[][] {
+  return Array.from({ length: size }, (_, i) =>
+      Array.from({ length: size }, (_, j) => i === j ? parseFraction('1') : parseFraction('0'))
+  );
+}
+
+// Helper function to generate zeros or ones matrix
+function generateMatrix(rows: number, cols: number, fillValue: number): Fraction[][] {
+  const value = parseFraction(fillValue.toString());
+  return Array.from({ length: rows }, () => Array(cols).fill(value));
+}
+
 MatrixBuilderFunctions.exampleMatrix.populateExampleList(matricesForRREF, matricesToInvert);
 
 function matrixOperation() {
@@ -210,31 +223,45 @@ function matrixOperation() {
   switch (selected.value) {
     case "rref":
       // console.log("RREF");
-      loadRREF(userMatrix);
+      loadSolution(loadRREF(userMatrix));
       break;
     case "det":
       // console.log("determinant");
-      loadDeterminant(userMatrix);
+      loadSolution(loadDeterminant(userMatrix));
       break;
     case "inv":
       // console.log("Inverse");
       // loadAdjoin(selected_matrix);
-      loadInverse(userMatrix);
+      loadSolution(loadInverse(userMatrix));
       break;
     default:
       console.log("No option selected.")
   }
 }
 
-// Helper function to generate identity matrix
-function generateIdentityMatrix(size: number): Fraction[][] {
-  return Array.from({ length: size }, (_, i) =>
-      Array.from({ length: size }, (_, j) => i === j ? parseFraction('1') : parseFraction('0'))
-  );
-}
+function loadSolution(solution: Matrix | string) {
+  const solution_wrapper : HTMLElement = document.querySelector('.solution_wrapper') as HTMLElement;
 
-// Helper function to generate zeros or ones matrix
-function generateMatrix(rows: number, cols: number, fillValue: number): Fraction[][] {
-  const value = parseFraction(fillValue.toString());
-  return Array.from({ length: rows }, () => Array(cols).fill(value));
+  if (typeof solution === 'string') {
+    const string_element: HTMLElement = document.createElement('div');
+    string_element.innerHTML = solution;
+    solution_wrapper.appendChild(string_element);
+  }
+  else {
+    const matrix_title : HTMLElement = document.createElement('div');
+    matrix_title.innerHTML = solution.name;
+    solution_wrapper.appendChild(matrix_title);
+
+    const matrix_table : HTMLTableElement = document.createElement('table');
+    solution.values.forEach(row => {
+      const tr : HTMLTableRowElement = document.createElement('tr');
+      row.forEach(column => {
+        const td : HTMLTableCellElement = document.createElement('td');
+        td.innerHTML = `${column}`;
+        tr.appendChild(td);
+      })
+      matrix_table.appendChild(tr);
+    })
+    solution_wrapper?.appendChild(matrix_table);
+  }
 }

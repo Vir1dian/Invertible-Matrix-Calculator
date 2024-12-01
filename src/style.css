@@ -1,27 +1,35 @@
-.wrapper_all {
+body, html {
+  margin: 0;
   display: flex;
-  flex-flow: column;
-  align-items: center;
   justify-content: center;
-  margin-left: 200px;
-  margin-right: 200px;
-}
-.wrapper_all > div {
-  margin-top: 20px;
+  align-items: center;
 }
 
-.wrapper_all,
+.wrapper_all {
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+}
+
 .build_wrapper,
 .matrix_wrapper,
 .interface_wrapper,
 .solution_wrapper,
-.operations_wrapper,
+.operations_wrapper {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  box-sizing: border-box;
+}
 .rref_step,
 .adjoin_wrapper {
   display: flex;
   flex-flow: column;
   align-items: center;
   justify-content: center;
+  /* width: 400px; */
 }
 
 
@@ -32,11 +40,10 @@
 .build_wrapper > div {
   display: flex;
   flex-direction: column;
-  margin-top: 20px;
-
   border: solid 2px gray;
   padding: 20px;
-  width: 400px;
+  width: 100%;
+  box-sizing: border-box;
 }
 #matrix_inputs {
   display: flex;
@@ -107,10 +114,9 @@ select {
   width: 280px;
 }
 .interface_wrapper {
-
+  display: flex;
+  flex-flow: column;
   font-size: 20px;
-
-  width: 400px;
   border: solid 2px gray;
   padding: 20px;
 }
@@ -128,13 +134,8 @@ select {
 }
 
 .solution_wrapper {
-
+  border-bottom: solid 1px gray;
   font-size: 20px;
-}
-
-.operations_wrapper {
-  display: flex;
-  flex-flow: column;
 }
 
 .rref_step {

@@ -213,7 +213,7 @@ function loadMatrix(matrixObject) {
         (_a = matrix_wrapper.firstChild) === null || _a === void 0 ? void 0 : _a.remove();
     }
     const matrix_title = document.createElement('div');
-    matrix_title.innerHTML = 'Matrix ' + matrixObject.name;
+    matrix_title.innerHTML = matrixObject.name;
     matrix_wrapper === null || matrix_wrapper === void 0 ? void 0 : matrix_wrapper.appendChild(matrix_title);
     const matrix_table = document.createElement('table');
     matrixObject.values.forEach(row => {

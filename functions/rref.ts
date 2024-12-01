@@ -41,8 +41,7 @@ function loadRREF(matrixObject: Matrix): Matrix {
     loadRowOperation(rrefMatrix, row_operations);
     row_operations = '';
   }
-  // console.log(matrixObject);
-  // console.log(rrefMatrix);
+  rrefMatrix.name = `RREF(${rrefMatrix.name})`;
   return rrefMatrix;
 }
 

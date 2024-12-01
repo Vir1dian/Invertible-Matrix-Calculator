@@ -66,19 +66,14 @@ function determinant(matrix: Fraction[][]): Fraction | string {
  * @param {Matrix} matrixObject - A matrix object to yield a determinant
  * @returns {Fraction | number | string} - The determinant, error string if unable to calculate
  */
-function loadDeterminant(matrixObject: Matrix) : Fraction | string {
+function loadDeterminant(matrixObject: Matrix) : string {
   const determinant_value : Fraction | string = determinant(matrixObject.values);
-  const determinant_element : HTMLElement = document.createElement('div');
-  determinant_element.classList.add('determinant');
+  let determinant_string : string;
   if (typeof determinant_value === 'string') {
-    determinant_element.innerHTML = determinant_value;
+    determinant_string = determinant_value;
   }
   else {
-    determinant_element.innerHTML = `Determinant of Matrix ${matrixObject.name} : ${determinant_value.toString()}`;
+    determinant_string = `|${matrixObject.name}| or det(${matrixObject.name}) = ${determinant_value.toString()}`;
   }
-
-  const solution_wrapper : HTMLElement | null = document.querySelector('.solution_wrapper');
-  solution_wrapper?.appendChild(determinant_element);
-
-  return determinant_value;
+  return determinant_string;
 }

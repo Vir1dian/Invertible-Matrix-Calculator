@@ -71,41 +71,19 @@ function loadAdjoin(matrixObject: Matrix) {
  * @returns {Matrix | string} - The matrix object containing the inverse, error message if unable to caculate
  */
 function loadInverse(matrixObject: Matrix) : Matrix | string {
-
   const inverseObject : Matrix = cloneMatrix(matrixObject);
-  const determinant_value : Fraction | string = loadDeterminant(matrixObject);
+  const determinant_value : Fraction | string = determinant(matrixObject.values);
   if (typeof determinant_value === 'string') {
     return 'Matrix is not square.';
   }
   else if (determinant_value.numerator === 0) {
-    return 'Matrix is singular';
+    return 'Matrix is singular, no inverse found.';
   }
   else {
     loadAdjoin(matrixObject);
     inverseObject.values = createAdjoin(matrixObject.values);
     inverseObject.values = detachAdjoin(loadRREF(inverseObject).values);
-    console.log(inverseObject);
   }
-
   inverseObject.name = `(${inverseObject.name})\<sup>-1</sup>`;
-
-  const solution_wrapper : HTMLElement | null = document.querySelector('.solution_wrapper')
-  const matrix_title : HTMLElement = document.createElement('div');
-  matrix_title.innerHTML = `Matrix ${inverseObject.name}`;
-  solution_wrapper?.appendChild(matrix_title);
-  
-  const matrix_table : HTMLTableElement = document.createElement('table');
-  inverseObject.values.forEach(row => {
-    const tr : HTMLTableRowElement = document.createElement('tr');
-    row.forEach(column => {
-      const td : HTMLTableCellElement = document.createElement('td');
-      td.innerHTML = `${column}`;
-      tr.appendChild(td);
-    })
-    matrix_table.appendChild(tr);
-  })
-  solution_wrapper?.appendChild(matrix_table);
-
   return inverseObject;
-
 }

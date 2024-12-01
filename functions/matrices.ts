@@ -224,7 +224,7 @@ function loadMatrix(matrixObject: Matrix) {
   }
 
   const matrix_title : HTMLElement | null = document.createElement('div');
-  matrix_title.innerHTML = 'Matrix ' + matrixObject.name;
+  matrix_title.innerHTML = matrixObject.name;
   matrix_wrapper?.appendChild(matrix_title);
   
   const matrix_table : HTMLTableElement = document.createElement('table');
