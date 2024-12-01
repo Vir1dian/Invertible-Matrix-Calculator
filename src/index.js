@@ -97,6 +97,19 @@ const MatrixBuilderFunctions = {
         parseMatlabString() {
             const string_input = document.getElementById('matlabstring_input');
             let matlab_string = string_input.value.trim();
+            // Handle eye(), zeros(), and ones() functions
+            if (/^eye\(\d+\)$/.test(matlab_string)) {
+                const size = parseInt(matlab_string.match(/\d+/)[0], 10);
+                return generateIdentityMatrix(size);
+            }
+            else if (/^zeros\(\d+,\s*\d+\)$/.test(matlab_string)) {
+                const [rows, cols] = matlab_string.match(/\d+/g).map(Number);
+                return generateMatrix(rows, cols, 0);
+            }
+            else if (/^ones\(\d+,\s*\d+\)$/.test(matlab_string)) {
+                const [rows, cols] = matlab_string.match(/\d+/g).map(Number);
+                return generateMatrix(rows, cols, 1);
+            }
             if (!matlab_string.startsWith('[') || !matlab_string.endsWith(']')) {
                 throw new Error('Matrix input must be enclosed in brackets [ ]');
             }
@@ -183,4 +196,13 @@ function matrixOperation() {
         default:
             console.log("No option selected.");
     }
+}
+// Helper function to generate identity matrix
+function generateIdentityMatrix(size) {
+    return Array.from({ length: size }, (_, i) => Array.from({ length: size }, (_, j) => i === j ? parseFraction('1') : parseFraction('0')));
+}
+// Helper function to generate zeros or ones matrix
+function generateMatrix(rows, cols, fillValue) {
+    const value = parseFraction(fillValue.toString());
+    return Array.from({ length: rows }, () => Array(cols).fill(value));
 }
