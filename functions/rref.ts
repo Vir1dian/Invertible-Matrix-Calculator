@@ -164,9 +164,13 @@ function loadRowOperation(matrixObject: Matrix, row_operations: string) {
   // rref_step.appendChild(matrix_title);
 
   if (row_operations) {
-    const row_operations_element = document.createElement('div');
+    const row_operations_element: HTMLUListElement = document.createElement('ul');
     row_operations_element.classList.add('row_operations');
-    row_operations_element.innerHTML = row_operations;
+    row_operations.split('<br>').forEach(operation => {
+      const row_operation_element: HTMLLIElement = document.createElement('li');
+      row_operation_element.innerHTML = operation;
+      row_operations_element.appendChild(row_operation_element);
+    });
     rref_step.appendChild(row_operations_element);
   }
   

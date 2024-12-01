@@ -262,6 +262,6 @@ function loadSolution(solution: Matrix | string) {
       })
       matrix_table.appendChild(tr);
     })
-    solution_wrapper?.appendChild(matrix_table);
+    solution_wrapper.appendChild(matrix_table);
   }
 }

@@ -42,15 +42,24 @@
                 <label for="name_input">Matrix Name</label>
                 <input id="name_input" value="A">
               </span> -->
-              <span>
-                <label for="row_input">Rows</label>
-                <input type="number" id="row_input" value="2">
-              </span>
-              <br>
-              <span>
-                <label for="col_input">Columns</label>
-                <input type="number" id="col_input" value="2">
-              </span>
+              <table>
+                <tr>
+                  <td>
+                    <label for="row_input">Rows</label>
+                  </td>
+                  <td>
+                    <input type="number" id="row_input" value="2">
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label for="col_input">Columns</label>
+                  </td>
+                  <td>
+                    <input type="number" id="col_input" value="2">
+                  </td>
+                </tr>                
+              </table>
             </td>
             <td>
               <button id="submit_dimensions" onclick="MatrixBuilderFunctions.default.setMatrixInputs()">Set Dimensions</button>
@@ -78,6 +87,7 @@
 
 
     <div class="matrix_wrapper">
+      <span>Selected Matrix:</span>
       <!-- Content of userMatrix appended here -->
     </div>
 
@@ -95,11 +105,14 @@
 
 
     <div class="solution_wrapper">
+      <span>Solution</span>
       <!-- Final solution appended here -->
     </div>
 
+    <hr style="border-top: solid 1px gray; width: 100%;">
 
     <div class="operations_wrapper">
+      <span>Operations</span>
       <!-- Work for final solution appended here -->
     </div>
 

@@ -9,6 +9,7 @@ body, html {
   width: 500px;
   display: flex;
   flex-direction: column;
+  gap: 10px;
 }
 
 .build_wrapper,
@@ -19,23 +20,11 @@ body, html {
   display: flex;
   flex-flow: column;
   align-items: center;
-  justify-content: center;
   width: 100%;
   box-sizing: border-box;
 }
-.rref_step,
-.adjoin_wrapper {
-  display: flex;
-  flex-flow: column;
-  align-items: center;
-  justify-content: center;
-  /* width: 400px; */
-}
-
-
-
 .build_wrapper {
-  font-size: 18px;
+  margin-top: 20px;
 }
 .build_wrapper > div {
   display: flex;
@@ -62,7 +51,10 @@ body, html {
 
 /* .matrix_build_matlabstring */
 
-/* .matrix_build_example */
+#build_matrix_example span {
+  border-bottom: solid 1px gray;
+  padding-bottom: 8px;
+}
 
 #example_list {
   list-style-type: none;
@@ -76,15 +68,18 @@ body, html {
   overscroll-behavior-inline: contain;
 }
 #example_list li {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
   padding: 4px;
+}
+#example_list li div {
+  text-align: center;
 }
 #example_list li:hover {
   background-color: lightblue;
   cursor: pointer;
-}
-
-.matrix_wrapper {
-  font-size: 24px;
 }
 .matrix_wrapper table,
 .operations_wrapper table,
@@ -99,8 +94,8 @@ body, html {
 .solution_wrapper td,
 #example_list td {
   text-align: center;
-  min-width: 48px;
-  height: 48px;
+  min-width: 36px;
+  height: 36px;
   padding: 2px;
 }
 
@@ -116,7 +111,6 @@ select {
 .interface_wrapper {
   display: flex;
   flex-flow: column;
-  font-size: 20px;
   border: solid 2px gray;
   padding: 20px;
 }
@@ -134,21 +128,19 @@ select {
 }
 
 .solution_wrapper {
-  border-bottom: solid 1px gray;
-  font-size: 20px;
+  gap: 10px;
 }
 
-.rref_step {
-  font-size: 24px;
-  margin-top: 16px;
-  margin-bottom: 16px;
-}
-.row_operations {
-  font-size: 16px;
+.operations_wrapper {
+  min-height: 500px;
 }
 
+.rref_step,
 .adjoin_wrapper {
-  font-size: 24px;
-  margin-top: 16px;
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  width: 100%;
+  box-sizing: border-box;
   margin-bottom: 16px;
 }

@@ -145,9 +145,13 @@ function loadRowOperation(matrixObject, row_operations) {
     // matrix_title.innerHTML = 'Matrix ' + matrixObject.name;
     // rref_step.appendChild(matrix_title);
     if (row_operations) {
-        const row_operations_element = document.createElement('div');
+        const row_operations_element = document.createElement('ul');
         row_operations_element.classList.add('row_operations');
-        row_operations_element.innerHTML = row_operations;
+        row_operations.split('<br>').forEach(operation => {
+            const row_operation_element = document.createElement('li');
+            row_operation_element.innerHTML = operation;
+            row_operations_element.appendChild(row_operation_element);
+        });
         rref_step.appendChild(row_operations_element);
     }
     const matrix_table = document.createElement('table');

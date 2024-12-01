@@ -227,6 +227,6 @@ function loadSolution(solution) {
             });
             matrix_table.appendChild(tr);
         });
-        solution_wrapper === null || solution_wrapper === void 0 ? void 0 : solution_wrapper.appendChild(matrix_table);
+        solution_wrapper.appendChild(matrix_table);
     }
 }

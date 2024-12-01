@@ -71,16 +71,16 @@ const userMatrix: Matrix = {
 
 const matricesForRREF: Matrix[] = [
   {
+    name: 'Empty matrix',  // empty matrix
+    values: [
+      []
+    ]
+  },
+  {
     name: 'Zero matrix',  // matrix of zeros
     values: [
       [new Fraction(0), new Fraction(0)],
       [new Fraction(0), new Fraction(0)]
-    ]
-  },
-  {
-    name: 'Empty matrix',  // empty matrix
-    values: [
-      []
     ]
   },
   {
