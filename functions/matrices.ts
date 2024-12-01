@@ -129,6 +129,14 @@ const matricesForRREF: Matrix[] = [
     ]
   },
   {
+    name: 'Negative fraction elements',  // fraction elements
+    values: [
+      [new Fraction(-1, 2), new Fraction(-1), new Fraction(1, 3)],
+      [new Fraction(1), new Fraction(1, 4), new Fraction(2, -3)],
+      [new Fraction(0, 1), new Fraction(1, -4), new Fraction(-5)]
+    ]
+  },
+  {
     name: 'Identity matrix',  // identity matrix
     values: [
       [new Fraction(1), new Fraction(0), new Fraction(0)],

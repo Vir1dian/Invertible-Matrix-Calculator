@@ -77,7 +77,7 @@ function gcf(a: number, b: number): number {
   while (b) {
     [a, b] = [b, a % b];
   }
-  return a;
+  return Math.abs(a);
 }
 
 function lcm(a: number, b: number): number {

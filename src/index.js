@@ -100,18 +100,11 @@ const MatrixBuilderFunctions = {
             // add values to userMatrix based on string
             let within_brackets = false;
             let row_number = 0;
-            for (let char of matlab_string) {
-                if (char === '[') {
-                    within_brackets = true;
-                    continue;
-                }
-                if (char === ']') {
-                    break;
-                }
-                if (char === ';') {
-                    row_number++;
-                }
-            }
+            // for (let char of matlab_string) {
+            //   if (char === '[') { within_brackets = true; continue } 
+            //   if (char === ']') { break }
+            //   if (char === ';') { row_number++ }
+            // }
         },
         createMatrix() {
         }

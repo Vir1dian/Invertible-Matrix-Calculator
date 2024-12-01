@@ -60,7 +60,7 @@ function gcf(a, b) {
     while (b) {
         [a, b] = [b, a % b];
     }
-    return a;
+    return Math.abs(a);
 }
 function lcm(a, b) {
     if (a === 0 || b === 0)
