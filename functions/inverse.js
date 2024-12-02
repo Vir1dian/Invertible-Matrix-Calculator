@@ -48,7 +48,8 @@ function loadAdjoin(matrixObject) {
     });
     adjoin_wrapper === null || adjoin_wrapper === void 0 ? void 0 : adjoin_wrapper.appendChild(matrix_table);
     const operations_wrapper = document.querySelector('.operations_wrapper');
-    operations_wrapper === null || operations_wrapper === void 0 ? void 0 : operations_wrapper.appendChild(adjoin_wrapper);
+    operations_wrapper.innerHTML = '<span>Operations</span>';
+    operations_wrapper.appendChild(adjoin_wrapper);
 }
 /**
  * MAIN FEATURE FOR HONORS PROJECT

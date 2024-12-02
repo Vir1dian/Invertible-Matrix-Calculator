@@ -7,6 +7,10 @@
  * @returns {Matrix} Matrix in RREF form, otherwise returns an incomplete RREF if unable to calculate
  */
 function loadRREF(matrixObject) {
+    const operations_wrapper = document.querySelector('.operations_wrapper');
+    if (!operations_wrapper.contains(operations_wrapper.querySelector('span'))) {
+        operations_wrapper.innerHTML = '<span>Operations</span>';
+    }
     const rrefMatrix = cloneMatrix(matrixObject);
     // const pivot_locations : TargetRows[] = []; if you want to display dividing turning the pivot into one at the end instead of per column
     let row_operations = '';

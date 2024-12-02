@@ -212,9 +212,10 @@ function loadMatrix(matrixObject) {
     while (matrix_wrapper === null || matrix_wrapper === void 0 ? void 0 : matrix_wrapper.hasChildNodes()) {
         (_a = matrix_wrapper.firstChild) === null || _a === void 0 ? void 0 : _a.remove();
     }
+    matrix_wrapper.innerHTML = '<span>Selected matrix</span>';
     const matrix_title = document.createElement('div');
     matrix_title.innerHTML = matrixObject.name;
-    matrix_wrapper === null || matrix_wrapper === void 0 ? void 0 : matrix_wrapper.appendChild(matrix_title);
+    matrix_wrapper.appendChild(matrix_title);
     const matrix_table = document.createElement('table');
     matrixObject.values.forEach(row => {
         const tr = document.createElement('tr');
@@ -225,6 +226,6 @@ function loadMatrix(matrixObject) {
         });
         matrix_table.appendChild(tr);
     });
-    matrix_wrapper === null || matrix_wrapper === void 0 ? void 0 : matrix_wrapper.appendChild(matrix_table);
+    matrix_wrapper.appendChild(matrix_table);
     // document.body.appendChild(matrix_wrapper);      
 }

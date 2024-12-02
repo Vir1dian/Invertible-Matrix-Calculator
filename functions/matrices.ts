@@ -217,15 +217,16 @@ const matricesToInvert: Matrix[] = [
 function loadMatrix(matrixObject: Matrix) {
   // const matrix_wrapper = document.createElement('div');
   // matrix_wrapper.classList.add('matrix_wrapper');
-  const matrix_wrapper : HTMLElement | null = document.querySelector('.matrix_wrapper')
+  const matrix_wrapper : HTMLElement = document.querySelector('.matrix_wrapper') as HTMLElement;
   // Removes existing tables
   while (matrix_wrapper?.hasChildNodes()) {
     matrix_wrapper.firstChild?.remove();
   }
+  matrix_wrapper.innerHTML = '<span>Selected matrix</span>';
 
   const matrix_title : HTMLElement | null = document.createElement('div');
   matrix_title.innerHTML = matrixObject.name;
-  matrix_wrapper?.appendChild(matrix_title);
+  matrix_wrapper.appendChild(matrix_title);
   
   const matrix_table : HTMLTableElement = document.createElement('table');
   matrixObject.values.forEach(row => {
@@ -237,7 +238,7 @@ function loadMatrix(matrixObject: Matrix) {
     })
     matrix_table.appendChild(tr);
   })
-  matrix_wrapper?.appendChild(matrix_table);
+  matrix_wrapper.appendChild(matrix_table);
 
   // document.body.appendChild(matrix_wrapper);      
 }

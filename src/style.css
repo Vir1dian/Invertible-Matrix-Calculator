@@ -6,7 +6,7 @@ body, html {
 }
 
 .wrapper_all {
-  width: 500px;
+  width: 600px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -99,7 +99,16 @@ body, html {
   padding: 2px;
 }
 
+.matrix_wrapper {
+  gap: 10px;
+}
 
+.matrix_wrapper > span,
+.solution_wrapper > span,
+.operations_wrapper > span {
+  width: 100%;
+  border-bottom: dashed 1px gray;
+}
 
 select {
   border-radius: 20px;
@@ -132,6 +141,7 @@ select {
 }
 
 .operations_wrapper {
+  gap: 10px;
   min-height: 500px;
 }
 
@@ -143,7 +153,6 @@ select {
   gap: 20px;
   width: 100%;
   box-sizing: border-box;
-  margin-bottom: 16px;
 }
 .row_operations {
   list-style-type: disc;

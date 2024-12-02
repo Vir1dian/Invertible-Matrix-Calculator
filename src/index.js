@@ -208,6 +208,7 @@ function matrixOperation() {
 }
 function loadSolution(solution) {
     const solution_wrapper = document.querySelector('.solution_wrapper');
+    solution_wrapper.innerHTML = '<span>Solution</span>';
     if (typeof solution === 'string') {
         const string_element = document.createElement('div');
         string_element.innerHTML = solution;

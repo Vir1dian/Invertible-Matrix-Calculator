@@ -241,6 +241,7 @@ function matrixOperation() {
 
 function loadSolution(solution: Matrix | string) {
   const solution_wrapper : HTMLElement = document.querySelector('.solution_wrapper') as HTMLElement;
+  solution_wrapper.innerHTML = '<span>Solution</span>';
 
   if (typeof solution === 'string') {
     const string_element: HTMLElement = document.createElement('div');

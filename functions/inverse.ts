@@ -51,8 +51,9 @@ function loadAdjoin(matrixObject: Matrix) {
   })
   adjoin_wrapper?.appendChild(matrix_table);
 
-  const operations_wrapper : HTMLElement | null = document.querySelector('.operations_wrapper');
-  operations_wrapper?.appendChild(adjoin_wrapper);
+  const operations_wrapper : HTMLElement = document.querySelector('.operations_wrapper') as HTMLElement;
+  operations_wrapper.innerHTML = '<span>Operations</span>';
+  operations_wrapper.appendChild(adjoin_wrapper);
 }
 
 /**
