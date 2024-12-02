@@ -18,102 +18,110 @@
 </head>
 
 <body>
-  <!-- TODO: website title here -->
+  <div class="container">
+    <aside class="sidebar">
+      <h1>Invertible Matrix Calculator</h1>
+      <ul>
+        <li><a href="#">About</a></li>
+        <li><a href="https://github.com/Vir1dian/Invertible-Matrix-Calculator" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+      </ul>
+    </aside>  
+    <div class="content">
+      <div class="wrapper_all">
+        <div class="build_wrapper">
 
-  <div class="wrapper_all">
+          <span>
+            <label for="build_options">Settings:</label>
+            <select id="build_options" onchange="showBuildOption()">
+              <option selected value="default">Default</option>
+              <option value="matlabstring">Matlab String</option>
+              <option value="example">Examples</option>
+            </select>
+          </span>
+
+          <div id="build_matrix_default">
+            <table>
+              <tr>
+                <td>
+                  <!-- <span>
+                    <label for="name_input">Matrix Name</label>
+                    <input id="name_input" value="A">
+                  </span> -->
+                  <table>
+                    <tr>
+                      <td>
+                        <label for="row_input">Rows</label>
+                      </td>
+                      <td>
+                        <input type="number" id="row_input" value="2">
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label for="col_input">Columns</label>
+                      </td>
+                      <td>
+                        <input type="number" id="col_input" value="2">
+                      </td>
+                    </tr>                
+                  </table>
+                </td>
+                <td>
+                  <button id="submit_dimensions" onclick="MatrixBuilderFunctions.default.setMatrixInputs()">Set Dimensions</button>
+                </td>
+              </tr>
+            </table>
+            <div id="matrix_inputs"><!-- Table of inputs appended here --></div>
+            <button id="submit_matrix_default" style="display: none" onclick="MatrixBuilderFunctions.default.createMatrix()">Create Matrix</button>
+          </div>
+
+          <div id="build_matrix_matlabstring" style="display: none">
+            <span>Enter command string (Matlab matrix declaration):</span>
+            <textarea id="matlabstring_input" value="" placeholder="Ex: [1 2 ; 3 4]"></textarea>
+            <button id="submit_matrix_matlabstring" onclick="MatrixBuilderFunctions.matlabString.createMatrix()">Create Matrix</button>
+          </div>
+
+          <div id="build_matrix_example" style="display: none">
+            <span>Select an example:</span>
+            <ol id="example_list">
+              <!-- <li>Example matrices appended here</li> -->
+            </ol>
+          </div>
+
+        </div>
 
 
-    <div class="build_wrapper">
+        <div class="matrix_wrapper">
+          <!-- Content of userMatrix appended here -->
+        </div>
 
-      <span>
-        <label for="build_options">Settings:</label>
-        <select id="build_options" onchange="showBuildOption()">
-          <option selected value="default">Default</option>
-          <option value="matlabstring">Matlab String</option>
-          <option value="example">Examples</option>
-        </select>
-      </span>
 
-      <div id="build_matrix_default">
-        <table>
-          <tr>
-            <td>
-              <!-- <span>
-                <label for="name_input">Matrix Name</label>
-                <input id="name_input" value="A">
-              </span> -->
-              <table>
-                <tr>
-                  <td>
-                    <label for="row_input">Rows</label>
-                  </td>
-                  <td>
-                    <input type="number" id="row_input" value="2">
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <label for="col_input">Columns</label>
-                  </td>
-                  <td>
-                    <input type="number" id="col_input" value="2">
-                  </td>
-                </tr>                
-              </table>
-            </td>
-            <td>
-              <button id="submit_dimensions" onclick="MatrixBuilderFunctions.default.setMatrixInputs()">Set Dimensions</button>
-            </td>
-          </tr>
-        </table>
-        <div id="matrix_inputs"><!-- Table of inputs appended here --></div>
-        <button id="submit_matrix_default" style="display: none" onclick="MatrixBuilderFunctions.default.createMatrix()">Create Matrix</button>
+        <div class="interface_wrapper">
+          <div>Select a matrix operation: </div>
+          <select id="interface_operations">
+            <option selected value="">Please Select</option>
+            <option value="rref">RREF (Gauss Jordan)</option>
+            <option value="det">Determinant</option>
+            <option value="inv">Inverse</option>
+          </select>
+          <button id="interface_submit" onclick="matrixOperation()">Submit</button>
+        </div>
+
+
+        <div class="solution_wrapper">
+          <!-- Final solution appended here -->
+        </div>
+
+        <hr style="border-top: solid 1px gray; width: 100%;">
+
+        <div class="operations_wrapper">
+          <!-- Work for final solution appended here -->
+        </div>
+
+
       </div>
-
-      <div id="build_matrix_matlabstring" style="display: none">
-        <span>Enter command string (Matlab matrix declaration):</span>
-        <textarea id="matlabstring_input" value="" placeholder="Ex: [1 2 ; 3 4]"></textarea>
-        <button id="submit_matrix_matlabstring" onclick="MatrixBuilderFunctions.matlabString.createMatrix()">Create Matrix</button>
-      </div>
-
-      <div id="build_matrix_example" style="display: none">
-        <span>Select an example:</span>
-        <ol id="example_list">
-          <!-- <li>Example matrices appended here</li> -->
-        </ol>
-      </div>
-
-    </div>
-
-
-    <div class="matrix_wrapper">
-      <!-- Content of userMatrix appended here -->
-    </div>
-
-
-    <div class="interface_wrapper">
-      <div>Select a matrix operation: </div>
-      <select id="interface_operations">
-        <option selected value="">Please Select</option>
-        <option value="rref">RREF (Gauss Jordan)</option>
-        <option value="det">Determinant</option>
-        <option value="inv">Inverse</option>
-      </select>
-      <button id="interface_submit" onclick="matrixOperation()">Submit</button>
-    </div>
-
-
-    <div class="solution_wrapper">
-      <!-- Final solution appended here -->
-    </div>
-
-    <hr style="border-top: solid 1px gray; width: 100%;">
-
-    <div class="operations_wrapper">
-      <!-- Work for final solution appended here -->
-    </div>
-
-
+    
+    </div>      
   </div>
 
 </body>
