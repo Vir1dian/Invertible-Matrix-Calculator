@@ -244,12 +244,12 @@ MatrixBuilderFunctions.exampleMatrix.populateExampleList(matricesForRREF, matric
 function matrixOperation() {
   const selected : HTMLInputElement = document.querySelector('#interface_operations') as HTMLInputElement;
 
-  const solution_wrapper : HTMLElement | null = document.querySelector('.solution_wrapper');
-  const operations_wrapper : HTMLElement | null = document.querySelector('.operations_wrapper');
-  while (solution_wrapper?.hasChildNodes()) {
+  const solution_wrapper : HTMLElement = document.querySelector('.solution_wrapper') as HTMLElement;
+  const operations_wrapper : HTMLElement = document.querySelector('.operations_wrapper') as HTMLElement;
+  while (solution_wrapper.hasChildNodes()) {
     solution_wrapper.firstChild?.remove();
   }
-  while (operations_wrapper?.hasChildNodes()) {
+  while (operations_wrapper.hasChildNodes()) {
     operations_wrapper.firstChild?.remove();
   }
 
@@ -268,6 +268,10 @@ function matrixOperation() {
       loadSolution(loadInverse(userMatrix));
       break;
     default:
+      const error_element: HTMLElement = document.createElement('div');
+      error_element.style.color = 'gray';
+      error_element.innerHTML = 'No option selected.';
+      operations_wrapper.appendChild(error_element);
       console.log("No option selected.")
   }
 }

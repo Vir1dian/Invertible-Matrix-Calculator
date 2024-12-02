@@ -35,8 +35,9 @@ function loadAdjoin(matrixObject: Matrix) {
 
   const adjoin_wrapper : HTMLElement = document.createElement('div');
   adjoin_wrapper.classList.add('adjoin_wrapper');
-  const matrix_title : HTMLElement = document.createElement('div');
-  matrix_title.innerHTML = `Matrix [ ${matrixObject.name} I<sub>${matrixObject.values.length}</sub> ]`;
+  const matrix_title : HTMLElement = document.createElement('ul');
+  matrix_title.classList.add('adjoin_title');
+  matrix_title.innerHTML = `<li>Matrix [ ${matrixObject.name} I<sub>${matrixObject.values.length}</sub> ]</li>`;
   adjoin_wrapper?.appendChild(matrix_title);   
   
   const matrix_table : HTMLTableElement = document.createElement('table');
@@ -52,7 +53,6 @@ function loadAdjoin(matrixObject: Matrix) {
   adjoin_wrapper?.appendChild(matrix_table);
 
   const operations_wrapper : HTMLElement = document.querySelector('.operations_wrapper') as HTMLElement;
-  operations_wrapper.innerHTML = '<span>Operations</span>';
   operations_wrapper.appendChild(adjoin_wrapper);
 }
 
@@ -81,6 +81,8 @@ function loadInverse(matrixObject: Matrix) : Matrix | string {
     return 'Matrix is singular, no inverse found.';
   }
   else {
+    const operations_wrapper : HTMLElement = document.querySelector('.operations_wrapper') as HTMLElement;
+    operations_wrapper.innerHTML = `<span>Operations</span><ul class="determinant_step"><li>${loadDeterminant(matrixObject, determinant_value)}</li></ul>`;
     loadAdjoin(matrixObject);
     inverseObject.values = createAdjoin(matrixObject.values);
     inverseObject.values = detachAdjoin(loadRREF(inverseObject).values);

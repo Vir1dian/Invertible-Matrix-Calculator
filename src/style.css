@@ -227,10 +227,15 @@ select {
   width: 100%;
   box-sizing: border-box;
 }
+.determinant_step,
+.adjoin_title,
 .row_operations {
   list-style-type: disc;
-  max-width: 200px;
+  width: 200px;
   margin: 0;
   padding-left: 20px;
   box-sizing: border-box;
+}
+.determinant_step {
+  width: 100%;
 }

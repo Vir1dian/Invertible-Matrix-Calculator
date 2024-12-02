@@ -216,10 +216,10 @@ function matrixOperation() {
     const selected = document.querySelector('#interface_operations');
     const solution_wrapper = document.querySelector('.solution_wrapper');
     const operations_wrapper = document.querySelector('.operations_wrapper');
-    while (solution_wrapper === null || solution_wrapper === void 0 ? void 0 : solution_wrapper.hasChildNodes()) {
+    while (solution_wrapper.hasChildNodes()) {
         (_a = solution_wrapper.firstChild) === null || _a === void 0 ? void 0 : _a.remove();
     }
-    while (operations_wrapper === null || operations_wrapper === void 0 ? void 0 : operations_wrapper.hasChildNodes()) {
+    while (operations_wrapper.hasChildNodes()) {
         (_b = operations_wrapper.firstChild) === null || _b === void 0 ? void 0 : _b.remove();
     }
     switch (selected.value) {
@@ -237,6 +237,10 @@ function matrixOperation() {
             loadSolution(loadInverse(userMatrix));
             break;
         default:
+            const error_element = document.createElement('div');
+            error_element.style.color = 'gray';
+            error_element.innerHTML = 'No option selected.';
+            operations_wrapper.appendChild(error_element);
             console.log("No option selected.");
     }
 }

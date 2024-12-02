@@ -62,14 +62,14 @@ function determinant(matrix) {
  * @param {Matrix} matrixObject - A matrix object to yield a determinant
  * @returns {Fraction | number | string} - The determinant, error string if unable to calculate
  */
-function loadDeterminant(matrixObject) {
-    const determinant_value = determinant(matrixObject.values);
+function loadDeterminant(matrixObject, det = '') {
+    const determinant_value = det ? det : determinant(matrixObject.values);
     let determinant_string;
     if (typeof determinant_value === 'string') {
         determinant_string = determinant_value;
     }
     else {
-        determinant_string = `|${matrixObject.name}| or det(${matrixObject.name}) = ${determinant_value.toString()}`;
+        determinant_string = `det(${matrixObject.name}) or = ${determinant_value.toString()}`;
     }
     return determinant_string;
 }
