@@ -37,9 +37,17 @@ const MatrixBuilderFunctions = {
   
       const row_input : HTMLInputElement = document.getElementById('row_input') as HTMLInputElement;
       const col_input : HTMLInputElement = document.getElementById('col_input') as HTMLInputElement;
+      const submit : HTMLElement | null = document.getElementById('submit_matrix_default');
   
       const rows : number = parseInt(row_input.value);
       const columns : number = parseInt(col_input.value);
+
+      if (!rows || !columns) {
+        submit!.style.display = 'none';
+        this.displayError('incomplete');
+      } else {
+        submit!.style.display = '';
+      }
   
       const table : HTMLTableElement = document.createElement('table');
       table.id = 'matrix_inputs_table';
@@ -62,9 +70,6 @@ const MatrixBuilderFunctions = {
       }
   
       matrix_inputs?.appendChild(table);
-  
-      const submit : HTMLElement | null = document.getElementById('submit_matrix_default');
-      submit!.style.display = '';
     },
     createMatrix() {
       userMatrix.name = 'A';
@@ -80,12 +85,12 @@ const MatrixBuilderFunctions = {
         const row : Fraction[] = [];
         for (let j = 0; j < columns; j++) {
           const input : HTMLInputElement = document.getElementById(`matrix_cell_input_${i}_${j}`) as HTMLInputElement;
-          if (!input.value) {
+          if (!input.value || Number.isNaN(parseFraction(input.value).numerator)) {
             error_flag = 1;
-            input.style.border = 'solid 2px red';
-            input.style.backgroundColor = 'red';
+            input.style.boxShadow = 'inset 0px 1px 1px red';
           } 
           else {
+            input.style.boxShadow = '';
             row.push(parseFraction(input.value));
           }
         }
@@ -103,18 +108,24 @@ const MatrixBuilderFunctions = {
       }
     },
     displayError(error : string) {
+      const matrix_wrapper : HTMLElement = document.querySelector('.matrix_wrapper') as HTMLElement;
+      while (matrix_wrapper.hasChildNodes()) {
+        matrix_wrapper.firstChild?.remove();
+      }
+      const error_element: HTMLElement = document.createElement('div');
+      error_element.style.color = 'red';
+
       if (error === 'incomplete') {
-        console.log('Incomplete fields!');
+        error_element.innerHTML = 'Input boxes are not filled correctly, try again.';
+        matrix_wrapper.appendChild(error_element);
+        throw new Error('Incomplete/Invalid fields!');
       }
     }
   },
 
   matlabString : {
-    parseMatlabString(): Fraction[][] {
-      const string_input : HTMLInputElement = document.getElementById('matlabstring_input') as HTMLInputElement;
-      let matlab_string: string = string_input.value.trim();
-
-          // Handle eye(), zeros(), and ones() functions
+    parseMatlabString(matlab_string: string): Fraction[][] {
+      // Handle eye(), zeros(), and ones() functions
       if (/^eye\(\d+\)$/.test(matlab_string)) {
         const size = parseInt(matlab_string.match(/\d+/)![0], 10);
         return generateIdentityMatrix(size);
@@ -127,14 +138,14 @@ const MatrixBuilderFunctions = {
       }
 
       if (!matlab_string.startsWith('[') || !matlab_string.endsWith(']')) {
-        throw new Error('Matrix input must be enclosed in brackets [ ]');
+        this.displayError('empty');
       }
   
       // Remove the brackets
       matlab_string = matlab_string.slice(1, -1).trim();
 
       if (!matlab_string) {
-        throw new Error('Empty matrix input');
+        this.displayError('empty');
       }
 
       const matrix_values: Fraction[][] = matlab_string.split(';').map(row => {
@@ -146,15 +157,37 @@ const MatrixBuilderFunctions = {
       // Check for consistent row lengths
       const columnCount = matrix_values[0].length;
       if (!matrix_values.every(row => row.length === columnCount)) {
-        throw new Error('Inconsistent dimensions');
+        this.displayError('invalid');
       }
 
       return matrix_values;
     },
     createMatrix() {
-      userMatrix.name = 'A';
-      userMatrix.values = MatrixBuilderFunctions.matlabString.parseMatlabString();
+      const string_input : HTMLInputElement = document.getElementById('matlabstring_input') as HTMLInputElement;
+      let matlab_string: string = string_input.value.trim();
+      userMatrix.values = MatrixBuilderFunctions.matlabString.parseMatlabString(matlab_string);
+      userMatrix.name = matlab_string;
       loadMatrix(userMatrix);
+    },
+    displayError(error : string) {
+      const matrix_wrapper : HTMLElement = document.querySelector('.matrix_wrapper') as HTMLElement;
+      while (matrix_wrapper.hasChildNodes()) {
+        matrix_wrapper.firstChild?.remove();
+      }
+      const error_element: HTMLElement = document.createElement('div');
+      error_element.style.color = 'red';
+
+      if (error === 'empty') {
+        error_element.innerHTML = 'Input field is empty or incorrectly filled. Try again.';
+        matrix_wrapper.appendChild(error_element);
+        throw new Error('Empty matlab string.');
+      }
+
+      if (error === 'invalid') {
+        error_element.innerHTML = 'Dimensions of matrix are not consistent, each row must have the same number of columns. Try again.';
+        matrix_wrapper.appendChild(error_element);
+        throw new Error('Inconsistent dimensions.');
+      }
     }
   },
 

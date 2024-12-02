@@ -50,13 +50,37 @@
   overflow: auto;
 }
 
+
+input, textarea {
+  border: solid 1px lightgrey;
+  box-shadow: inset 0px 1px 1px hsla(0, 0%, 0%, 0.075);
+  padding: 5px;
+}
+input:focus {
+  outline: none !important;
+  border: solid 1px darkblue;
+  box-shadow: 0 0 1px #719ECE;
+}
+input:hover {
+  border: solid 1px gray;
+}
+button {
+  border: 1px solid #555;
+  border-radius: 20px;
+
+  padding: 8px;
+}
+button:hover {
+  background-color: lightblue;
+}
+
+
 .wrapper_all {
   width: 600px;
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
-
 .build_wrapper,
 .matrix_wrapper,
 .interface_wrapper,
@@ -79,6 +103,10 @@
   width: 100%;
   box-sizing: border-box;
 }
+#row_input, #col_input {
+  margin-left: 10px;
+  padding-left: 10px;
+}
 #matrix_inputs {
   display: flex;
   justify-content: center;
@@ -96,6 +124,13 @@
 
 #build_matrix_matlabstring {
   gap: 10px;
+}
+#matlabstring_input {
+  font-size: 18px;
+}
+#submit_matrix_matlabstring {
+  margin: auto;
+  width: 280px;
 }
 
 #build_matrix_example span {
@@ -171,16 +206,7 @@ select {
   padding: 20px;
 }
 #interface_submit {
-  border: 1px solid #555;
-  border-radius: 20px;
-
-  padding: 8px;
-  margin: 8px;
-
   width: 280px;
-}
-#interface_submit:hover {
-  background-color: lightblue;
 }
 
 .solution_wrapper {

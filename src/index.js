@@ -33,8 +33,16 @@ const MatrixBuilderFunctions = {
             }
             const row_input = document.getElementById('row_input');
             const col_input = document.getElementById('col_input');
+            const submit = document.getElementById('submit_matrix_default');
             const rows = parseInt(row_input.value);
             const columns = parseInt(col_input.value);
+            if (!rows || !columns) {
+                submit.style.display = 'none';
+                this.displayError('incomplete');
+            }
+            else {
+                submit.style.display = '';
+            }
             const table = document.createElement('table');
             table.id = 'matrix_inputs_table';
             table.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
@@ -52,8 +60,6 @@ const MatrixBuilderFunctions = {
                 table.appendChild(tr);
             }
             matrix_inputs === null || matrix_inputs === void 0 ? void 0 : matrix_inputs.appendChild(table);
-            const submit = document.getElementById('submit_matrix_default');
-            submit.style.display = '';
         },
         createMatrix() {
             userMatrix.name = 'A';
@@ -66,12 +72,12 @@ const MatrixBuilderFunctions = {
                 const row = [];
                 for (let j = 0; j < columns; j++) {
                     const input = document.getElementById(`matrix_cell_input_${i}_${j}`);
-                    if (!input.value) {
+                    if (!input.value || Number.isNaN(parseFraction(input.value).numerator)) {
                         error_flag = 1;
-                        input.style.border = 'solid 2px red';
-                        input.style.backgroundColor = 'red';
+                        input.style.boxShadow = 'inset 0px 1px 1px red';
                     }
                     else {
+                        input.style.boxShadow = '';
                         row.push(parseFraction(input.value));
                     }
                 }
@@ -88,15 +94,22 @@ const MatrixBuilderFunctions = {
             }
         },
         displayError(error) {
+            var _a;
+            const matrix_wrapper = document.querySelector('.matrix_wrapper');
+            while (matrix_wrapper.hasChildNodes()) {
+                (_a = matrix_wrapper.firstChild) === null || _a === void 0 ? void 0 : _a.remove();
+            }
+            const error_element = document.createElement('div');
+            error_element.style.color = 'red';
             if (error === 'incomplete') {
-                console.log('Incomplete fields!');
+                error_element.innerHTML = 'Input boxes are not filled correctly, try again.';
+                matrix_wrapper.appendChild(error_element);
+                throw new Error('Incomplete/Invalid fields!');
             }
         }
     },
     matlabString: {
-        parseMatlabString() {
-            const string_input = document.getElementById('matlabstring_input');
-            let matlab_string = string_input.value.trim();
+        parseMatlabString(matlab_string) {
             // Handle eye(), zeros(), and ones() functions
             if (/^eye\(\d+\)$/.test(matlab_string)) {
                 const size = parseInt(matlab_string.match(/\d+/)[0], 10);
@@ -111,12 +124,12 @@ const MatrixBuilderFunctions = {
                 return generateMatrix(rows, cols, 1);
             }
             if (!matlab_string.startsWith('[') || !matlab_string.endsWith(']')) {
-                throw new Error('Matrix input must be enclosed in brackets [ ]');
+                this.displayError('empty');
             }
             // Remove the brackets
             matlab_string = matlab_string.slice(1, -1).trim();
             if (!matlab_string) {
-                throw new Error('Empty matrix input');
+                this.displayError('empty');
             }
             const matrix_values = matlab_string.split(';').map(row => {
                 const trimmedRow = row.trim();
@@ -126,14 +139,35 @@ const MatrixBuilderFunctions = {
             // Check for consistent row lengths
             const columnCount = matrix_values[0].length;
             if (!matrix_values.every(row => row.length === columnCount)) {
-                throw new Error('Inconsistent dimensions');
+                this.displayError('invalid');
             }
             return matrix_values;
         },
         createMatrix() {
-            userMatrix.name = 'A';
-            userMatrix.values = MatrixBuilderFunctions.matlabString.parseMatlabString();
+            const string_input = document.getElementById('matlabstring_input');
+            let matlab_string = string_input.value.trim();
+            userMatrix.values = MatrixBuilderFunctions.matlabString.parseMatlabString(matlab_string);
+            userMatrix.name = matlab_string;
             loadMatrix(userMatrix);
+        },
+        displayError(error) {
+            var _a;
+            const matrix_wrapper = document.querySelector('.matrix_wrapper');
+            while (matrix_wrapper.hasChildNodes()) {
+                (_a = matrix_wrapper.firstChild) === null || _a === void 0 ? void 0 : _a.remove();
+            }
+            const error_element = document.createElement('div');
+            error_element.style.color = 'red';
+            if (error === 'empty') {
+                error_element.innerHTML = 'Input field is empty or incorrectly filled. Try again.';
+                matrix_wrapper.appendChild(error_element);
+                throw new Error('Empty matlab string.');
+            }
+            if (error === 'invalid') {
+                error_element.innerHTML = 'Dimensions of matrix are not consistent, each row must have the same number of columns. Try again.';
+                matrix_wrapper.appendChild(error_element);
+                throw new Error('Inconsistent dimensions.');
+            }
         }
     },
     exampleMatrix: {
