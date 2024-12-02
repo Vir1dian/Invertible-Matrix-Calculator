@@ -18,19 +18,24 @@ function loadRREF(matrixObject) {
             continue; // ...skip ALL operations in this entire column.
         }
         else if (setPivotRow_instance.row_a !== setPivotRow_instance.row_b) {
-            row_operations += `<br>R${setPivotRow_instance.row_a + 1} ↔ R${setPivotRow_instance.row_b + 1}`;
+            row_operations = `R${setPivotRow_instance.row_a + 1} ↔ R${setPivotRow_instance.row_b + 1}`;
+            loadRowOperation(rrefMatrix, row_operations);
+            row_operations = '';
         }
+        row_operations = '';
         clearPivotColumn(rrefMatrix.values, starting_row, i).forEach(instance => {
             row_operations += `<br>R${instance.row_a + 1} + (${instance.constant.toString()})*R${instance.row_b + 1} → R${instance.row_a + 1}`;
         });
-        const reducePivotRow_instance = reducePivotRow(rrefMatrix.values, starting_row, i);
-        if (reducePivotRow_instance !== null) {
-            row_operations += `<br>(${reducePivotRow_instance.constant.toString()})*R${reducePivotRow_instance.row_a + 1} → R${reducePivotRow_instance.row_a + 1}`;
-        }
-        starting_row++;
         row_operations = row_operations ? row_operations.substring(4) : ''; // trims leading <br> tag if row_operations string is not empty
         loadRowOperation(rrefMatrix, row_operations);
         row_operations = '';
+        const reducePivotRow_instance = reducePivotRow(rrefMatrix.values, starting_row, i);
+        if (reducePivotRow_instance !== null) {
+            row_operations = `(${reducePivotRow_instance.constant.toString()})*R${reducePivotRow_instance.row_a + 1} → R${reducePivotRow_instance.row_a + 1}`;
+            loadRowOperation(rrefMatrix, row_operations);
+            row_operations = '';
+        }
+        starting_row++;
     }
     rrefMatrix.name = `RREF(${rrefMatrix.name})`;
     return rrefMatrix;

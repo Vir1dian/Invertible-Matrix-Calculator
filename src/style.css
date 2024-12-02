@@ -137,10 +137,18 @@ select {
 
 .rref_step,
 .adjoin_wrapper {
-  display: flex;
-  flex-flow: row;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: minmax(150px, 1fr) auto;
+  align-items: start;
+  gap: 20px;
   width: 100%;
   box-sizing: border-box;
   margin-bottom: 16px;
+}
+.row_operations {
+  list-style-type: disc;
+  max-width: 200px;
+  margin: 0;
+  padding-left: 20px;
+  box-sizing: border-box;
 }
