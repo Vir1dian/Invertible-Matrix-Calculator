@@ -38,9 +38,11 @@ function loadRREF(matrixObject: Matrix): Matrix {
     clearPivotColumn(rrefMatrix.values, starting_row, i).forEach(instance => {
       row_operations += `<br>R${instance.row_a + 1} + (${instance.constant.toString()})*R${instance.row_b + 1} → R${instance.row_a + 1}`;
     });
-    row_operations = row_operations ? row_operations.substring(4) : '';  // trims leading <br> tag if row_operations string is not empty
-    loadRowOperation(rrefMatrix, row_operations);
-    row_operations = '';
+    if (row_operations) {
+      row_operations = row_operations.substring(4);  // trims leading <br> tag if row_operations string is not empty
+      loadRowOperation(rrefMatrix, row_operations);
+      row_operations = '';
+    }
 
     const reducePivotRow_instance : TargetRows | null = reducePivotRow(rrefMatrix.values, starting_row, i);
     if (reducePivotRow_instance !== null) {
@@ -173,17 +175,15 @@ function loadRowOperation(matrixObject: Matrix, row_operations: string) {
   // matrix_title.innerHTML = 'Matrix ' + matrixObject.name;
   // rref_step.appendChild(matrix_title);
 
-  if (row_operations) {
-    const row_operations_element: HTMLUListElement = document.createElement('ul');
-    row_operations_element.classList.add('row_operations');
-    row_operations.split('<br>').forEach(operation => {
-      const row_operation_element: HTMLLIElement = document.createElement('li');
-      row_operation_element.innerHTML = operation;
-      row_operations_element.appendChild(row_operation_element);
-    });
-    rref_step.appendChild(row_operations_element);
-  }
-  
+  const row_operations_element: HTMLUListElement = document.createElement('ul');
+  row_operations_element.classList.add('row_operations');
+  row_operations.split('<br>').forEach(operation => {
+    const row_operation_element: HTMLLIElement = document.createElement('li');
+    row_operation_element.innerHTML = operation;
+    row_operations_element.appendChild(row_operation_element);
+  });
+  rref_step.appendChild(row_operations_element);
+
   const matrix_table = document.createElement('table');
   matrixObject.values.forEach((row: Fraction[]) => {
     const tr = document.createElement('tr');
