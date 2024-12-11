@@ -21,22 +21,34 @@ function loadRREF(matrixObject: Matrix): Matrix {
   const rrefMatrix : Matrix = cloneMatrix(matrixObject);
   // const pivot_locations : TargetRows[] = []; if you want to display dividing turning the pivot into one at the end instead of per column
   let row_operations : string = '';
-  let starting_row : number = 0;  // increments once a pivot for this row is recognized
+  let starting_row_index : number = 0;  // increments every time a pivot for a row is recognized
 
   // Perform all operations column-by-column
-  for (let i = 0; i < rrefMatrix.values[0].length && starting_row < rrefMatrix.values.length; i++) {
-    const setPivotRow_instance : TargetRows | null = setPivotRow(rrefMatrix.values, starting_row, i);
+  for (
+    let i = 0; 
+    i < rrefMatrix.values[0].length 
+    && starting_row_index < rrefMatrix.values.length; 
+    i++
+  ) {
+    const setPivotRow_instance : TargetRows | null = 
+      setPivotRow(rrefMatrix.values, starting_row_index, i);
     if (setPivotRow_instance === null) {  // If this column is all zeros...
       continue;  // ...skip ALL operations in this entire column.
     } else if (setPivotRow_instance.row_a !== setPivotRow_instance.row_b) {
-      row_operations = `R${setPivotRow_instance.row_a + 1} ↔ R${setPivotRow_instance.row_b + 1}`;
+      row_operations = 
+        `R${setPivotRow_instance.row_a + 1} ↔ 
+        R${setPivotRow_instance.row_b + 1}`;
       loadRowOperation(rrefMatrix, row_operations);
       row_operations = '';
     }
     row_operations = '';
 
-    clearPivotColumn(rrefMatrix.values, starting_row, i).forEach(instance => {
-      row_operations += `<br>R${instance.row_a + 1} + (${instance.constant.toString()})*R${instance.row_b + 1} → R${instance.row_a + 1}`;
+    clearPivotColumn(rrefMatrix.values, starting_row_index, i).forEach(instance => {
+      row_operations += 
+        `<br>R${instance.row_a + 1} + 
+        (${instance.constant.toString()})*
+        R${instance.row_b + 1} 
+        → R${instance.row_a + 1}`;
     });
     if (row_operations) {
       row_operations = row_operations.substring(4);  // trims leading <br> tag if row_operations string is not empty
@@ -44,14 +56,18 @@ function loadRREF(matrixObject: Matrix): Matrix {
       row_operations = '';
     }
 
-    const reducePivotRow_instance : TargetRows | null = reducePivotRow(rrefMatrix.values, starting_row, i);
+    const reducePivotRow_instance : TargetRows | null = 
+      reducePivotRow(rrefMatrix.values, starting_row_index, i);
     if (reducePivotRow_instance !== null) {
-      row_operations = `(${reducePivotRow_instance.constant.toString()})*R${reducePivotRow_instance.row_a + 1} → R${reducePivotRow_instance.row_a + 1}`;
+      row_operations = 
+        `(${reducePivotRow_instance.constant.toString()})*
+        R${reducePivotRow_instance.row_a + 1} 
+        → R${reducePivotRow_instance.row_a + 1}`;
       loadRowOperation(rrefMatrix, row_operations);
       row_operations = '';
     }
 
-    starting_row++;
+    starting_row_index++;
   }
   rrefMatrix.name = `RREF(${rrefMatrix.name})`;
   return rrefMatrix;

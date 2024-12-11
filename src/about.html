@@ -19,16 +19,47 @@
     </aside>
     <div class="content">
       <section>
-        <h3>Section 1</h3>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem dolore praesentium natus, quibusdam saepe est non, illo et, aut eos excepturi qui vero! Quis corrupti in provident sint reiciendis fugit ullam dolor reprehenderit. Sequi, tempora quaerat cum numquam amet expedita sit vel voluptatem provident, aut minima illo qui dicta nisi?</p>
+        <h3>Introduction</h3>
+        <p>
+          Inverse matrices are valuable in linear algebra, used in solving systems of linear equations. The multiplication of some matrix to its inverse always yields the identity matrix. These serve many real-world applications: keys to message encryptions using matrices, analysis of structural integrity through material flexibility and stiffness, ray tracing and reversing transformations, least squares regression, among others.
+        </p>
+        <p>
+          To implement matrices programmatically, this project utilizes Javascript for calculations, with HTML and CSS to facilitate user interactions through a webpage. The TypeScript superset is used to streamline the development process. The calculator is served online with GitHub pages. A link to both the webpage and the code repository in GitHub can be found in Section 6: Sources. Whenever a file name is introduced in this paper, it refers to the filename found in the repository, and will also function as a link directly to that file. Note that not all files are introduced in this paper, since some are used purely for the user interface.
+        </p>
+
       </section>
       <section>
-        <h3>Section 2</h3>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis, ipsum reprehenderit et sequi tenetur enim dolor porro vero exercitationem debitis voluptas voluptate soluta quis, ipsam necessitatibus voluptatibus officia? Reprehenderit unde ad accusantium eius labore delectus totam eligendi similique, nihil sed officiis asperiores quam molestiae deleniti corporis sapiente laborum iste, repellat dignissimos nesciunt consequuntur! Nulla tempore praesentium, ex id possimus, dolores rem, voluptatibus numquam nobis laborum neque veritatis dolor optio sit commodi autem modi totam mollitia a? Id earum esse impedit nemo ex veniam laboriosam maiores quos dolorum, expedita ullam soluta? Nostrum ipsam alias omnis magnam repellat eos? Magni, maxime quaerat!</p>
+        <h3>Matrices</h3>
+        <p>
+          A matrix is a rectangular array or table made up of rows and columns. Typically, their quantities are denoted by the positive integers m and n. An m by n (m x n) matrix consists of m rows and n columns, forming a grid of entries. Each entry a<sub>i,j</sub> can consist of functions, variables, vectors, etc, located in the ith row and jth column. Specifically, the purpose of this project goes over matrices that only contain real numbers M<sub>m,n</sub>(ℝ).
+        </p>
+        <p>
+          In code, matrices can be represented by arrays. An array is a collection of elements, which can store values like strings, numbers, variables, or other arrays. By defining an array of arrays (a two-dimensional array), which then contain numbers, an m x n matrix can be replicated, where the elements of the parent array are the rows, and the elements of the inner arrays are the columns, containing numbers.
+        </p>
+        <p>
+          The example above shows a 2 x 2 matrix in the form of a 2D array named A. To access a row—the inner array consisting of values—an index is described in a first set of brackets next to the array name. To access a column, and effectively an entry—the value inside an inner array—another index is described in a second set of brackets next to the array name. Note that the numbering of element indices is from 0 to k-1, where k is the length of an array.
+        </p>
+        <p>
+          This calculator maintains matrices through an object of type Matrix consisting of two properties: name, a string used to differentiate between matrices, and values, a 2D array representing the matrix’s entries (see functions/Matrices.ts). With TypeScript, this is specified as a 2D array reserved for the Fraction object type. 
+        </p>
       </section>
       <section>
-        <h3>Section 3</h3>
-        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugiat, eum. Quos eius earum dolorem consectetur assumenda iste temporibus modi id. Veniam rem et laudantium accusantium consectetur blanditiis tenetur vitae quo!</p>
+        <h3>Inverse (Gaussian Elimination)</h3>
+        <p>
+          A matrix A and its inverse A<sup>-1</sup> has the property: AA<sup>-1</sup>=A<sup>-1</sup>A=I, where I is the identity matrix. This makes the inverse matrix function as a reciprocal of the original matrix, reversing its operation. Each matrix has a unique inverse. 
+        </p>
+        <p>
+          Only square matrices (nn) can have inverses, with some square matrices excluded. The following function isSquare (see functions/determinant.ts) is a simple way of checking the shape, returning true if the number of rows in a 2D array is zero matrix.length === 0, and therefore zero columns (i.e. an empty matrix) OR if the number of rows (length of parent array) equals the number of columns (length of the first inner array) matrix.length === matrix[0].length, and false otherwise.
+        </p>
+        <p>
+          Calculating the inverse of a matrix requires multiple steps. The first step is to determine whether a matrix can have an inverse to begin with, this is done with a determinant. The following step is using some method to calculate the inverse, though this can vary, and each method has their own set of steps. There are several methods of calculating the inverse of a matrix: using an adjoint AKA matrix of cofactors, factoring into triangular matrices, and more. This calculator specifically uses Gaussian Elimination.
+        </p>
+      </section>
+      <section>
+        <h3>Limitations</h3>
+        <p>
+          This calculator does not have implementation for constants such as π and e, or radicals. Users will have to input raw values into the default or the matlab string modes. This calculator only supports calculating the inverse, and the determinant and RREF by extension.
+        </p>
       </section>
     </div>
   </div>

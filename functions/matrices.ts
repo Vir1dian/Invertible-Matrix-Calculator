@@ -242,3 +242,4 @@ function loadMatrix(matrixObject: Matrix) {
 
   // document.body.appendChild(matrix_wrapper);      
 }
+

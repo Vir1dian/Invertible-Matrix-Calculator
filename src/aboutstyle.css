@@ -57,3 +57,9 @@
   margin-left: auto;
   margin-right: auto;
 }
+.content section h3 {
+  margin-top: 20px;
+}
+.content section p {
+  text-indent: 50px;
+}

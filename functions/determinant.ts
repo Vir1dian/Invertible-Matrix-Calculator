@@ -7,7 +7,6 @@
 function isSquare(matrix: Fraction[][]): boolean {
   return matrix.length === 0 || matrix.length === matrix[0].length;
 }
-
 /**
  * Returns the cofactor of an element in the matrix. 
  * Only works on n x n matrices, requires the isSquare function to be used externally.
@@ -18,11 +17,13 @@ function isSquare(matrix: Fraction[][]): boolean {
  */
 function cofactor(matrix: Fraction[][], pos: [number,number]): Fraction | number {
 
-  const minor: Fraction[][] = matrix
+  const submatrix: Fraction[][] = matrix
     .filter((_, index_row) => index_row !== pos[0])
-    .map(row => row.filter((_, index_column) => index_column !== pos[1]));
+    .map(row => row.filter(
+      (_, index_column) => index_column !== pos[1])
+    );
 
-  const determinant_value: Fraction | string = determinant(minor);
+  const determinant_value: Fraction | string = determinant(submatrix);
   if (typeof determinant_value === 'string') {
     return 0;
   }
@@ -48,8 +49,10 @@ function determinant(matrix: Fraction[][]): Fraction | string {
 
   let sum: Fraction = new Fraction(0);
   matrix[0].forEach((_, index) => {
-    // Using the first row of the matrix ... TODO?: implement option to change the column or row being used to prove determinant
-    const element_cofactor_product = matrix[0][index].multiply(cofactor(matrix, [0, index]));
+    const element_cofactor_product = matrix[0][index]
+      .multiply(
+        cofactor(matrix, [0, index])
+      );
     sum = sum.add(element_cofactor_product);
   })
   return sum;
