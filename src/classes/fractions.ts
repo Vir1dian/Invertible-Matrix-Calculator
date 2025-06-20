@@ -71,19 +71,19 @@ class Fraction {
     return this.numerator/this.denominator;
   }
 
-}
+};
 
 function gcf(a: number, b: number): number {
   while (b) {
     [a, b] = [b, a % b];
   }
   return Math.abs(a);
-}
+};
 
 function lcm(a: number, b: number): number {
   if (a === 0 || b === 0) return 0;
   return (a * b) / gcf(a, b);
-}
+};
 
 function parseFraction(input: string): Fraction {
   let numerator, denominator;
@@ -102,7 +102,14 @@ function parseFraction(input: string): Fraction {
 
   numerator = parseFloat(input);
   return new Fraction(numerator);
-}
+};
+
+export {
+  Fraction,
+  gcf,
+  lcm,
+  parseFraction
+};
 
 // const fracA: Fraction = new Fraction(11, 9);
 // const fracB: Fraction = new Fraction(55, 18);

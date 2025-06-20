@@ -1,3 +1,9 @@
+import { Fraction } from "../classes/fractions";
+import type { Matrix } from "./matrices";
+import { cloneMatrix } from "./matrices";
+import { determinant, loadDeterminant } from "./determinant";
+import { loadRREF } from "./rref";
+
 /**
  * Generates a matrix adjoining the original matrix and an identity matrix of the same size
  * 
@@ -12,7 +18,7 @@ function createAdjoin(matrix: Fraction[][]): Fraction[][] {
     row.push(...identity_row);
   })
   return adjoin;
-}
+};
 
 /**
  * Yields the right matrix adjoined to the right of an identity matrix
@@ -23,7 +29,7 @@ function createAdjoin(matrix: Fraction[][]): Fraction[][] {
 function detachAdjoin(matrix: Fraction[][]): Fraction[][] {
   const rightMatrix : Fraction[][] = matrix.map(row => [...row]);
   return rightMatrix.map(row => row.filter((_, index) => index >= row.length / 2));
-}
+};
 
 /**
  * Generates a table in the html body representing a matrix adjoined to an identity matrix, along with a title.
@@ -54,7 +60,7 @@ function loadAdjoin(matrixObject: Matrix) {
 
   const operations_wrapper : HTMLElement = document.querySelector('.operations_wrapper') as HTMLElement;
   operations_wrapper.appendChild(adjoin_wrapper);
-}
+};
 
 /**
  * MAIN FEATURE FOR HONORS PROJECT
@@ -89,4 +95,9 @@ function loadInverse(matrixObject: Matrix) : Matrix | string {
   }
   inverseObject.name = `(${inverseObject.name})\<sup>-1</sup>`;
   return inverseObject;
-}
+};
+
+export {
+  loadAdjoin,
+  loadInverse
+};

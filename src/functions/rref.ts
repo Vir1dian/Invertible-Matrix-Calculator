@@ -1,4 +1,6 @@
-// import Fraction from 'fraction.js';
+import { Fraction } from "../classes/fractions";
+import type { Matrix } from "./matrices";
+import { cloneMatrix } from "./matrices";
 
 interface TargetRows {
   row_a : number;
@@ -215,3 +217,8 @@ function loadRowOperation(matrixObject: Matrix, row_operations: string) {
   const operations_wrapper = document.querySelector('.operations_wrapper');
   operations_wrapper?.appendChild(rref_step);
 }
+
+export { 
+  loadRREF ,
+  loadRowOperation
+};

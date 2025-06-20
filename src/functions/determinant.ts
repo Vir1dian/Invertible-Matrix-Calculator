@@ -1,3 +1,6 @@
+import { Fraction } from "../classes/fractions";
+import type { Matrix } from "./matrices";
+
 /**
  * Checks if a matrix is square (n x n) or not.
  * 
@@ -79,4 +82,9 @@ function loadDeterminant(matrixObject: Matrix, det: Fraction | string = '') : st
     determinant_string = `det(${matrixObject.name}) or = ${determinant_value.toString()}`;
   }
   return determinant_string;
-}
+};
+
+export {
+  determinant,
+  loadDeterminant
+};

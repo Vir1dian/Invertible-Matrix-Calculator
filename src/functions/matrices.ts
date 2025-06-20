@@ -1,7 +1,9 @@
+import { Fraction } from "../classes/fractions";
+
 interface Matrix {
   name: string;
   values: Fraction [][];
-}
+};
 
 function cloneMatrix(matrixObject: Matrix): Matrix {
   return {
@@ -10,12 +12,12 @@ function cloneMatrix(matrixObject: Matrix): Matrix {
       row.map(cell => new Fraction(cell.numerator, cell.denominator))
     ),
   };
-}
+};
 
 const userMatrix: Matrix = {
   name: 'A',
   values: []
-}
+};
 
 // const matrices: Matrix[] = [
 //   {
@@ -207,7 +209,7 @@ const matricesToInvert: Matrix[] = [
       [new Fraction(-3), new Fraction(5)]
     ]
   }
-]
+];
 
 /**
  * Generates a table in the html body representing a matrix, along with a title
@@ -241,5 +243,13 @@ function loadMatrix(matrixObject: Matrix) {
   matrix_wrapper.appendChild(matrix_table);
 
   // document.body.appendChild(matrix_wrapper);      
-}
+};
 
+export type { Matrix };
+export {
+  cloneMatrix,
+  userMatrix,
+  matricesForRREF,
+  matricesToInvert,
+  loadMatrix
+};
